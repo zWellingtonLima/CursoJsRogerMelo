@@ -86,6 +86,31 @@ console.log(phrase)
 */
 
 const randomValues = [57, false, 'JS', [], true, 'HTML', 31, null, false, 'CSS', 97, true, 'Git', 11, 'sticker', false, 'GitHub', true, null]
+const strings = []
+let stringCounter = 0
+let arrayCounter = 0
+let booleanCounter = 0
+
+for (let i = 0; i < randomValues.length; i++) {
+  arrayCounter++
+
+  if (typeof randomValues[i] === 'string'){
+    stringCounter++
+    strings.push(randomValues[i])
+  }
+
+  if (typeof randomValues[i] === 'boolean'){
+    booleanCounter++
+  }
+
+  if (stringCounter === 4) {
+    console.log(`3 informações sobre o array randomValues:
+    - As primeiras 4 strings são ${strings[0]}, ${strings[1]}, ${strings[2]} e ${strings[3]};
+    - Até que as primeiras 4 strings fossem iteradas, ${booleanCounter} booleans foram iterados;
+    - O array foi iterado por ${arrayCounter} vezes.`)
+    break
+  }
+}
 
 /*
   06
