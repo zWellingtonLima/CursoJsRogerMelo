@@ -5,7 +5,7 @@
   - O resultado exibido no console deve ser: false true.
 */
 
-console.log(true, false)
+console.log(!true, !false)
 
 /*
   02
@@ -16,7 +16,15 @@ console.log(true, false)
   - Se existir, exiba no console a mensagem "Existe um leão no array animals.".
 */
 
-const animals = ['macaco', 'tucano', 'elefante', 'pavão', 'hipopótamo']
+const animals = ['macaco', 'tucano', 'elefante','pavão', 'hipopótamo']
+
+const isNotLeonInArray = !animals.includes('leão')
+
+if (isNotLeonInArray){
+  console.log('Leão não existe no array "animals".')
+} else {
+  console.log('Existe um leão no array "animals".')
+}
 
 /*
   03
@@ -28,8 +36,17 @@ const animals = ['macaco', 'tucano', 'elefante', 'pavão', 'hipopótamo']
   
   "A soma ultrapassou 400. Até aqui, o valor atual é RESULTADO_DA_SOMA."
 */
-
+let counter = 0
 const randomNumbers = [59, 61, 73, 57, 35, 73, 21, 87, 43]
+
+for (let i = 0; i< randomNumbers.length; i++) {
+  counter += randomNumbers[i] 
+
+  if (counter > 400) {
+    console.log(`A soma ultrapassou 400. Até aqui o valor atual é ${counter}.`)
+    break
+  }
+}
 
 /*
   04
@@ -41,6 +58,17 @@ const randomNumbers = [59, 61, 73, 57, 35, 73, 21, 87, 43]
 */
 
 const sentence = ['A', 'certeza', 'dúvida', 'é', 'o', 'princípio', 'da', 'sabedoria.']
+let phrase = ''
+
+for (let i = 0; i < sentence.length; i++) {
+
+  if (sentence[i].includes('certeza')) {
+    continue
+  }
+  phrase += ' ' + sentence[i]
+}
+
+console.log(phrase)
 
 /*
   05
