@@ -40,10 +40,11 @@ let counter = 0
 const randomNumbers = [59, 61, 73, 57, 35, 73, 21, 87, 43]
 
 for (let i = 0; i< randomNumbers.length; i++) {
+  const limit = 400
   counter += randomNumbers[i] 
 
-  if (counter > 400) {
-    console.log(`A soma ultrapassou 400. Até aqui o valor atual é ${counter}.`)
+  if (counter > limit) {
+    console.log(`A soma ultrapassou ${limit}. Até aqui o valor atual é ${counter}.`)
     break
   }
 }
