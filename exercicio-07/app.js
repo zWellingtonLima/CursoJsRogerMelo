@@ -62,10 +62,12 @@ const sentence = ['A', 'certeza', 'dúvida', 'é', 'o', 'princípio', 'da', 'sab
 let phrase = ''
 
 for (let i = 0; i < sentence.length; i++) {
-  if (sentence[i].includes('certeza')) {
+  const word = sentence[i]
+
+  if (word.includes('certeza')) {
     continue
   }
-  phrase += `${sentence[i]} `
+  phrase += `${word} `
 }
 
 console.log(phrase)
@@ -108,13 +110,17 @@ for (let i = 0; i < randomValues.length; i++) {
     booleanCounter++
   }
 
+  const lastItem = strings[strings.length -1];
+  const first4Strings = strings.join(', ').replace(`, ${lastItem}`, ` e ${lastItem}`)
+
   if (stringCounter === 4) {
     console.log(`3 informações sobre o array randomValues:
-    - As primeiras 4 strings são ${strings[0]}, ${strings[1]}, ${strings[2]} e ${strings[3]};
+    - As primeiras 4 strings são ${first4Strings};
     - Até que as primeiras 4 strings fossem iteradas, ${booleanCounter} booleans foram iterados;
     - O array foi iterado por ${arrayCounter} vezes.`)
     break
   }
+  // Eu posso remover o log de dentro do if acima e o colocar abaixo do for loop pois ele apenas será lido quando o break do loop ocorrer. 
 }
 
 /*
