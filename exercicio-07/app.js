@@ -126,7 +126,7 @@ for (let i = 0; i < randomValues.length; i++) {
 /*
   06
 
-  - Descomente a constante abaixo atribua a ela algum tipo de bebida. Exemplo:  
+  - Descomente a constante abaixo e atribua a ela algum tipo de bebida. Exemplo:  
     água, refrigerante ou suco;
   - Utilize um switch statement com cases para essas 3 possibilidades de bebida;
   - Se o tipo da bebida é água, atribua à uma variável a mensagem "Substância 
@@ -144,19 +144,20 @@ for (let i = 0; i < randomValues.length; i++) {
 */
 
 const drinkType = 'água'
+let drinkMessage = null
 
 switch (drinkType) {
   case 'água':
-    console.log("Substância química cujas moléculas são formadas por dois átomos de hidrogênio e um de oxigênio.")
+    drinkMessage = "Substância química cujas moléculas são formadas por dois átomos de hidrogênio e um de oxigênio."
     break;
   case 'refrigerante':
-    console.log("Bebida não alcoólica e não fermentada fabricada industrialmente, à base de água mineral e açúcar.")
+    drinkMessage = "Bebida não alcoólica e não fermentada fabricada industrialmente, à base de água mineral e açúcar."
     break;
   case 'suco':
-    console.log("Bebida produzida do líquido extraído de frutos.")
+    drinkMessage = "Bebida produzida do líquido extraído de frutos."
     break
   default:
-    console.log("Bebida desconhecida pelo banco de dados da Cachaceiros da Piranguagem(dCaP).")
+    drinkMessage = "Bebida desconhecida pelo banco de dados da Cachaceiros da Piranguagem(dCaP)."
 }
 
 /*
@@ -167,17 +168,18 @@ switch (drinkType) {
     para testar o switch que você escreveu.
 */
 
-const a = 2
+const number = 2
+const numberMessage = `O valor de "number" é`
 
-switch (a) {
+switch (number) {
   case 0:
-    console.log(`O valor de "a" é ${a}`)
+    console.log(`${numberMessage} ${number}`)
     break
   case 1:
-    console.log(`O valor de "a" é ${a}`)
+    console.log(`${numberMessage} ${number}`)
     break
   default:
-    console.log('O valor de "a" é qualquer número, exceto 0 e 1')
+    console.log(`${numberMessage} qualquer número, exceto 0 e 1`)
 
 }
 
