@@ -92,14 +92,19 @@ let arrayCounter = 0
 let booleanCounter = 0
 
 for (let i = 0; i < randomValues.length; i++) {
+  const value = randomValues[i]
+
+  const isString = typeof value === 'string'
+  const isBoolean = typeof value === 'boolean'
+
   arrayCounter++
 
-  if (typeof randomValues[i] === 'string'){
+  if (isString){
     stringCounter++
-    strings.push(randomValues[i])
+    strings.push(value)
   }
 
-  if (typeof randomValues[i] === 'boolean'){
+  if (isBoolean){
     booleanCounter++
   }
 
@@ -132,7 +137,21 @@ for (let i = 0; i < randomValues.length; i++) {
     da bebida além da que você escolheu.
 */
 
-// const drinkType
+const drinkType = 'água'
+
+switch (drinkType) {
+  case 'água':
+    console.log("Substância química cujas moléculas são formadas por dois átomos de hidrogênio e um de oxigênio.")
+    break;
+  case 'refrigerante':
+    console.log("Bebida não alcoólica e não fermentada fabricada industrialmente, à base de água mineral e açúcar.")
+    break;
+  case 'suco':
+    console.log("Bebida produzida do líquido extraído de frutos.")
+    break
+  default:
+    console.log("Bebida desconhecida pelo banco de dados da Cachaceiros da Piranguagem(dCaP).")
+}
 
 /*
   07
@@ -143,6 +162,18 @@ for (let i = 0; i < randomValues.length; i++) {
 */
 
 const a = 2
+
+switch (a) {
+  case 0:
+    console.log(`O valor de "a" é ${a}`)
+    break
+  case 1:
+    console.log(`O valor de "a" é ${a}`)
+    break
+  default:
+    console.log('O valor de "a" é qualquer número, exceto 0 e 1')
+
+}
 
 // if (a === 0) {
 //   console.log(`O valor de "a" é ${a}`)
