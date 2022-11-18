@@ -62,11 +62,10 @@ const sentence = ['A', 'certeza', 'dúvida', 'é', 'o', 'princípio', 'da', 'sab
 let phrase = ''
 
 for (let i = 0; i < sentence.length; i++) {
-
   if (sentence[i].includes('certeza')) {
     continue
   }
-  phrase += ' ' + sentence[i]
+  phrase += `${sentence[i]} `
 }
 
 console.log(phrase)
