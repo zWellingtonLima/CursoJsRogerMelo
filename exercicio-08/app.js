@@ -6,7 +6,11 @@
   - Previna que esses parâmetros recebam undefined;
   - Exiba o resultado no console, sem inserir um console.log() dentro da função.
 */
+function sum(num1 = 2, num2 = 1) {
+  return num1 * num2
+}
 
+console.log(sum())
 /*
   02
 
@@ -15,6 +19,11 @@
     2 números.
 */
 
+const division = function(num1 = 3, num2 = 3){
+  return num1 / num2
+}
+
+console.log(division())
 /*
   03
 
@@ -28,11 +37,24 @@
   "Esta é a Xª vez que essa string é exibida."
 */
 
+const showParamMessage = function(message = 'Mensagem padrão.'){
+  let loopCounter = 0
+
+  for(let i = 0; i <= 6; i++){
+    loopCounter++
+    console.log(`Essa é a ${loopCounter}ª vez que essa string é exibida.`)
+  }
+
+  return console.log(message)
+}
+
+// console.log(showParamMessage())
 /*
   04
 
   - Comente o código acima, de forma que a string não seja mais exibida no  
     console;
+
   - Implemente uma função que retorna um novo array com as strings do array  
     "millennialWords" em letras maiúsculas;
   - Exiba o novo array no console, sem inserir um console.log() dentro da  
@@ -40,6 +62,16 @@
 */
 
 const millennialWords = ['lol', 'yolo', 'troll', 'stalkear', 'selfie', 'influencer', 'crush', 'fitness', 'hater', 'bae', 'random', 'kawaii', 'outfit', 'mood', 'fail']
+const millennialUpperWords = []
+
+const toUpperCaseStrings = function() {
+  for(let i = 0; i < millennialWords.length; i++){
+    millennialUpperWords.push(millennialWords[i].toUpperCase())
+  }
+}
+// toUpperCaseStrings()
+
+console.log(millennialUpperWords)
 
 /*
   05
@@ -54,6 +86,23 @@ const millennialWords = ['lol', 'yolo', 'troll', 'stalkear', 'selfie', 'influenc
 
 const randomNumbers = [-2, 93, 34, -1, 1, 93, 11, -7, 47, -3]
 
+const positiveNumbers = function() {
+  let positiveNum = 0
+  let negativeNum = 0
+
+  for(let i = 0; i < randomNumbers.length; i++){
+    if (randomNumbers[i] > 0){
+      positiveNum++
+    } else {
+      negativeNum++
+    }
+  }
+
+  return `O array "randomNumbers" possui ${randomNumbers.length} números, sendo ${positiveNum} positivos e ${negativeNum} negativos.`
+}
+console.log(positiveNumbers())
+
+
 /*
   06
 
@@ -63,8 +112,18 @@ const randomNumbers = [-2, 93, 34, -1, 1, 93, 11, -7, 47, -3]
   - Exiba o novo array no console, sem inserir um console.log() dentro da  
     função.
 */
+const getOddNumbers = function([...nums]) {
+  const oddNumbers = []
 
-// getOddNumbers([83, 52, 31, 73, 98, 37, 61, 56, 12, 24, 35, 3, 34, 80, 42])
+  for(let i = 0; i < nums.length; i++){
+    if (nums[i] % 2 !== 0) {
+      oddNumbers.push(nums[i])
+    }
+  }
+  return oddNumbers
+}
+
+console.log(getOddNumbers([83, 52, 31, 73, 98, 37, 61, 56, 12, 24, 35, 3, 34, 80, 42]))
 
 /*
   07
