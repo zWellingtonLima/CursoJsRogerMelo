@@ -37,18 +37,28 @@ console.log(division())
   "Esta é a Xª vez que essa string é exibida."
 */
 
-const showParamMessage = function(message = 'Mensagem padrão.'){
-  let loopCounter = 0
+// const showParamMessage = function(message = 'Mensagem padrão.'){
+//   let loopCounter = 0
 
-  for(let i = 0; i <= 6; i++){
-    loopCounter++
-    console.log(`Essa é a ${loopCounter}ª vez que essa string é exibida.`)
-  }
+//   for(let i = 0; i <= 6; i++){
+//     loopCounter++
+//     console.log(`Essa é a ${loopCounter}ª vez que essa string é exibida.`)
+//   }
 
-  return console.log(message)
+//   return console.log(message)
+// }
+// console.log(showParamMessage())
+
+const log = function(value){ // A questão pede que a função apenas exiba no console o valor recebido no parâmetro.
+  console.log(value)
 }
 
-// console.log(showParamMessage())
+for (let i = 0; i < 7; i++) {
+  let counter = i + 1
+
+  log(`Está é a ${counter}ª vez que esta string é exibida.`)
+}
+
 /*
   04
 
@@ -62,17 +72,31 @@ const showParamMessage = function(message = 'Mensagem padrão.'){
 */
 
 const millennialWords = ['lol', 'yolo', 'troll', 'stalkear', 'selfie', 'influencer', 'crush', 'fitness', 'hater', 'bae', 'random', 'kawaii', 'outfit', 'mood', 'fail']
-const millennialUpperWords = []
+// const millennialUpperWords = []
 
-const toUpperCaseStrings = function() {
-  for(let i = 0; i < millennialWords.length; i++){
-    millennialUpperWords.push(millennialWords[i].toUpperCase())
+// const toUpperCaseStrings = function() {
+//   for(let i = 0; i < millennialWords.length; i++){
+//     millennialUpperWords.push(millennialWords[i].toUpperCase())
+//   }
+// }
+// // toUpperCaseStrings()
+
+// console.log(millennialUpperWords)
+// Outra forma de fazer é:
+
+const transformToUpperCase = function(array = []){
+  let newArray = []
+
+  for (let i = 0; i < array.length; i++){ 
+    // Especificando o parâmetro invés de 'MillenialWorlds' torna mais geral e possível usar essa função com qualquer outro array que eu queira deixar em maiúsculo.
+    const wordInUpperCase = array[i].toUpperCase()
+    newArray.push(wordInUpperCase)
   }
+
+  return newArray
 }
-// toUpperCaseStrings()
 
-console.log(millennialUpperWords)
-
+// log(transformToUpperCase(millennialWords))
 /*
   05
 
@@ -81,10 +105,12 @@ console.log(millennialUpperWords)
     "randomNumbers" possui;
   - Exiba a frase abaixo no console, inserindo as informações corretas.
 
-  "O array "randomNumbers" possui XX números, sendo XX positivos e XX negativos."
+  "O array "randomNumbers" possui${} números, sendo XX positivos e XX negativos."
 */
 
 const randomNumbers = [-2, 93, 34, -1, 1, 93, 11, -7, 47, -3]
+
+//Aqui segue a mesma lógica  da questão anterior. Eu posso usar um parâmetro para generalizar o que eu vou receber invés de linkar especificamente o nome de alguma const, variável etc. Outra questão é a de deixar o loop dentro da função. Usando a forma da correção apenas o essencial para a função será escrita dentro dela.
 
 const positiveNumbers = function() {
   let positiveNum = 0
@@ -102,6 +128,25 @@ const positiveNumbers = function() {
 }
 console.log(positiveNumbers())
 
+// Logo, refatorando, fica:
+let positiveNumbersCounter = 0
+let negativeNumbersCounter = 0
+
+const isPositive = function(number = 0) {
+  return number > 0 // Ou >= 1 Dessa forma a função fica com apenas a responsabilidade de retornar o número positivo e o loop fica do lado de fora da função.
+}
+
+for (let i = 0 ; i < randomNumbers.length; i++){
+  const isPositiveNumber = isPositive(randomNumbers[i])
+  
+  if (isPositiveNumber){
+    positiveNumbersCounter++
+  } else {
+    negativeNumbersCounter++
+  }
+}
+
+console.log(`O array "ramdomNumbers" possui ${randomNumbers.length} números, sendo ${positiveNumbersCounter} positivos e ${negativeNumbersCounter} negativos.`)
 
 /*
   06
