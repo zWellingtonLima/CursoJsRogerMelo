@@ -128,6 +128,7 @@ const positiveNumbers = function() {
 }
 console.log(positiveNumbers())
 
+
 // Logo, refatorando, fica:
 let positiveNumbersCounter = 0
 let negativeNumbersCounter = 0
@@ -157,22 +158,29 @@ console.log(`O array "ramdomNumbers" possui ${randomNumbers.length} números, se
   - Exiba o novo array no console, sem inserir um console.log() dentro da  
     função.
 */
-const getOddNumbers = function([...nums]) {
+
+
+const getOddNumbers = function([...nums]) { // como parâmetro também posso receber "numbers = []", o resto é igual.
+
   const oddNumbers = []
 
   for(let i = 0; i < nums.length; i++){
-    if (nums[i] % 2 !== 0) {
-      oddNumbers.push(nums[i])
+    const number = nums[i]
+    const isOddNumber = number % 2 !== 0 
+
+    if (isOddNumber) {
+      oddNumbers.push(number)
     }
   }
   return oddNumbers
 }
 
-console.log(getOddNumbers([83, 52, 31, 73, 98, 37, 61, 56, 12, 24, 35, 3, 34, 80, 42]))
+const oddNumberss = getOddNumbers([83, 52, 31, 73, 98, 37, 61, 56, 12, 24, 35, 3, 34, 80, 42])
+
+console.log(oddNumberss)
 
 /*
   07
-
   - Forme uma frase com o array abaixo e exiba-a no console.
 */
 
@@ -206,3 +214,12 @@ const functions = [
   function () { return 'Índias' },
   function () { return 'Ocidentais.' }
 ]
+
+let sentence = ''
+for (let i = 0; i < functions.length; i++){
+  const string = `${functions[i]()} `
+
+  sentence += string // O detalhe dessa questão é invocar cada função durante as iterações para que as strings sejam 'libertadas'.
+}
+
+console.log(sentence)
