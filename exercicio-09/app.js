@@ -13,9 +13,11 @@
     valor no console.
 */
 
-function convertToString (value) {
-  return String(value)
-}
+// function convertToString (value) {
+//   return String(value)
+// }
+
+const convertToString = value => String(value)
 
 /*
   02
@@ -23,6 +25,9 @@ function convertToString (value) {
   - Crie uma função que retorne a quantidade de caracteres que uma string  
     recebida por parâmetro possui.
 */
+
+const getCharAmount = string => string.length //getStringLength tbm poderia ser um nome adequado para a func.
+// console.log(getCharAmount('Estudo diário de cada dia nosso.'))
 
 /*
   03
@@ -34,12 +39,18 @@ function convertToString (value) {
   "CHOCOTONE E OVO DE PÁSCOA JUNTOS NO MERCADO EM PLENO FEVEREIRO"
 */
 
+const getLowerCaseChar = string => string.toLowerCase()
+// console.log(getLowerCaseChar("CHOCOTONE E OVO DE PÁSCOA JUNTOS NO MERCADO EM PLENO FEVEREIRO"))
+
 /*
   04
-
   - Crie uma função que recebe 2 parâmetros: um caractere e uma string;
   - Ao ser invocada, a função deve retornar o index do caractere na string.
 */
+
+const getIndexInString = (caractere, string) => string.indexOf(caractere)
+
+// console.log(getIndexInString("a", 'Quero que o index de "a" seja o número: 22.'))
 
 /*
   05
@@ -48,6 +59,10 @@ function convertToString (value) {
     passado por argumento existe no array (também passado por argumento).
 */
 
+const getBoolean = (array = [], itemToCheck) => array.includes(itemToCheck)
+
+// console.log(getBoolean(['a', 'b', 'c'], 'd'))
+
 /*
   06
 
@@ -55,19 +70,40 @@ function convertToString (value) {
     argumentos em sua invocação;
 */
 
+const concatArrays = (arr1 = [], arr2 = []) => arr1.concat(arr2) // A atribuição de default parameter não é necessária, ela apenas previne que estas variáveis recebam undefined como valor.
+// console.log(concatArrays(['a', 'b'], ['c', 'd']))
+
 /*
   07
 
   - Crie uma função que retorna o array passado como argumento em sua invocação,  
     mas com o último item removido.
 */
+const removeLastItemInArray = (array = []) => {
+  array.pop()
+  return array
+}
 
+// console.log(removeLastItemInArray(['a', 'b']));
 /*
   08
 
   - Crie uma função que retorna se o valor passado como argumento em sua  
     invocação é null.
 */
+
+const returnIfIsNull = param => {
+  if(param === null) {
+    return "O valor passado como parâmetro é 'null'."
+  } else {
+    return param
+  }
+}
+// Essa função pode ser reduzida para apenas:
+
+const isNull = value => value === null
+
+// console.log(returnIfIsNull(null))
 
 /*
   09
@@ -80,6 +116,22 @@ function convertToString (value) {
     foi exibido.
 */
 
+const callbackFunc = (callback) => {
+  /*return*/ callback() // O return dessa função pode ser removido
+}
+
+const logName = (name) => {
+  /*return*/ console.log(name) // Assim como o dessa. Outra alternativa é remover o parâmetro e incluir diretamente um log dentro da função com o nome já setado.
+}
+
+const logNamee = () => {
+  console.log("Wellington Lima")
+}
+
+console.log(callbackFunc(logNamee)) // Dessa forma a função não precisa ser executada dentro da invocação da função de callback pois, como ela é recebida como parâmetro, a função de callback já a ativa internamente.
+
+// callbackFunc(logName('Lima'))
+
 /*
   10
 
@@ -91,6 +143,14 @@ function convertToString (value) {
     resulte no triplo de 33.
 */
 
+const callCallback = (value, callback) => {
+  return callback(value)
+}
+
+const returnTriple = number => number * 3 
+
+
+console.log(callCallback(33, returnTriple))
 /*
   11
 
@@ -101,6 +161,15 @@ function convertToString (value) {
 */
 
 const numbers = [1, 2, 3]
+
+const showNumbersInfo = (number, index, array) => {
+  const itemPosition = index + 1
+  const items = array.join(', ')
+
+  console.log(`O ${itemPosition}º item do array [${items}] é ${number}.`) 
+}
+
+numbers.forEach(showNumbersInfo)
 
 /*
   12
@@ -114,8 +183,12 @@ const letters = ['v', 'e', 'p']
 let lettersCopy = []
 
 for (let i = 0; i < letters.length; i++) {
-  lettersCopy.push(letters[i])
+  // lettersCopy.push(letters[i])
 }
+
+letters.forEach( letter => lettersCopy.push(letter) )
+
+console.log(lettersCopy)
 
 /*
   13
@@ -138,13 +211,17 @@ for (let i = 0; i < letters.length; i++) {
 const section = document.querySelector('[data-js="section"]')
 
 const review = [
-  'Eu sempre adorei o filme e quando descobri que tinha o livro também fiquei doido. Demorei um pouco mas acabei comprando e finalmente li \o/.',
+  'Eu sempre adorei o filme e quando descobri que tinha o livro também fiquei doido. Demorei um pouco mas acabei comprando e finalmente li \\o/.',
   'O primeiro filme foi baseado nesse livro, porém o livro (como sempre) é muito mais completo, com mais personagens, mais acontecimentos e até mesmo mais dinossauros. Na verdade nesse livro tem coisas do segundo e terceiro filme também, eles mudaram bastante nos filmes, acho que pra ficar mais comercial, e se o filme é bom, o livro é 100 vezes melhor.',
   'Michael é um ótimo autor, esse sim pesquisa muito antes de escrever um livro, além da história que já prende sua atenção, ele fala bastante de genética (pra explicar como os dinossauros foram criados) e acaba falando um pouco de programação (informática), por causa dos programas avançados e modernos que o parque tinha. E isso foi uma das coisas que eu achei muito legal, ele explica as coisas com gráficos, tabelas, códigos ... enfim, o cara é foda hahaha.',
   'Recomendo esse livro pra quem curte uma boa história de ficção. Apesar de muita gente pensar que o livro não tem graça, porque o legal mesmo é ver o dinossauro no filme, com todos os efeitos especiais, eu digo pra deixar esse pensamento de lado, pois a história é tão bem contada e os detalhes são tão bem relatados, que você passa a fazer parte da história, e vive todas as emoções hahaha.'
 ]
 
 let paragraphs = ''
+
+const createParagraphs = rev => paragraphs += `<p>${rev}</p>`
+
+review.forEach(createParagraphs)
 
 section.innerHTML = paragraphs
 
@@ -153,6 +230,7 @@ section.innerHTML = paragraphs
 
   - Implemente uma função que retorna uma string com a quantidade de pessoas que  
     curtiram um post, conforme descrito a seguir;
+
   - A função deve receber por parâmetro um array com os nomes das pessoas que  
     curtiram o post/vídeo/foto;  
   - Se o array recebido estiver vazio, a mensagem que a função deve retornar é  
@@ -168,3 +246,25 @@ section.innerHTML = paragraphs
     pelo restante da quantidade de pessoas que curtiram o post (além das duas  
     pessoas já mencionadas no início da mensagem).
 */
+
+const getLikesMessage = (names = []) => {
+  const firstPerson = names[0]
+  const secondPerson = names[1]
+  const thirthPerson = names[2]
+  const peopleLikedMinus2 = names.length - 2
+
+  switch (names.length) {
+    case 0:
+      return "Ninguém curtiu isso"
+    case 1:
+      return `${firstPerson} curtiu isso.`
+    case 2:
+      return `${firstPerson} e ${secondPerson} curtiram isso.`
+    case 3:
+      return `${firstPerson}, ${secondPerson} e ${thirthPerson} curtiram isso.`
+    default:
+      return `${firstPerson}, ${secondPerson} e mais ${peopleLikedMinus2} pessoas curtiram isso.`
+  }
+}
+
+console.log(getLikesMessage(['Rafael', 'Victor', 'Barbosa', 'Ana']))
