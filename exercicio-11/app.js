@@ -4,7 +4,7 @@
   - Declare uma constante que recebe o seu nome;
   - Ela deve ter um escopo global.
 */
-
+const myName = 'Wellington Lima'
 /*
   02
 
@@ -18,7 +18,13 @@
     defined" será exibido no console;
   - Você sabe por que isso aconteceu?
 */
+const showMyAge = () => {
+  let age = 25
+  return console.log(age);
+}
 
+showMyAge()
+// console.log(age) Dá erro pois a função cria um escopo de bloco, dessa forma, a variável 'age' está com o escopo local reduzido ao bloco da função ao qual ela está inserida.
 /*
   03
 
@@ -36,28 +42,54 @@
     - getColorsMessage, que é um método que retorna a mensagem  
       "O NOME_DO_CARRO está disponível nas cores COR_01, COR_02 e COR_03".
 */
+const car = {
+  name: 'Evoque',
+  brand: 'Range Hover',
+  colors: ['Gray', 'Black', 'Pink'],
+  isRunning: false,
+  run() {
+    this.isRunning = true
+    return `O ${this.name} está em movimento.`
+  },
+  stop() {
+    this.isRunning = false
+    return `O ${this.name} está parado.`
+  },
+  getColorsMessage() {
+    const lastItem = this.colors[this.colors.length -1]
+    const colors = this.colors.join(', ').replace(`, ${lastItem}`, ` e na cor ${lastItem}`)
+
+    return `O ${this.name} está disponível nas cores ${colors}.`
+  }
+}
+
+console.log(car.getColorsMessage())
 
 /*
   04
 
   - Faça o carro andar e exiba no console se ele realmente está em movimento.
 */
-
+console.log(car.run())
+console.log(car.isRunning)
 /*
   05
 
   - Faça o carro parar e exiba no console se ele realmente está parado.
 */
-
+console.log(car.stop())
+console.log(car.isRunning)
 /*
   06
 
   - Exiba, no console, a mensagem com as cores do carro.
 */
-
+console.log(car.colors)
 /*
   07
 
   - Exiba, no console, a mensagem "O carro é um MARCA_DO_CARRO NOME_DO_CARRO";
   - Utilize a notação de colchetes para acessar as propriedades do carro.
 */
+
+console.log(`O carro é um ${car['brand']} ${car['name']}.`)
