@@ -7,7 +7,10 @@
 
 const h1 = document.querySelector('h1');
 
-h1.innerText.toUpperCase()
+// h1.innerText.toUpperCase() Dessa forma não funciona. É necessário reatribuir um valor
+
+h1.innerText = h1.innerText.toUpperCase()
+// Se eu usasse textContent seria a mesma coisa.
 
 /*
   02
@@ -15,34 +18,60 @@ h1.innerText.toUpperCase()
   - Adicione, na ul vazia do index.html, os números do array "numbers" abaixo;
   - Cada número deve estar dentro de uma <li> com a classe "number".
 */
-const ul = document.querySelector('ul');
+const ul = document.querySelector('.numbers') // Tbm poderia pegar a referência da classe .numbers invés de 'ul'.
 const numbers = [ 53, 24, 3, 8, 1, 6, 57, 80, 77, 98, 55 ]
 
-// numbers.forEach(number => {
-//   ul.innerHTML += `<li>${number}</li>`
-// })
+const insertNumberIntoUl = number => {
+  ul.innerHTML += `<li class="number">${number}</li>`
+}
+
+numbers.forEach(insertNumberIntoUl)
 
 /*
   03
-
   - Modifique as cores dos números dentro da ul da seguinte forma:
     - Se o número é par, ele deve ser exibido na cor "lightblue";
     - Se o número é ímpar, exiba-o na cor "pink".
 */
+// As <li></li> já foram adicionadas à página ao chegar aqui, logo, eu posso armazenar elas em uma variável e percorrê-las com o forEach.
 
-numbers.forEach(number => {
-  const numberIsEven = number % 2 === 0
-  const numberIsOdd = number % 2 !== 0
+const lis = document.querySelectorAll('.number')
 
-  if(numberIsEven){
-    ul.innerHTML += `<li style="color: red;">${number}</li>`
+const changeLiColor = li => {
+  const isNumberEven = Number(li.textContent) % 2 === 0 
+  // const isNumberOdd = Number(li.textContent) % 2 !== 0 
+  // Quando o número não for par ele só pode ser ímpar, logo, mudando um pouco o código embaixo evita a necessidade dessa const.
+
+  if(isNumberEven){
+    li.style.color = 'lightblue'
+    return
   }
 
-  if(numberIsOdd){
-    ul.innerHTML += `<li style="color: orange;">${number}</li>`
-  }
-  // ul.innerHTML += `<li>${number}</li>`
-})
+  //Como estou dentro de uma função, adicionando um return no if acima o código abaixo só é lido quando o número for ímpar, logo, não é necessário nem um else nem um outro if.
+
+  // if(isNumberOdd){
+  li.style.color = 'pink'
+    // }
+}
+
+lis.forEach(changeLiColor) // Nomear e desacoplar as funções de callback.
+
+
+// Primeiro código - funcionando mas pode ser melhorado e, de fato, foi.
+
+// numbers.forEach(number => {
+//   const numberIsEven = number % 2 === 0
+//   const numberIsOdd = number % 2 !== 0
+
+//   if(numberIsEven){
+//     ul.innerHTML += `<li style="color: red;">${number}</li>`
+//   }
+
+//   if(numberIsOdd){
+//     ul.innerHTML += `<li style="color: orange;">${number}</li>`
+//   }
+//   // ul.innerHTML += `<li>${number}</li>`
+// })
 
 /*
   04
@@ -54,6 +83,8 @@ numbers.forEach(number => {
 
 const body = document.querySelector('body');
 body.classList.add('body-background')
+
+// Outra forma de selecionar o body é usando document.body.
 
 /*
   05
@@ -98,4 +129,3 @@ body.classList.remove('body-background')
   - Não utilize o método remove() para fazer isso.
 */
 anchor.classList.toggle('link')
-
