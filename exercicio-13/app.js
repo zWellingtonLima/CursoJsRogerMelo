@@ -9,10 +9,16 @@
 */
 
 const getCatInfo = () => {
-  const name = 'Marcos'
+  const nome = 'Marcos'
   let age = 3
   const color = 'Cinza'
+
+  return { nome, age, color }
 }
+
+const { nome, age, color } = getCatInfo() // Destructuring para tornar a template string abaixo mais legível.
+
+console.log(`${nome} é um gato ${color} de ${age} anos.`)
 
 /*
   02
@@ -29,7 +35,9 @@ const external = () => {
     const extraInternal = () => {
       console.log(movie.toUpperCase())
     }
+    extraInternal()
   }
+  internal()
 }
 
 external()
@@ -45,6 +53,8 @@ external()
 
 let randomNumbers = [3, 2, 1]
 
+console.log(randomNumbers.reverse()) // No MDN diz 'in place', ou seja, ele modifica o array original. Portanto, mesmo que eu armazene o resultado de randomNumbers.reverse() em uma variável diferente, como os arrays são armazenados de forma diferente dos tipos primitivos de dados, ambos os arrays serão modificados de acordo com o método. 
+
 /*
   04
 
@@ -58,7 +68,8 @@ let crazyArray = [
   function getMessage () { return 'hi' },
   [ 5, 96, 53  ]
 ]
-
+crazyArray.shift()
+console.log(crazyArray)
 /*
   05
 
@@ -75,6 +86,8 @@ const dogs = [
   { name: 'Zequinha', age: 7, gender: 'Male', breed: 'Poodle' },
   { name: 'Xica', age: 6, gender: 'Female', breed: 'Chihuahua' }
 ]
+
+console.log(dogs.find(dog => dog.name === "Zequinha" )) // O método find recebe como parâmetro uma função de callback que retorna um boolean, portanto, é preciso eu inserir uma expressão que resulte em um. O find retorna o primeiro valor truthy que encontrar, caso não encontre, retorna undefined.
 
 /*
   06
@@ -108,6 +121,9 @@ const dogs = [
   </section>
 */
 
+const mainTitle = document.querySelector('.main-title')
+console.log(mainTitle)
+
 /*
   07
 
@@ -115,3 +131,6 @@ const dogs = [
     página, através da classe deles;
   - Exiba esse NodeList no console.
 */
+
+const secondaryTitle = document.querySelectorAll('.secondary-title')
+console.log(secondaryTitle)
