@@ -56,11 +56,15 @@ console.log(ul.previousElementSibling) // h2
     exibida no console.
 */
 
-ulChildren.forEach(li => {
-  li.addEventListener('click', e => {
-    console.log(e.target) // Se eu quisesse adquirir o conteúdo da li basta eu encadear a propriedade innerText / textContent.
-  })
-})
+const showClickedLi = e => {
+  console.log(e.target) // Se eu quisesse adquirir o conteúdo da li basta eu encadear a propriedade innerText / textContent.
+}
+
+const addClickEvent = li => {
+  li.addEventListener('click', showClickedLi)
+}
+
+ulChildren.forEach(addClickEvent)
 
 /*
   06
@@ -80,16 +84,17 @@ const videos = [{
   length: '00:02:55'
 }]
 
-const button = document.querySelector('button');
-const li = document.createElement('li')
+const insertVideoLi = ({ name }) => {
+  ul.innerHTML += `<li>${name}</li>`
+}
 
-  button.addEventListener('click', () => {
-    ul.appendChild(li)
-    
-    videos.forEach(vid => {
-      li.innerText = vid.name
-    })
-  })
+const handleClickButton = () => {
+  videos.forEach(insertVideoLi)
+}
+
+const button = document.querySelector('button');
+
+button.addEventListener('click' ,handleClickButton)
 
 /*
   07
@@ -98,10 +103,9 @@ const li = document.createElement('li')
     sejam removidos.
 */
 
-const body = document.querySelector('body');
+const body = document.body
 
 
 h1.addEventListener('click', (e) => {
-  const clickedElement = e.target
-  
+  body.innerHTML = ''
 })
