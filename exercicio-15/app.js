@@ -6,7 +6,21 @@
   - Exiba no console os elementos filhos da ul com a classe já inserida.
 */
 
+const ul = document.querySelector('ul');
+const ulChildren = Array.from(ul.children) //o nome da const pode ser alterado para 'lis' para tornar mais legível.
 
+// Posso dar um nome a ação abaixo para melhorar a legibilidade do código. Logo:
+// ulChildren.forEach(li => {
+//   li.classList.add('video')
+// })
+
+const insertVideoClass = li => {
+  li.classList.add('video') 
+ }
+
+ulChildren.forEach(insertVideoClass)
+
+console.log(ulChildren)
 
 /*
   02
@@ -15,7 +29,8 @@
     e exiba-o no console;
 */
 
-
+const h2 = document.querySelector('h2');
+console.log(h2.parentElement) // Body
 
 /*
   03
@@ -23,7 +38,8 @@
   - Descubra quem é o próximo elemento irmão do h1 e exiba-o no console;
 */
 
-
+const h1 = document.querySelector('h1');
+console.log(h1.nextElementSibling) // h2
 
 /*
   04
@@ -31,7 +47,7 @@
   - Descubra quem é o irmão anterior da ul e exiba-o no console;
 */
 
-
+console.log(ul.previousElementSibling) // h2
 
 /*
   05
@@ -40,7 +56,11 @@
     exibida no console.
 */
 
-
+ulChildren.forEach(li => {
+  li.addEventListener('click', e => {
+    console.log(e.target) // Se eu quisesse adquirir o conteúdo da li basta eu encadear a propriedade innerText / textContent.
+  })
+})
 
 /*
   06
@@ -60,9 +80,28 @@ const videos = [{
   length: '00:02:55'
 }]
 
+const button = document.querySelector('button');
+const li = document.createElement('li')
+
+  button.addEventListener('click', () => {
+    ul.appendChild(li)
+    
+    videos.forEach(vid => {
+      li.innerText = vid.name
+    })
+  })
+
 /*
   07
 
   - Se um clique no h1 acontecer, faça com que todos os elementos dentro do body 
     sejam removidos.
 */
+
+const body = document.querySelector('body');
+
+
+h1.addEventListener('click', (e) => {
+  const clickedElement = e.target
+  
+})
