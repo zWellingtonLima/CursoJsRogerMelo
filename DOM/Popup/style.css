@@ -46,5 +46,13 @@ button {
   top: 5px;
   right: 10px;
   cursor: pointer;
+  background: crimson;
+  padding: 5px 8px;
+  border-radius: 50%;
+}
+
+.popup-close:hover{
+  color: white;
+  background-color: rgb(255, 1, 52);
 }
 
