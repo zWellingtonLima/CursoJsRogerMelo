@@ -7,10 +7,15 @@
 
 const div = document.querySelector('div')
 const elementsInsideDiv = Array.from(div.children)
+const h2 = document.querySelector('h2');
 
 elementsInsideDiv.forEach(element => {
-  element.addEventListener('click', () => {
-    console.log('Clicou no filho da div.')
+  element.addEventListener('click', (event) => {
+    event.stopPropagation() // Basta usar o método stopPropagation do objeto event.
+
+      // console.log('Clicou no filho da div.')
+    console.log(`Clicou no <${event.target.tagName.toLowerCase()}>`)
+    h2.innerText = `Clicou no <${event.target.tagName.toLowerCase()}>`
   })
 })
 
@@ -34,13 +39,16 @@ div.addEventListener('click', () => {
     filho da div, ao invés de ser exibida no console, seja inserida neste h2.
 */
 
+
 /*
   04
 
   - Faça com que quando o texto do h2 for copiado, a mensagem "Texto copiado!"  
     seja exibida no console.
 */
-
+h2.addEventListener('copy', () => {
+  console.log('h2 copiado!')
+})
 /*
   05
 
@@ -49,12 +57,22 @@ div.addEventListener('click', () => {
     "Eixo X: COORDENADA_EIXO_X | Eixo Y: COORDENADA_EIXO_Y".
 */
 
+const circleDiv = document.querySelector('.egg');
+
+circleDiv.addEventListener('mousemove', event => {
+  circleDiv.innerText = `X ${event.offsetX} | Y ${event.offsetY}`
+})
+
 /*
   06
 
   - Modifique a cor do ovo para "lightgoldenrodyellow" quando o botão for 
     clicado.
 */
+const button = document.querySelector('button');
+button.addEventListener('click', () => {
+  circleDiv.style.backgroundColor = 'lightgoldenrodyellow'
+})
 
 /*
   07
@@ -72,7 +90,13 @@ const people = [
   { id: 4, name: 'Marcelo Antonio', profession: 'Matemático' },
   { id: 5, name: 'Camilla Midori', profession: 'Engenheira Civil' },
   { id: 6, name: 'Gustavo D\'Aqui', profession: 'Gerente de Marketing' },
-  { id: 7, name: 'Ana Paula', profession: 'Front-end developer' },
   { id: 8, name: 'Matheus Manucci', profession: 'Piloto' },
   { id: 9, name: 'Hamilton Silva', profession: 'Advogado' }
 ]
+const hasADeveloper = people.some(people => people.profession === 'Front-end developer')
+
+if (hasADeveloper) {
+  console.log('O array contém no mínimo um desenvolvedor.')
+} else {
+  console.log('Não tem nenhum')
+}
