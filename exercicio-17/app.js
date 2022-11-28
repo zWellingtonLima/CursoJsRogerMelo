@@ -3,6 +3,25 @@
 
   - No envio do form, faça com que a página não seja recarregada.
 */
+const form = document.querySelector('form');
+const input = document.querySelector('#input');
+
+form.addEventListener('click', e => {
+  e.preventDefault()
+  const inputValue = form.input.value
+  const regexTestInputValue = /^[a-z]{7,}$/
+  const regexSuccessfull = regexTestInputValue.test(inputValue);
+  
+
+  // console.log(inputValue) // Para pegar o texto inserido no campo de input eu posso usar a id ou name presentes e usar a propriedade value. 
+
+  if (regexSuccessfull) {
+    console.log("O valor inserido no input é válido =)")
+  } else {
+    console.log('Valor inválido =(')
+  }
+  
+})
 
 /*
   02
@@ -18,7 +37,14 @@
     index.html;
   - Exiba no console o boolean no qual este teste resulta.
 */
+const p = document.querySelector('p');
 
+const testRegex = /[a-z]{13}/
+const testSuccessfull = testRegex.test(p.innerText)
+
+if (testSuccessfull){
+  console.log(`Deu certo: ${testSuccessfull}.`)
+}
 /*
   04
 
@@ -26,9 +52,11 @@
   - A regex não deve conter (literalmente) os caracteres B99;
   - Teste se o match aconteceu e exiba o resultado no console.
 */
-
+const b99RegexTest = /[A-Z0-9]{3}/;
 const B99message = 'E o Terry Crews faz tudo, inclusive tocar a abertura de B99 na flauta'
+const b99RegexResult = b99RegexTest.test(B99message);
 
+console.log(`B99RegexResult: ${b99RegexResult}`)
 /*
   05
 
@@ -36,7 +64,7 @@ const B99message = 'E o Terry Crews faz tudo, inclusive tocar a abertura de B99 
     resultado do teste entre a regex e a string exibido no console seja true.
 */
 
-const word = 'O que a NASA fotografou no dia do seu aniversário?'
+const word = 'NASA'
 const NASARegex = /^[A-Z]{4}$/
 const NASAResult = NASARegex.test(word)
 
@@ -61,6 +89,8 @@ console.log(NASAResult)
   - Agora, no envio do form, faça com que o valor permitido contenha de 7 a 11 
     caracteres mas não contenha caracteres especiais. Apenas letras maiúsculas  
     ou minúsculas e números serão permitidos.
+
+    /[a-zA-Z0-9]{7,11}/
 
   Exemplos:
     - "0xY79aYx54e" é um valor válido, pois contém 11 letras e números;
