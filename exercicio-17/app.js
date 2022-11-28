@@ -6,22 +6,37 @@
 const form = document.querySelector('form');
 const input = document.querySelector('#input');
 
-form.addEventListener('click', e => {
+const clearInput = () => {
+  input.value = ''
+  input.focus()
+}
+
+const logMessage = message => {
+  console.log(message)
+  clearInput()
+}
+
+const testInputValue = e => {
   e.preventDefault()
-  const inputValue = form.input.value
-  const regexTestInputValue = /^[a-z]{7,}$/
-  const regexSuccessfull = regexTestInputValue.test(inputValue);
+
+  const input = form.input
+  // const inputValue2 = e.target.input.value // Forma alternativa de pegar a referência do input.
+  const regexTestInputValue = /.{7,}/ // Esse padrão permite qualquer caractere com no mínimo 7 caracteres.
+  const regexSuccessfull = regexTestInputValue.test(input.value);
   
 
   // console.log(inputValue) // Para pegar o texto inserido no campo de input eu posso usar a id ou name presentes e usar a propriedade value. 
 
   if (regexSuccessfull) {
-    console.log("O valor inserido no input é válido =)")
-  } else {
-    console.log('Valor inválido =(')
+    logMessage("O valor inserido no input é válido =)")
+    // clearInput()// Deixando dessa forma ocorre mais uma repetição 1- mensagem do console e 2- invocação da função clearInput(). Criando mais uma função eu posso evitar isso fazendo-a receber a mensagem por argumento e a executando juntamento com a invocação da clearInput()
+    return
   }
-  
-})
+    logMessage('Valor inválido =(')
+    // clearInput()
+}
+
+form.addEventListener('submit', testInputValue)
 
 /*
   02
@@ -39,6 +54,8 @@ form.addEventListener('click', e => {
 */
 const p = document.querySelector('p');
 
+const stringTest = /documentation/;
+// /[a-zA-Z0-9]{7,11}/
 const testRegex = /[a-z]{13}/
 const testSuccessfull = testRegex.test(p.innerText)
 
