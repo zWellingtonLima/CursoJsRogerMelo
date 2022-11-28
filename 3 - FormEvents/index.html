@@ -4,15 +4,20 @@
   <meta charset="UTF-8">
   <meta http-equiv="X-UA-Compatible" content="IE=edge">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>O evento Submit</title>
+  <title>Brincando com ReGex</title>
   <link rel="stylesheet" href="style.css">
 </head>
 <body>
-  <h1>O evento submit</h1>
+  <h1>Validação simples de formulário</h1>
 
   <form class="signup-form">
+    <label for="username">Nome de usuário</label>
     <input type="text" id="username" placeholder="Username" autofocus>
-    <button>enviar</button> 
+    <button>Enviar</button>
+    <p class="feedback">Caracteres permitidos:</p>
+    <p class="feedback">- Letras a-z</p> 
+    <p class="feedback">- Letras A-Z</p> 
+    <p class="feedback">- 6 a 12 Caracteres</p> 
   </form>
 
   <script src="app.js"></script>
