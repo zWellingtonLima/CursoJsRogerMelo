@@ -8,7 +8,7 @@ form.addEventListener('submit', event => {
   const regexTest = /^[a-zA-z]{6,12}$/ 
   const allowedValue = document.querySelector('.feedback');
   const button = document.querySelector('button');
-  const p = document.createElement('p')
+  const p = document.createElement('p') // posso já deixar marcado no html esse p e dar uma classe qualquer para poupar uma linha de código.
 
     if (regexTest.test(input.value)) {
       allowedValue.classList.add('allowed')
@@ -26,3 +26,11 @@ form.addEventListener('submit', event => {
 
 // const username = 'roger';
 // const reGex = /^[a-z]{6}$/
+
+// Validação enquanto o usuário digita
+
+form.username.addEventListener('keyup', event => {
+  const username = event.target.value
+
+  // if ()
+})
