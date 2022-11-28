@@ -21,6 +21,45 @@
   Dica: pesquise pelo método "insertAdjacentElement", no MDN;
 */
 
+const form = document.querySelector('form');
+const usernameInput = document.querySelector('#username');
+const button = document.querySelector('button');
+const paragraphFeedback = document.createElement('p')
+
+const testUsername = username => /^[a-zA-Z]{6,}$/.test(username)
+
+const clearInput = () => {
+  usernameInput.value = ''
+  usernameInput.focus()
+}
+
+const insertClassColor = (attribute, className) => {
+  paragraphFeedback.setAttribute(attribute, className)
+}
+
+const insertParagraphFeedback = (position, element, message) => {
+  button.insertAdjacentElement(position, element)
+  return element.textContent = message
+}
+
+form.username.addEventListener('keyup', event => {
+  const isValidUsername = testUsername(usernameInput.value)
+
+  if (isValidUsername) {
+    insertParagraphFeedback('afterend', paragraphFeedback, 'Username válido.')
+    insertClassColor('class', 'username-success-feedback')
+    return
+ }
+ 
+  insertParagraphFeedback('afterend', paragraphFeedback, 'O valor deve conter no mínimo 6 caracteres, com apenas letras maiúsculas e/ou minúsculas')
+  insertClassColor('class', 'username-help-feedback')
+ 
+})
+
+form.addEventListener('submit', e => {
+  e.preventDefault()
+  clearInput()
+})
 /*
   02
 
