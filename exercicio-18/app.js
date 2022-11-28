@@ -42,7 +42,7 @@ const insertParagraphFeedback = (position, element, message) => {
   return element.textContent = message
 }
 
-form.username.addEventListener('keyup', event => {
+form.username.addEventListener('keyup', () => {
   const isValidUsername = testUsername(usernameInput.value)
 
   if (isValidUsername) {
@@ -51,14 +51,22 @@ form.username.addEventListener('keyup', event => {
     return
  }
  
-  insertParagraphFeedback('afterend', paragraphFeedback, 'O valor deve conter no mínimo 6 caracteres, com apenas letras maiúsculas e/ou minúsculas')
-  insertClassColor('class', 'username-help-feedback')
+ if (usernameInput.value.length > 2) {
+    insertParagraphFeedback('afterend', paragraphFeedback, 'O valor deve conter no mínimo 6 caracteres, com apenas letras maiúsculas e/ou minúsculas')
+    insertClassColor('class', 'username-help-feedback')
+  }
 })
 
 form.addEventListener('submit', e => {
   e.preventDefault()
   clearInput()
 
+  if (paragraphFeedback.textContent === 'Username válido.') {
+    paragraphFeedback.textContent = 'Dados enviados =)'
+    return
+  }
+
+  paragraphFeedback.textContent = 'Por favor, insira um username válido'
   // paragraphFeedback.textContent = `Seu nome de usuário escolhido é ${testUsername()}`
 })
 /*

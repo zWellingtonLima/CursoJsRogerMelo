@@ -20,47 +20,17 @@
   
   Dica: pesquise pelo método "insertAdjacentElement", no MDN;
 */
+const inputUsername = document.querySelector('#username');
 
-const form = document.querySelector('form');
-const usernameInput = document.querySelector('#username');
-const button = document.querySelector('button');
-const paragraphFeedback = document.createElement('p')
+inputUsername.addEventListener('keyup', event => {
+  const inputValue = event.target.value
+  const usernameRegex = /^[a-zA-Z]{6,}$/
 
-const testUsername = username => /^[a-zA-Z]{6,}$/.test(username)
-
-const clearInput = () => {
-  usernameInput.value = ''
-  usernameInput.focus()
-}
-
-const insertClassColor = (attribute, className) => {
-  paragraphFeedback.setAttribute(attribute, className)
-}
-
-const insertParagraphFeedback = (position, element, message) => {
-  button.insertAdjacentElement(position, element)
-  return element.textContent = message
-}
-
-form.username.addEventListener('keyup', event => {
-  const isValidUsername = testUsername(usernameInput.value)
-
-  if (isValidUsername) {
-    insertParagraphFeedback('afterend', paragraphFeedback, 'Username válido.')
-    insertClassColor('class', 'username-success-feedback')
-    return
- }
- 
-  insertParagraphFeedback('afterend', paragraphFeedback, 'O valor deve conter no mínimo 6 caracteres, com apenas letras maiúsculas e/ou minúsculas')
-  insertClassColor('class', 'username-help-feedback')
+  if (usernameRegex.test(inputValue)) {
+    
+  }
 })
 
-form.addEventListener('submit', e => {
-  e.preventDefault()
-  clearInput()
-
-  // paragraphFeedback.textContent = `Seu nome de usuário escolhido é ${testUsername()}`
-})
 /*
   02
 
