@@ -43,37 +43,19 @@ const validSubmitInfo = {
   elementPosition: button
 }
 
-paragraphSubmitFeedback.setAttribute('data-feedback', 'submit-feedback')
+const invalidUsernameInfo = {
+  paragraph: paragraphUsernameFeedback,
+  text: "O valor deve conter no mínimo 6 caracteres, com apenas letras maiúsculas e/ou minúsculas",
+  className: 'username-help-feedback',
+  elementPosition: inputUsername
+}
 
-// o event foi trocado de keyup para input pois o segundo só executa a função quando o valor do input mudar pois ao pressionar o enter anteriormente o segundo parágrafo surgia e sumia rapidamente.  
-inputUsername.addEventListener('input', event => {
-  const inputValue = event.target.value
-
-  const paragraphSubmitFeedbackExists = document.querySelector('[data-feedback="submit-feedback"]')
-
-  if (paragraphSubmitFeedbackExists) {
-    paragraphSubmitFeedback.remove()
-  }
-
-  // p.setAttribute('data-feedback','username-feedback')
-
-  // const feedbackParagraph = document.querySelector('[data-feedback="username-feedback"]');
-  
-  // if (feedbackParagraph) {
-  //   feedbackParagraph.remove()
-  // } // Todo esse código comentado tem a função de remover os parágrafos criados adicionalmente caso o createElement('p') estivesse dentro do listener keyup. 
-
-  if (!usernameRegex.test(inputValue)) {
-    paragraphUsernameFeedback.textContent = "O valor deve conter no mínimo 6 caracteres, com apenas letras maiúsculas e/ou minúsculas"
-    paragraphUsernameFeedback.setAttribute('class','username-help-feedback')
-    event.target.insertAdjacentElement('afterend', paragraphUsernameFeedback)
-    return
-  }
-
-  paragraphUsernameFeedback.textContent = "Username válido."
-  paragraphUsernameFeedback.setAttribute('class','username-success-feedback')
-  event.target.insertAdjacentElement('afterend', paragraphUsernameFeedback)
-})
+const validUsernameInfo = {
+  paragraph: paragraphUsernameFeedback,
+  text: "Username válido.",
+  className: 'username-success-feedback',
+  elementPosition: inputUsername // Antes era event.target mas como esse valor só é recebido dentro do listener, aqui daria erro pois o event não está definido nesse escopo e acessar uma propriedade de algo undefined gera erro.
+}
 
 // No entanto, refatorando assim ocorre outro problema: o comprimento da invocação da função fica muito grande. É possível resolver isso indentando o código ou, como os valores estão relacionados entre si, é possível agrupá-los em um objeto e fazer a função receber o objeto invés dos parâmetros soltos.
 
@@ -84,6 +66,37 @@ const insertParagraphIntoDom = (paragraphInfo) => {
   paragraph.setAttribute('class', className)
   elementPosition.insertAdjacentElement('afterend', paragraph)
 }
+
+paragraphSubmitFeedback.setAttribute('data-feedback', 'submit-feedback')
+
+const removeSubmitParagraph = () => {
+  const paragraphSubmitFeedbackExists = document.querySelector('[data-feedback="submit-feedback"]')
+
+  if (paragraphSubmitFeedbackExists) {
+    paragraphSubmitFeedback.remove()
+  }
+}
+
+// o event foi trocado de keyup para input pois o segundo só executa a função quando o valor do input mudar pois ao pressionar o enter anteriormente o segundo parágrafo surgia e sumia rapidamente.  
+inputUsername.addEventListener('input', event => {
+  const inputValue = event.target.value
+
+  removeSubmitParagraph()
+  // p.setAttribute('data-feedback','username-feedback')
+
+  // const feedbackParagraph = document.querySelector('[data-feedback="username-feedback"]');
+  
+  // if (feedbackParagraph) {
+  //   feedbackParagraph.remove()
+  // } // Todo esse código comentado tem a função de remover os parágrafos criados adicionalmente caso o createElement('p') estivesse dentro do listener keyup. 
+
+  if (!usernameRegex.test(inputValue)) {
+    insertParagraphIntoDom(invalidUsernameInfo)
+    return
+  }
+
+  insertParagraphIntoDom(validUsernameInfo)
+})
 
 // início da refatoração. Nesse listener existe muita repetição de código mudando apenas alguns valores. Existe o padrão: setar o texto de um parágrafo, a classe e inserir o parágrafo em uma posição específica na tela. 
 form.addEventListener('submit', e => {
