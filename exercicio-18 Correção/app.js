@@ -20,17 +20,63 @@
   
   Dica: pesquise pelo método "insertAdjacentElement", no MDN;
 */
-const inputUsername = document.querySelector('#username');
+const inputUsername = document.querySelector('#username')
+const form = document.querySelector('form')
+const button = document.querySelector('button');
 
-inputUsername.addEventListener('keyup', event => {
+const paragraphUsernameFeedback = document.createElement('p')
+const paragraphSubmitFeedback = document.createElement('p')
+// Dois parágrafos foram criados pois um anulava o outro quando um nome de usuário incorreto era inserido.
+const usernameRegex = /^[a-zA-Z]{6,}$/
+
+paragraphSubmitFeedback.setAttribute('data-feedback', 'submit-feedback')
+
+// o event foi trocado de keyup para input pois o segundo só executa a função quando o valor do input mudar pois ao pressionar o enter anteriormente o segundo parágrafo surgia e sumia rapidamente.  
+inputUsername.addEventListener('input', event => {
   const inputValue = event.target.value
-  const usernameRegex = /^[a-zA-Z]{6,}$/
 
-  if (usernameRegex.test(inputValue)) {
-    
+  const paragraphSubmitFeedbackExists = document.querySelector('[data-feedback="submit-feedback"]')
+
+  if (paragraphSubmitFeedbackExists) {
+    paragraphSubmitFeedback.remove()
   }
+
+  // p.setAttribute('data-feedback','username-feedback')
+
+  // const feedbackParagraph = document.querySelector('[data-feedback="username-feedback"]');
+  
+  // if (feedbackParagraph) {
+  //   feedbackParagraph.remove()
+  // } // Todo esse código comentado tem a função de remover os parágrafos criados adicionalmente caso o createElement('p') estivesse dentro do listener keyup. 
+
+  if (!usernameRegex.test(inputValue)) {
+    paragraphUsernameFeedback.textContent = "O valor deve conter no mínimo 6 caracteres, com apenas letras maiúsculas e/ou minúsculas"
+    paragraphUsernameFeedback.setAttribute('class','username-help-feedback')
+    event.target.insertAdjacentElement('afterend', paragraphUsernameFeedback)
+    return
+  }
+
+  paragraphUsernameFeedback.textContent = "Username válido."
+  paragraphUsernameFeedback.setAttribute('class','username-success-feedback')
+  event.target.insertAdjacentElement('afterend', paragraphUsernameFeedback)
 })
 
+form.addEventListener('submit', e => {
+  e.preventDefault()
+
+  const inputValue = inputUsername.value
+  if (!usernameRegex.test(inputValue)) {
+    paragraphSubmitFeedback.textContent = 'Por favor, insira um username válido.'
+    paragraphSubmitFeedback.setAttribute('class', 'submit-help-feedback')
+    button.insertAdjacentElement('afterend', paragraphSubmitFeedback)
+    return
+  }
+
+  paragraphSubmitFeedback.textContent = 'Dados enviados.'
+  paragraphSubmitFeedback.setAttribute('class', 'submit-success-feedback')
+  button.insertAdjacentElement('afterend', paragraphSubmitFeedback)
+  
+})
 /*
   02
 
