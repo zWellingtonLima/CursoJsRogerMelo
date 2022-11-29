@@ -61,21 +61,24 @@ inputUsername.addEventListener('input', event => {
   event.target.insertAdjacentElement('afterend', paragraphUsernameFeedback)
 })
 
+// No entanto, refatorando assim ocorre outro problema: o comprimento da invocação da função fica muito grande. É possível resolver isso indentando o código ou, como os valores estão relacionados entre si, é possível agrupá-los em um objeto e fazer a função receber o objeto invés dos parâmetros soltos.
+const insertParagraphIntoDom = (paragraph, text, className, elementPosition) => {
+  paragraph.textContent = text
+  paragraph.setAttribute('class', className)
+  elementPosition.insertAdjacentElement('afterend', paragraph)
+}
+
+// início da refatoração. Nesse listener existe muita repetição de código mudando apenas alguns valores. Existe o padrão: setar o texto de um parágrafo, a classe e inserir o parágrafo em uma posição específica na tela. 
 form.addEventListener('submit', e => {
   e.preventDefault()
 
   const inputValue = inputUsername.value
   if (!usernameRegex.test(inputValue)) {
-    paragraphSubmitFeedback.textContent = 'Por favor, insira um username válido.'
-    paragraphSubmitFeedback.setAttribute('class', 'submit-help-feedback')
-    button.insertAdjacentElement('afterend', paragraphSubmitFeedback)
+    insertParagraphIntoDom(paragraphSubmitFeedback,'Por favor, insira um username válido.','submit-help-feedback',button)
     return
   }
 
-  paragraphSubmitFeedback.textContent = 'Dados enviados.'
-  paragraphSubmitFeedback.setAttribute('class', 'submit-success-feedback')
-  button.insertAdjacentElement('afterend', paragraphSubmitFeedback)
-  
+  insertParagraphIntoDom(paragraphSubmitFeedback, 'Dados enviados.', 'submit-success-feedback', button)
 })
 /*
   02
