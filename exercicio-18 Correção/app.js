@@ -78,8 +78,7 @@ const removeSubmitParagraph = () => {
 
 const testUsername = inputValue => /^[a-zA-Z]{6,}$/.test(inputValue)
 
-// o event foi trocado de keyup para input pois o segundo só executa a função quando o valor do input mudar pois ao pressionar o enter anteriormente o segundo parágrafo surgia e sumia rapidamente.  
-inputUsername.addEventListener('input', event => {
+const showUsernameInfo = () => {
   const isUserNameValid = testUsername(inputUsername.value)
 
   removeSubmitParagraph()
@@ -97,10 +96,9 @@ inputUsername.addEventListener('input', event => {
   }
 
   insertParagraphIntoDom(validUsernameInfo)
-})
+}
 
-// início da refatoração. Nesse listener existe muita repetição de código mudando apenas alguns valores. Existe o padrão: setar o texto de um parágrafo, a classe e inserir o parágrafo em uma posição específica na tela. 
-form.addEventListener('submit', e => {
+const showSubmitInfo =  e => {
   e.preventDefault()
 
   const isUserNameValid = testUsername(inputUsername.value)
@@ -113,7 +111,13 @@ form.addEventListener('submit', e => {
   insertParagraphIntoDom(validSubmitInfo)
 
   form.username.value = ''
-})
+}
+
+// início da refatoração. Nesse listener existe muita repetição de código mudando apenas alguns valores. Existe o padrão: setar o texto de um parágrafo, a classe e inserir o parágrafo em uma posição específica na tela. 
+form.addEventListener('submit', showSubmitInfo)
+// o event foi trocado de keyup para input pois o segundo só executa a função quando o valor do input mudar pois ao pressionar o enter anteriormente o segundo parágrafo surgia e sumia rapidamente.  
+inputUsername.addEventListener('input', showUsernameInfo)
+
 /*
   02
 
