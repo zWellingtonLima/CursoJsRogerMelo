@@ -98,3 +98,13 @@ form.addEventListener('submit', e => {
         6;
     2) Pesquisar no MDN.
 */
+
+const some = (array, func) => {
+  for (let i = 0; i < array.length; i++) {
+    if (func(array[i])) {
+      return true
+    }
+  }
+}
+
+console.log(some([1,2,3], item => item > 2))
