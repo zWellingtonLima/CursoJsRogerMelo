@@ -76,11 +76,11 @@ const removeSubmitParagraph = () => {
   }
 }
 
-const isAValidUsername = username => /^[a-zA-Z]{6,}$/.test(username)
+const testUsername = inputValue => /^[a-zA-Z]{6,}$/.test(inputValue)
 
 // o event foi trocado de keyup para input pois o segundo só executa a função quando o valor do input mudar pois ao pressionar o enter anteriormente o segundo parágrafo surgia e sumia rapidamente.  
 inputUsername.addEventListener('input', event => {
-  const inputValue = event.target.value
+  const isUserNameValid = testUsername(inputUsername.value)
 
   removeSubmitParagraph()
   // p.setAttribute('data-feedback','username-feedback')
@@ -91,7 +91,7 @@ inputUsername.addEventListener('input', event => {
   //   feedbackParagraph.remove()
   // } // Todo esse código comentado tem a função de remover os parágrafos criados adicionalmente caso o createElement('p') estivesse dentro do listener keyup. 
 
-  if (!isAValidUsername(inputValue)) {
+  if (!isUserNameValid) {
     insertParagraphIntoDom(invalidUsernameInfo)
     return
   }
@@ -103,9 +103,9 @@ inputUsername.addEventListener('input', event => {
 form.addEventListener('submit', e => {
   e.preventDefault()
 
-  const inputValue = inputUsername.value
+  const isUserNameValid = testUsername(inputUsername.value)
 
-  if (!isAValidUsername(inputValue)) {
+  if (!isUserNameValid) {
     insertParagraphIntoDom(invalidSubmitInfo)
     return
   }
