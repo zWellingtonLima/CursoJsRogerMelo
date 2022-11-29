@@ -29,6 +29,20 @@ const paragraphSubmitFeedback = document.createElement('p')
 // Dois parágrafos foram criados pois um anulava o outro quando um nome de usuário incorreto era inserido.
 const usernameRegex = /^[a-zA-Z]{6,}$/
 
+const invalidSubmitInfo = {
+  paragraph: paragraphSubmitFeedback, 
+  text: 'Por favor, insira um username válido.', 
+  className: 'submit-help-feedback', 
+  elementPosition: button
+}
+
+const validSubmitInfo = {
+  paragraph: paragraphSubmitFeedback, 
+  text: 'Dados enviados.', 
+  className: 'submit-success-feedback', 
+  elementPosition: button
+}
+
 paragraphSubmitFeedback.setAttribute('data-feedback', 'submit-feedback')
 
 // o event foi trocado de keyup para input pois o segundo só executa a função quando o valor do input mudar pois ao pressionar o enter anteriormente o segundo parágrafo surgia e sumia rapidamente.  
@@ -62,7 +76,10 @@ inputUsername.addEventListener('input', event => {
 })
 
 // No entanto, refatorando assim ocorre outro problema: o comprimento da invocação da função fica muito grande. É possível resolver isso indentando o código ou, como os valores estão relacionados entre si, é possível agrupá-los em um objeto e fazer a função receber o objeto invés dos parâmetros soltos.
-const insertParagraphIntoDom = (paragraph, text, className, elementPosition) => {
+
+//Depois da criação dos dois objetos contendo as informações do usuário (válidas ou não) a função precisa receber um objeto. Evitando a sintaxe objeto.propriedade dentro da função, uma forma boa é fazendo destructuring dentro da função do objeto que é recebido como parâmetro.
+const insertParagraphIntoDom = (paragraphInfo) => {
+  const {paragraph, text, className, elementPosition} = paragraphInfo
   paragraph.textContent = text
   paragraph.setAttribute('class', className)
   elementPosition.insertAdjacentElement('afterend', paragraph)
@@ -73,12 +90,15 @@ form.addEventListener('submit', e => {
   e.preventDefault()
 
   const inputValue = inputUsername.value
+
   if (!usernameRegex.test(inputValue)) {
-    insertParagraphIntoDom(paragraphSubmitFeedback,'Por favor, insira um username válido.','submit-help-feedback',button)
+    insertParagraphIntoDom(invalidSubmitInfo)
     return
   }
 
-  insertParagraphIntoDom(paragraphSubmitFeedback, 'Dados enviados.', 'submit-success-feedback', button)
+  insertParagraphIntoDom(validSubmitInfo)
+
+  form.username.value = ''
 })
 /*
   02
