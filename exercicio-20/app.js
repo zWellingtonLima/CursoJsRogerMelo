@@ -46,8 +46,8 @@ buttonStop.addEventListener('click', () => {
       counter.textContent--
     }
   }, 100)
-
 })
+
 
 /* 
   04
