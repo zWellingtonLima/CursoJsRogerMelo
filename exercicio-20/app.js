@@ -27,25 +27,37 @@ const buttonInit = document.querySelector('.button-init-counter');
 const buttonStop = document.querySelector('.button-stop-counter');
 const counter = document.querySelector('.counter-container');
 
-let interval
-const timer = () => {
-  interval = setInterval(() => {
-    counter.textContent++    
-  }, 1000)
+let timer // Também poderia atribuir a essa let um 'null'
+// const timer = () => {
+//   interval = setInterval(() => {
+//     counter.textContent++    
+//   }, 1000)
+// }
+
+// buttonInit.addEventListener('click', () => {
+//   timer()
+// })
+// Uma forma alternativa de fazer:
+
+const incrementedCounter = () => {
+  counter.textContent++
 }
 
-buttonInit.addEventListener('click', () => {
-  timer()
-})
-
-buttonStop.addEventListener('click', () => {
-  clearInterval(interval)
-
+const stopCounter = () => () => {
+  clearInterval(timer)
+}
   setInterval(() => {
     if (counter.textContent > 0) {
       counter.textContent--
     }
   }, 100)
+
+buttonInit.addEventListener('click', () => {
+  timer = setInterval(incrementedCounter, 1000)
+})
+
+buttonStop.addEventListener('click', () => {
+  stopCounter
 })
 
 
