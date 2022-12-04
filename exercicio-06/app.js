@@ -25,12 +25,24 @@
 
 const fruits = ['morango', 'banana', 'mamão']
 
+// Função criada para testar conhecimentos de aulas posteriores ao conteúdo passado até aqui.
+const checkIfFruitExist = (fruit, array) => {
+  if (array.includes(fruit)){
+    return console.log(`A string "${fruit}" existe no array "fruits".`)
+  }
+
+  return "Não existe nada com esse nome no array 'fruits'."
+}
+
+console.log(checkIfFruitExist('abacaxi', fruits))
+
+
 if (fruits.includes('abacaxi')) {
   console.log('A string "abacaxi" existe no array.')
 } else if (fruits.includes('pera')) {
   console.log('A string "pera" existe no array.')
 } else {
-  console.log("Nem pera nem abacaxi existem no array 'fruits'.")
+  // console.log("Nem pera nem abacaxi existem no array 'fruits'.")
 }
 
 /*
