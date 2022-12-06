@@ -6,6 +6,7 @@ const correctAnswers = ['B','B','B','B']
 let score = 0
 
 const getUserAnswers = () => {
+  
   let userAnswers = []
 
   correctAnswers.forEach((correctAnswer, index) => {
