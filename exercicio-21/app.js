@@ -6,7 +6,9 @@
 */
 
 const randomNumbers = [10, 30, 15, 25, 50, 40, 5]
-const oddNumbers = randomNumbers.filter(oddNumber => oddNumber % 2 === 1)
+
+const getOddNumbers = () => oddNumber => oddNumber % 2 === 1
+const oddNumbers = randomNumbers.filter(getOddNumbers)
 
 console.log(oddNumbers)
 /*
@@ -14,14 +16,19 @@ console.log(oddNumbers)
 
   - Exiba no console quantos números abaixo de 501 o array abaixo possui.
 */
+const countNumbersBelow501 = (accumulator, number) => 
+number < 501 ? ++accumulator : accumulator // Ternário aplicado e isolamento da função.
+
+  // obs - se eu usasse o operador de pós incremento, a cada execução da função o valor do accumulator seria de 0.
+
+  // if (number < 501) {
+  //   accumulator++
+  // }
+  // return accumulator
+
 
 const crazyNumbers = [937, 5, 395, 402, 501, 333, 502, 781, 3, 691]
-const numbersBelow501 = crazyNumbers.reduce((accumulator, number) => {
-  if (number < 501) {
-    accumulator++
-  }
-  return accumulator
-}, 0)
+const numbersBelow501 = crazyNumbers.reduce(countNumbersBelow501, 0)
 
 console.log(numbersBelow501)
 /*
@@ -54,10 +61,12 @@ const cart = [
   { name: 'Death Stranding', price: 149.99 }
 ]
 
-const gameList = cart.map(game => {
-  return `- ${game.name}`
-})
+const gameList = cart.map(game => `- ${game.name}`)
 
+const productList = cart.reduce((accumulator, { name }) => 
+`${accumulator}- ${name}\n` , '') // Destructuring aplicado.
+
+console.log(productList)
 // console.log(cart,gameList)
 /*
   - Nome 1
@@ -86,7 +95,7 @@ const tarantinoMovies = [
   { name: 'Kill Bill: Volume 1', release: 2003 }
 ]
 
-const moviesBefore2000 = tarantinoMovies.filter(movie => movie.release < 2000)
+const moviesBefore2000 = tarantinoMovies.filter(({ release }) => release < 2000) // Destructuring aplicado.
 
 console.log(moviesBefore2000)
 /*
@@ -106,7 +115,7 @@ const tvShows = [
   { name: 'Watchmen', releaseYear: 2019 }
 ]
 
-const onlyTvshowsNames = tvShows.map(tvShow => tvShow.name)
+const onlyTvshowsNames = tvShows.map(({ name }) => name) // Destructuring aplicado.
 console.log(onlyTvshowsNames)
 
 /*
