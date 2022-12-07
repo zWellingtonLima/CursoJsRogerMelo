@@ -28,6 +28,7 @@ const fruits = ['morango', 'banana', 'mamão']
 // Função criada para testar conhecimentos de aulas posteriores ao conteúdo passado até aqui.
 const checkIfFruitExist = (fruit, array) => {
   const isFruitIncluded = array.includes(fruit) 
+  
   if (isFruitIncluded){
     return console.log(`A string "${fruit}" existe no array "fruits".`)
   }
