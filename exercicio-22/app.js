@@ -6,9 +6,15 @@
   - Exiba o array ordenado no console.
 */
 
+
+// a expressão .map(item => item)' se repete 3 vezes ao longo do código fazendo a mesma coisa. 
+const getArrayCopy = array => array.map(item => item)
+
+
 const names = ['Caio', 'André', 'Dário']
-const namesCopy = names.map(name => name).sort()
-console.log(namesCopy, names)
+// const namesCopy = names.map(name => name).sort()
+const namesInAlphabeticalOrder = getArrayCopy(names).sort()
+console.log(namesInAlphabeticalOrder, names)
 
 /*
   02
@@ -24,11 +30,17 @@ const characters = [
   { id: 01, name: 'Scar' },
   { id: 04, name: 'Mufasa' }
 ]
-const charactersCopy = characters.map(char => ({id: char.id, name: char.name})) // Esses parênteses envolvendo a criação do objeto são usados para que a abertura de chaves do objeto não seja confundido por abertura do bloco da função pela arrow da function. A expressão que tem maior precedência em JS é o que estiver dentro de parênteses, logo, o objeto vai ser criado primeiro e depois a arrow function atua retornando o objeto criado.
+const charactersOrderedsById = characters
+  .map(({ id, name }) => ({id, name}))
+  // .sort((item1, item2) => item1.id - item2.id)
+  .sort(({ id: item1Id }, { id: item2Id}) => item1Id - item2Id) // Essa expressão, no entanto, ficou maior do que a sintaxe usada anteriormente então não vale a pena nesse caso.
 
-charactersCopy.sort((item1, item2) => item1.id - item2.id)
+  // Pra renomear os nomes de propriedades de objetos dentro do destructuring eu uso a forma de atribuição de nomes de objetos usando :
 
-console.log(characters, charactersCopy) // Embora o map tenha gerado um novo array, como os itens do array são objetos (que são tipos de referência), os objetos do novo array não são uma cópia dos originais, eles apontam para o mesmo local. Se eu quiser fazer uma cópia é preciso eu retornar um novo objeto no map.
+
+// Esses parênteses envolvendo a criação do objeto são usados para que a abertura de chaves do objeto não seja confundido por abertura do bloco da função pela arrow da function. A expressão que tem maior precedência em JS é o que estiver dentro de parênteses, logo, o objeto vai ser criado primeiro e depois a arrow function atua retornando o objeto criado.
+
+console.log(characters, charactersOrderedsById) // Embora o map tenha gerado um novo array, como os itens do array são objetos (que são tipos de referência), os objetos do novo array não são uma cópia dos originais, eles apontam para o mesmo local. Se eu quiser fazer uma cópia é preciso eu retornar um novo objeto no map.
 /*
   03
 
@@ -38,9 +50,10 @@ console.log(characters, charactersCopy) // Embora o map tenha gerado um novo arr
 */
 
 const numbers = [41, 15, 63, 349, 25, 22, 143, 64, 59, 291]
-const numbersCopy = numbers.map(item => item).sort((item1, item2) => item1 - item2)
+const numbersInAscendingOrder = getArrayCopy(numbers)
+  .sort((item1, item2) => item1 - item2)
 
-console.log(numbers, numbersCopy)
+console.log(numbers, numbersInAscendingOrder)
 /*
   04
 
@@ -59,9 +72,9 @@ console.log(randomNumbers.find(item => item > 50))
 */
 
 const people = ['Cauã', 'Alfredo', 'Bruno']
-const peopleCopy = people.map(item => item).reverse()
+const peopleReverseAlphabeticalOrdered = getArrayCopy(people).sort().reverse()
 
-console.log(peopleCopy)
+console.log(peopleReverseAlphabeticalOrdered)
 /*
   06
   
@@ -74,12 +87,20 @@ const ingredients = ['vinho', 'tomate', 'cebola', 'cogumelo']
 const cookedIngredients = ingredients.reduce((acc, item, index) => {
   const correctGenderLetter = item[item.length - 1] === 'a' ? 'cozida' : 'cozido' 
   // Também posso fazer usando a ReGex /a$/.test(item)
-  
-  if (index === ingredients.length -1) {
-    return acc + `${item} ${correctGenderLetter}.`
-  }
+  const isLastItem = index === ingredients.length -1
+  const ingredientMessage = acc + `${item} ${correctGenderLetter}`
 
-  return acc + `${item} ${correctGenderLetter}, `
+  return isLastItem ? ingredientMessage : `${ingredientMessage}, ` //A única coisa que muda é o ponto ou a vírgula e espaço no final.
+
+  // return isLastItem ? acc + `${item} ${correctGenderLetter}.` : acc + `${item} ${correctGenderLetter}, `
+
+  // if (isLastItem) {
+  //   return acc + `${item} ${correctGenderLetter}.`
+  // }
+
+  // return acc + `${item} ${correctGenderLetter}, ` 
+
+
 }, '')
 
 console.log(cookedIngredients)
@@ -103,9 +124,9 @@ const topBrazilMovies = [
   { title: 'Dona Flor e Seus Dois Maridos', peopleAmount: 10735524, distributedBy: 'Embrafilme' }
 ]
 
-const onlyDisneyViwers = topBrazilMovies.reduce((acc, item) => {
-  if (item.distributedBy === 'Disney') {
-    acc += item.peopleAmount
+const onlyDisneyViwers = topBrazilMovies.reduce((acc, { distributedBy, peopleAmount}) => {
+  if (distributedBy === 'Disney') {
+    acc += peopleAmount
   }
 
   return acc
@@ -133,12 +154,11 @@ const pets = [
   { name: 'Chico', age: 6, gender: 'Male', type: 'Dog' }
 ]
 
-const petsWithHumanAge = pets
+const dogsWithHumanAge = pets
   .filter(({type}) => type === 'Dog')
-  .map(({name, age, type}) => ({name: name, HumanAge: age * 7, type: type
-}))
+  .map(({name, age, gender}) => ({name, HumanAge: age * 7, gender}))
 
-console.log(petsWithHumanAge)
+console.log(dogsWithHumanAge)
 /*
   09
   
@@ -152,7 +172,8 @@ const moviesList = topBrazilMovies.map(({title}) => `<li>${title}</li>`).join(''
 ul.innerHTML = moviesList
 console.log(moviesList)
 
-const movieNames = topBrazilMovies.reduce((acc, movie) => acc + `<li>${movie.title}</li>`, '')
+const movieNames = topBrazilMovies
+  .reduce((acc, { title }) => acc + `<li>${title}</li>`, '')
 
 /*
   10
