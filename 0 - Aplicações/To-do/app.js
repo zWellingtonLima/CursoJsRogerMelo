@@ -21,5 +21,6 @@ formAddTodo.addEventListener('submit', event => {
 
   i.classList.add('far', 'fa-trash-alt', 'delete')
 
+  
   addInput.value = ''
 })
