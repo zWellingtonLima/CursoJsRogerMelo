@@ -16,3 +16,12 @@ formAddTodo.addEventListener('submit', e => {
     e.target.reset()
   }
 })
+
+todosContainer.addEventListener('click', e => {
+  const clickedElement = e.target
+  const removeIconClicked = Array.from(clickedElement.classList).includes('delete')
+
+  if (removeIconClicked){
+    clickedElement.parentElement.remove()
+  }
+})
