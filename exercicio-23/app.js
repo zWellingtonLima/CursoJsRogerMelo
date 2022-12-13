@@ -24,13 +24,11 @@ const people = [
   { firstName: 'Eric', lastName: 'Silva', score: 82 }
 ]
 
-const peopleCopy = people.map(({firstName, lastName, score}) => {
-  return {
-    firstName, lastName, score
-  }
-})
+const peopleAscendingScore = people
+  .map(({firstName, lastName, score}) => ({firstName, lastName, score}))
+  .sort((item1, item2) => item1.score - item2.score)
 
-const score = peopleCopy.sort((item1, item2) => item1.score - item2.score)
+// const score = peopleCopy.sort((item1, item2) => item1.score - item2.score)
 
 /*
   03
@@ -43,7 +41,7 @@ const score = peopleCopy.sort((item1, item2) => item1.score - item2.score)
 */
 
 const animals = ['cão', 'gato', 'boi', 'leão', 'gnu', 'alce', 'ema']
-const above3Letters = animals.filter(animal => animal.length > 3)
+const threeLettersAnimals = animals.filter(({ length }) => length === 3)
 // debugger
 
 /*
@@ -53,7 +51,7 @@ const above3Letters = animals.filter(animal => animal.length > 3)
     nome de cada animal. Ex.: [6, 8, 2].
 */
 
-const animalsNameLength = animals.map(animal => animal.length)
+const animalsNameLength = animals.map(({ length }) => length)
 // debugger
 /*
   05
@@ -71,7 +69,8 @@ const friends = [
   { id: 5, name: 'Solange', nearMe: false }
 ]
 
-const friendsNearMe = friends.filter(friend => friend.nearMe)
+const friendsNearMe = friends.filter(({ nearMe }) => nearMe)
+const nameOfFriendsNearMe = friendsNearMe.map(({ name }) => name)
 // debugger
 
 /*
@@ -82,7 +81,9 @@ const friendsNearMe = friends.filter(friend => friend.nearMe)
 */
 
 const numbers = [46, 86, 212, 29, 51, 9, 25, 42, 81]
-const sumOddNumbers = numbers.filter(oddNum => oddNum % 2 === 1).map(item => item + item)
+const sumOddNumbers = numbers
+ .filter(oddNum => oddNum % 2)
+ .reduce((acc, item) => acc + item, 0)
 // debugger
 /*
   07
@@ -105,5 +106,7 @@ const data = [{
   population: 263991379
 }]
 
-const peopleAmountWithoutChina = data.filter(data => data.country !== 'China').reduce((acc, item) => acc + item.population, 0)
+const peopleAmountWithoutChina = data
+  .filter(({ country }) => country !== 'China')
+  .reduce((acc, { population }) => acc + population, 0)
 // debugger
