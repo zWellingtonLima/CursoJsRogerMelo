@@ -61,22 +61,30 @@ todosContainer.addEventListener('click', e => {
   // }
 })
 
-const hideTodos = (inputValue, todos) => {
-  todos
-    .filter(toDo => !toDo.textContent.toLowerCase().includes(inputValue))
-    .forEach(toDo => {
-      toDo.classList.remove('d-flex') 
-      toDo.classList.add('hidden')
+const filterTodos = (todos, inputValue, returnMatchedTodos) => todos.filter( todo => {
+    const matchedTodos = todo.textContent.toLowerCase().includes(inputValue)
+    return returnMatchedTodos ? matchedTodos : !matchedTodos
+  })
+
+const manipulateClasses = (todos, classToAdd, classToRemove) => {
+  todos.forEach(toDo => {
+    toDo.classList.remove(classToRemove) 
+    toDo.classList.add(classToAdd)
   })
 }
 
+const hideTodos = (inputValue, todos) => {
+  const todosToHide = filterTodos(todos, inputValue, false)
+  manipulateClasses(todosToHide, 'hidden', 'd-flex')
+}
+
 const showTodos = (inputValue, todos) => {
-  todos
-    .filter(toDo => toDo.textContent.toLowerCase().includes(inputValue))
-    .forEach(toDo => {
-      toDo.classList.remove('hidden') 
-      toDo.classList.add('d-flex')
-  })
+  const todosToShow = filterTodos(todos, inputValue, true)
+  manipulateClasses(todosToShow, 'd-flex', 'hidden')
+  //   .forEach(toDo => {
+  //     toDo.classList.remove('hidden') 
+  //     toDo.classList.add('d-flex')
+  // })
 }
 
 inputSearchTodo.addEventListener('input', e => {
