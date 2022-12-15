@@ -9,9 +9,9 @@ formAddTodo.addEventListener('submit', e => {
   
   if (inputValue.length) {
     todosContainer.innerHTML += `
-      <li class="list-group-item d-flex justify-content-between align-items-center">
+      <li class="list-group-item d-flex justify-content-between align-items-center" data-todo="${inputValue}">
         <span>${inputValue}</span>
-        <i class="far fa-trash-alt delete"></i>
+        <i class="far fa-trash-alt delete" data-trash="${inputValue}"></i>
       </li>
     `
     e.target.reset()
@@ -20,26 +20,30 @@ formAddTodo.addEventListener('submit', e => {
 
 todosContainer.addEventListener('click', e => {
   const clickedElement = e.target
-  const removeIconClicked = Array.from(clickedElement.classList).includes('delete')
-
-  if (removeIconClicked){
-    clickedElement.parentElement.remove()
+  
+  if (clickedElement.dataset.trash) {
+    document.querySelector(`[data-todo="${clickedElement.dataset.trash}"]`).remove()
   }
+  // const removeIconClicked = Array.from(clickedElement.classList).includes('delete')
+
+  // if (removeIconClicked){
+  //   clickedElement.parentElement.remove()
+  // }
 })
 
 inputSearchTodo.addEventListener('input', e => {
-  e.preventDefault()
-  const inputValue = e.target.value.trim().toLowerCase()
+  e.preventDefault() 
+
   Array.from(todosContainer.children)
-    .filter(todo => !todo.textContent.toLowerCase().includes(inputValue))
-    .forEach(toDo => { 
+    .filter(toDo => !toDo.textContent.toLowerCase().includes(inputValue))
+    .forEach(toDo => {
       toDo.classList.remove('d-flex') 
       toDo.classList.add('hidden')
     })
   Array.from(todosContainer.children)
-  .filter(todo => todo.textContent.toLowerCase().includes(inputValue))
-  .forEach(toDo => { 
+  .filter(toDo => toDo.textContent.toLowerCase().includes(inputValue))
+  .forEach(toDo => {
     toDo.classList.remove('hidden') 
     toDo.classList.add('d-flex')
   })
-  })
+})
