@@ -20,45 +20,51 @@ const months = [
   'Dezembro'
 ]
 
+console.log(months.indexOf('Fevereiro'))
+
 /*
   02
 
   - Crie um objeto de data que represente o momento presente;
   - Exiba o objeto no console.
 */
+const present = new Date()
+console.log(present)
 
 /*
   03
 
   - Baseado no objeto que você acabou de criar, exiba o ano atual no console.
 */
-
+console.log(present.getFullYear())
 /*
   04
 
   - Crie um objeto de data que represente um momento passado;
   - Exiba o objeto no console.
 */
-
+const dayBirthday = new Date('July 16 1998')
+console.log(dayBirthday)
 /*
   05
 
   - Exiba, no console, a hora do objeto que você acabou de criar.
 */
-
+console.log(dayBirthday.getHours())
 /*
   06
 
   - Crie um objeto de data que represente um momento futuro;
   - Exiba o objeto no console.
 */
-
+const myNextBirthday = new Date('May 10 2023 00:00:00')
+console.log(myNextBirthday)
 /*
   07
 
   - Exiba no console a quantidade de dias entre o momento futuro e o passado.
 */
-
+console.log(myNextBirthday - present)
 /*
   08
   
