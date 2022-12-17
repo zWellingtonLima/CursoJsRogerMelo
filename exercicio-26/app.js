@@ -5,7 +5,11 @@
     formatação "DD/MM/AAAA". Exemplo: 03/07/2021;
   - Não utilize a date-fns.
 */
+const present = new Date()
 
+const formatDate = date => {
+  return `"DD/MM/AAAA"`
+}
 /*
   02
 
