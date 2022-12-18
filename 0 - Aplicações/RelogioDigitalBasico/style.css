@@ -1,0 +1,8 @@
+.clock-container {
+  display: flex;
+  justify-content: center;
+  align-content: center;
+  flex-wrap: wrap;
+  font-size: 3em;
+  height: 90vh;
+}
