@@ -8,7 +8,10 @@
 const present = new Date()
 
 const formatDate = date => {
-  return `"DD/MM/AAAA"`
+  const day = date.getDate()
+  const month = date.getMonth() + 1
+  const year = date.getYear()
+  return `${String(day.length === 1 ? `0${day}` : day)}/${String(month.length === 1 ? `0${month}` : month)}/${year}`
 }
 /*
   02
