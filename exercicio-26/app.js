@@ -7,11 +7,13 @@
 */
 const present = new Date()
 
+const formatTimeUnit = unit => String(unit).length === 1 ? `0${unit}` : unit
+
 const formatDate = date => {
   const day = date.getDate()
   const month = date.getMonth() + 1
   const year = date.getYear()
-  return `${String(day.length === 1 ? `0${day}` : day)}/${String(month.length === 1 ? `0${month}` : month)}/${year}`
+  return `${formatTimeUnit(day)}/${formatTimeUnit(month)}/${year}`
 }
 /*
   02
@@ -20,6 +22,14 @@ const formatDate = date => {
     data na formatação: "03:07 - domingo, 7 de junho de 2020";
   - Não utilize a date-fns.
 */
+const formatDateInfo = date => {
+  const hour = date.getHours()
+  const minutes = date.getMinutes()
+  const weekDay = date.getDay()
+  const weekDays = ['domingo', 'segunda', 'terça', 'quarta', 'quinta', 'sexta', 'sábado']
+
+  return `${formatTimeUnit(hour)}:${formatTimeUnit(minutes)} - ${weekDays[weekDay]}, 7 de junho de 2020`
+}
 
 /*
   03
