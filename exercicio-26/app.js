@@ -26,9 +26,13 @@ const formatDateInfo = date => {
   const hour = date.getHours()
   const minutes = date.getMinutes()
   const weekDay = date.getDay()
+  const monthDay = date.getDate()
+  const month = date.getMonth()
+  const year = date.getFullYear()
   const weekDays = ['domingo', 'segunda', 'terça', 'quarta', 'quinta', 'sexta', 'sábado']
+  const yearMonths = ['Janeiro', 'Fevereiro', 'Março', 'Abril', 'Maio', 'Junho', 'Julho', 'Agosto', 'Setembro', 'Outubro', 'Novembro', 'Dezembro']
 
-  return `${formatTimeUnit(hour)}:${formatTimeUnit(minutes)} - ${weekDays[weekDay]}, 7 de junho de 2020`
+  return `${formatTimeUnit(hour)}:${formatTimeUnit(minutes)} - ${weekDays[weekDay]}, ${monthDay} de ${yearMonths[month]} de ${year}`
 }
 
 /*
