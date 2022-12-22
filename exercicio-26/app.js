@@ -97,9 +97,9 @@ const updateSomething = (data = {}) => {
   }
 
   useDataSomewhereElse({
-    target: target,
-    property: property,
-    willChange: willChange
+    target,
+    property,
+    willChange
   })
 }
 
