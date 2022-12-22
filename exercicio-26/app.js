@@ -74,6 +74,9 @@ const a = 'a'
 const b = 'b'
 const c = 'c'
 
+const alphabet = { a, b, c }
+console.log(alphabet)
+
 /*
   06
 
