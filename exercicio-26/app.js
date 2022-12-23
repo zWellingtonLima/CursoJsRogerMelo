@@ -87,11 +87,7 @@ const useDataSomewhereElse = value => {
   console.log(value)
 }
 
-const updateSomething = (data = {}) => {
-  const target = data.target
-  const property = data.property
-  let willChange = data.willChange
-
+const updateSomething = ({target, property, willChange} = {}) => {
   if (willChange === 'valor indesejado') {
     willChange = 'valor desejado'
   }
