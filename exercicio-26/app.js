@@ -113,13 +113,11 @@ const updateClock = () => {
   const minutes = present.getMinutes()
   const seconds = present.getSeconds()
 
-  const clockHTML = `
+  clockContainer.innerHTML = `
     <span>${formatTimeUnit(hours)}</span> :
     <span>${formatTimeUnit(minutes)}</span> :
     <span>${formatTimeUnit(seconds)}</span>
   `
-
-  clockContainer.innerHTML = clockHTML
 }
 
 setInterval(updateClock, 1000)
