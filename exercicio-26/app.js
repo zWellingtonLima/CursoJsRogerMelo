@@ -109,7 +109,7 @@ updateSomething({ target: '1', property: '2', willChange: 'valor indesejado' })
 */
 
 const clockContainer = document.querySelector('.clock-container')
-
+// Também posso remover as invocações da formatTimeUnit da função abaixo e invocá-las diretamente nas consts da updateClock.
 const getClockHTML = (hours, minutes, seconds) => `
     <span>${formatTimeUnit(hours)}</span> :
     <span>${formatTimeUnit(minutes)}</span> :

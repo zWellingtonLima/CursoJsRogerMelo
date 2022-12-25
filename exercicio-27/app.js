@@ -9,7 +9,7 @@ console.log('Linha 2')
 console.log('Linha 3')
 console.log('Linha 4')
 
-
+setTimeout(()=> console.log('Código assíncrono'), 1000)
 
 console.log('Linha 5')
 console.log('Linha 6')
@@ -24,10 +24,14 @@ console.log('Linha 8')
 */
 
 function logGreeting (name) {
-  console.log(`olá, ${name}`)
+  console.log(`Olá, ${name}.`)
 }
 
-// x(logGreeting)
+const x = callback => {
+  callback('Wellington Lima')
+}
+
+x(logGreeting)
 
 /*
   03
@@ -36,7 +40,8 @@ function logGreeting (name) {
 */
 
 const numbers = [3, 4, 10, 20]
-const lesserThanFive = numbers.filter(num => num < 5)
+const getLessThanFive = num => num < 5
+const lesserThanFive = numbers.filter(getLessThanFive)
 
 console.log(lesserThanFive)
 
@@ -47,11 +52,13 @@ console.log(lesserThanFive)
 */
 
 const prices = [12, 19, 7, 209]
-let totalPrice = 0
+// let totalPrice = 0
 
-for (let i = 0; i < prices.length; i++) {
-  totalPrice += prices[i]
-}
+// for (let i = 0; i < prices.length; i++) {
+//   totalPrice += prices[i]
+// }
+const getPricesSum = (acc, price) => acc += price
+const totalPrice = prices.reduce(getPricesSum, 0)
 
 console.log(`Preço total: ${totalPrice}`)
 
