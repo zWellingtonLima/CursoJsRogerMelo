@@ -22,17 +22,20 @@ const formatDate = date => {
     data na formatação: "03:07 - domingo, 7 de junho de 2020";
   - Não utilize a date-fns.
 */
-const formatDateInfo = date => {
-  const hour = date.getHours()
-  const minutes = date.getMinutes()
-  const weekDay = date.getDay()
-  const monthDay = date.getDate()
-  const month = date.getMonth()
-  const year = date.getFullYear()
-  const weekDays = ['domingo', 'segunda', 'terça', 'quarta', 'quinta', 'sexta', 'sábado']
-  const yearMonths = ['Janeiro', 'Fevereiro', 'Março', 'Abril', 'Maio', 'Junho', 'Julho', 'Agosto', 'Setembro', 'Outubro', 'Novembro', 'Dezembro']
+const weekDays = ['domingo', 'segunda', 'terça', 'quarta', 'quinta', 'sexta', 'sábado']
 
-  return `${formatTimeUnit(hour)}:${formatTimeUnit(minutes)} - ${weekDays[weekDay]}, ${monthDay} de ${yearMonths[month]} de ${year}`
+const yearMonths = ['Janeiro', 'Fevereiro', 'Março', 'Abril', 
+'Maio', 'Junho', 'Julho', 'Agosto', 'Setembro', 'Outubro', 'Novembro', 'Dezembro']
+
+const formatDateInfo = date => {
+  const hour = formatTimeUnit(date.getHours())
+  const minutes = formatTimeUnit(date.getMinutes())
+  const weekDay = weekDays[date.getDay()]
+  const monthDay = date.getDate()
+  const month = yearMonths[date.getMonth()]
+  const year = date.getFullYear()
+
+  return `${hour}:${minutes} - ${weekDay}, ${monthDay} de ${month} de ${year}`
 }
 
 /*
