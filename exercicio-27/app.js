@@ -81,7 +81,14 @@ let car = { color: 'amarelo' }
   - Se todos os argumentos forem passados, retorne a string 'A função foi 
     invocada com 3 argumentos'.
 */
+const argumentsFunction = (arg1, arg2, arg3) => {
+  if((arg1 || arg2 || arg3).length) {
+    return console.log(`A função deve ser invocada com 3 argumentos`)
+  }
 
+  return console.log(`A função foi invocada com 3 argumentos`)
+}
+argumentsFunction(1, 2, 3)
 /*
   07
 
