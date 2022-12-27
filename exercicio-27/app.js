@@ -71,6 +71,9 @@ const totalPrice = prices.reduce(getPricesSum, 0)
 */
 
 let car = { color: 'amarelo' }
+let secondCar = car
+secondCar.color = 'azul'
+console.log(car, secondCar)
 
 /*
   06
@@ -82,15 +85,15 @@ let car = { color: 'amarelo' }
     invocada com 3 argumentos'.
 */
 const argumentsFunction = (arg1, arg2, arg3) => {
-  const allArgumentsUsed = arg1 && arg2 && arg3
+  // const allArgumentsUsed = arg1 && arg2 && arg3 Se eu invocar a função mas passar um valor falsy essa const não funciona.
 
-  if(allArgumentsUsed) {
-    return console.log(`A função foi invocada com 3 argumentos`)
+  if([arg1, arg2, arg3].includes(undefined)) {
+    return console.log(`A função deve ser invocada com 3 argumentos.`)
   }
 
-  return console.log(`A função deve ser invocada com 3 argumentos.`)
+  return console.log(`A função foi invocada com 3 argumentos.`)
 }
-// argumentsFunction(1, 2, 3)
+// argumentsFunction(0, false, [])
 /*
   07
 
@@ -116,4 +119,19 @@ const argumentsFunction = (arg1, arg2, arg3) => {
 let booksBox = {
   spaces: 5,
   booksIn: 0,
+  addBooksInBox(booksNumber) {
+    if (this.booksIn >= this.spaces) {
+      return console.log('A caixa já está cheia.')
+    }
+
+    if (booksNumber >= this.spaces) {
+      return console.log(`Só cabem mais ${this.spaces - this.booksIn} livros`)
+    }
+
+    this.booksIn += booksNumber
+    return console.log(`Já há ${this.booksIn} livros na caixa.`)
+  }
 }
+
+booksBox.addBooksInBox(4)
+booksBox.addBooksInBox(2)
