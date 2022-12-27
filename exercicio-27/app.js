@@ -4,17 +4,17 @@
   - Implemente um código assíncrono entre os console.log() abaixo.
 */
 
-console.log('Linha 1')
-console.log('Linha 2')
-console.log('Linha 3')
-console.log('Linha 4')
+// console.log('Linha 1')
+// console.log('Linha 2')
+// console.log('Linha 3')
+// console.log('Linha 4')
 
-setTimeout(()=> console.log('Código assíncrono'), 1000)
+// setTimeout(()=> console.log('Código assíncrono'), 1000)
 
-console.log('Linha 5')
-console.log('Linha 6')
-console.log('Linha 7')
-console.log('Linha 8')
+// console.log('Linha 5')
+// console.log('Linha 6')
+// console.log('Linha 7')
+// console.log('Linha 8')
 
 /*
   02
@@ -31,7 +31,7 @@ const x = callback => {
   callback('Wellington Lima')
 }
 
-x(logGreeting)
+// x(logGreeting)
 
 /*
   03
@@ -43,7 +43,7 @@ const numbers = [3, 4, 10, 20]
 const getLessThanFive = num => num < 5
 const lesserThanFive = numbers.filter(getLessThanFive)
 
-console.log(lesserThanFive)
+// console.log(lesserThanFive)
 
 /*
   04
@@ -60,7 +60,7 @@ const prices = [12, 19, 7, 209]
 const getPricesSum = (acc, price) => acc += price
 const totalPrice = prices.reduce(getPricesSum, 0)
 
-console.log(`Preço total: ${totalPrice}`)
+// console.log(`Preço total: ${totalPrice}`)
 
 /*
   05
@@ -82,13 +82,15 @@ let car = { color: 'amarelo' }
     invocada com 3 argumentos'.
 */
 const argumentsFunction = (arg1, arg2, arg3) => {
-  if((arg1 || arg2 || arg3).length) {
-    return console.log(`A função deve ser invocada com 3 argumentos`)
+  const allArgumentsUsed = arg1 && arg2 && arg3
+
+  if(allArgumentsUsed) {
+    return console.log(`A função foi invocada com 3 argumentos`)
   }
 
-  return console.log(`A função foi invocada com 3 argumentos`)
+  return console.log(`A função deve ser invocada com 3 argumentos.`)
 }
-argumentsFunction(1, 2, 3)
+// argumentsFunction(1, 2, 3)
 /*
   07
 
@@ -113,5 +115,5 @@ argumentsFunction(1, 2, 3)
 
 let booksBox = {
   spaces: 5,
-  booksIn: 0
+  booksIn: 0,
 }
