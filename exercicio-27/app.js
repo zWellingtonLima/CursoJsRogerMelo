@@ -119,19 +119,27 @@ const argumentsFunction = (arg1, arg2, arg3) => {
 let booksBox = {
   spaces: 5,
   booksIn: 0,
-  addBooksInBox(booksNumber) {
-    if (this.booksIn >= this.spaces) {
-      return console.log('A caixa já está cheia.')
-    }
+}
 
-    if (booksNumber >= this.spaces) {
-      return console.log(`Só cabem mais ${this.spaces - this.booksIn} livros`)
-    }
-
-    this.booksIn += booksNumber
-    return console.log(`Já há ${this.booksIn} livros na caixa.`)
+booksBox.addBooksInBox = (booksQuantity = 0) => {
+  if (booksBox.booksIn === booksBox.spaces) {
+    return `A caixa já está cheia.`
   }
+
+  if (booksBox.booksIn + booksQuantity > booksBox.spaces) {
+    // const availableSpaces = booksBox.spaces - booksBox.booksIn
+    const pluralOrSingularBook = booksBox.spaces - booksBox.booksIn === 1 ? 'livro.' : 'livros.'
+    const pluralOrSingularFit = booksBox.spaces - booksBox.booksIn === 1 ? 'cabe' : 'cabem'
+    return `Só ${pluralOrSingularFit} mais ${booksBox.spaces - booksBox.booksIn} ${pluralOrSingularBook}.`
+  }
+
+  booksBox.booksIn += booksQuantity
+
+  const pluralOrSingularBook = booksBox.booksIn === 1 ? 'livro' : 'livros'
+  return `Já há ${booksBox.booksIn} ${pluralOrSingularBook} na caixa.`
 }
 
 booksBox.addBooksInBox(4)
-booksBox.addBooksInBox(2)
+console.log(booksBox.addBooksInBox(1))
+console.log(booksBox.addBooksInBox(1))
+     
