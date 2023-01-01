@@ -18,7 +18,7 @@
 const request = new XMLHttpRequest()
 const url = `https://pokeapi.co/api/v2/pokemon/pikachu`
 request.open('GET', url)
-request.send()
+// request.send()
 
 request.addEventListener('readystatechange', () => {
   const sucessfullRequest = request.readyState === 4 && request.status === 200
@@ -48,6 +48,17 @@ request.addEventListener('readystatechange', () => {
     - Quantos metros você caminhou (number iniciado em 0).
 */
 
+const myInfo = {
+  name: 'Wellington',
+  surname: 'Lima',
+  gender: 'male',
+  age: 25,
+  height: 1.75,
+  weight: 65,
+  isWalking: false,
+  distanceWalked: 0
+}
+
 /*
   03
 
@@ -56,7 +67,22 @@ request.addEventListener('readystatechange', () => {
   - A cada vez que o método é invocado, 1 deve ser somado à idade atual;
   - Após criar o método, adicione 5 anos à idade do objeto.
 */
+myInfo.addAge = (distance = 0, agePlus) => {
+  myInfo.age++
 
+  if (distance) {
+    myInfo.distanceWalked += distance
+    myInfo.isWalking = true
+  }
+}
+
+myInfo.addAge(1)
+myInfo.addAge(2)
+myInfo.addAge(3)
+myInfo.addAge(4)
+myInfo.addAge(5)
+
+console.log(myInfo)
 /*
   04
 
@@ -85,6 +111,20 @@ request.addEventListener('readystatechange', () => {
       "metro", no singular.
 */
 
+myInfo.whoIAM = () => {
+  const { name, surname, age, weight, height, distanceWalked } = myInfo
+  let response = `Oi. Eu sou o ${name} ${surname}, tenho ${age} anos, ${height} metros de altura, peso ${weight} quilos e, só hoje, eu já caminhei ${distanceWalked} metros.`
+
+  if (myInfo.gender === 'female') {
+    return response.replace('ou o', 'ou a')
+  }
+
+  return response
+
+}
+
+console.log(myInfo.whoIAM())
+
 /*
   06
 
@@ -96,7 +136,17 @@ request.addEventListener('readystatechange', () => {
     valor truthy;
     - Faça isso até que 7 valores truthy sejam passados.
 */
+const verifyTruthness = value => {
+  const falsyValues = ['', 0, null, undefined, false, NaN]
+  
+  if (falsyValues.includes(value)) {
+    return false
+  }
 
+  return true 
+}
+
+console.log(verifyTruthness()) // Valores trufhy são quaisquer outros que não sejam falsy (undefined, NaN, 0, '', null, false)
 /*
   07
 
