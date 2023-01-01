@@ -15,6 +15,23 @@
     obter os dados do pokémon';
   - Teste também a verificação do item acima.
 */
+const request = new XMLHttpRequest()
+const url = `https://pokeapi.co/api/v2/pokemon/pikachu`
+request.open('GET', url)
+request.send()
+
+request.addEventListener('readystatechange', () => {
+  const sucessfullRequest = request.readyState === 4 && request.status === 200
+
+  if (sucessfullRequest) {
+    return console.log(request.responseText)
+  }
+
+  if (request.readyState === 4) {
+    console.log('Não foi possível obter os dados do pokemon.')
+  } // Eu posso remover esse log do if mas a cada vez que o primeiro if transicionar entre os estados 1,2 e 3 esse console vai ler lido e executado.
+})
+
 
 /*
   02
