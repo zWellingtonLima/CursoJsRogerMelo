@@ -67,22 +67,15 @@ const myInfo = {
   - A cada vez que o método é invocado, 1 deve ser somado à idade atual;
   - Após criar o método, adicione 5 anos à idade do objeto.
 */
-myInfo.addAge = (distance = 0, agePlus) => {
+myInfo.addAge = () => {
   myInfo.age++
-
-  if (distance) {
-    myInfo.distanceWalked += distance
-    myInfo.isWalking = true
-  }
 }
 
-myInfo.addAge(1)
-myInfo.addAge(2)
-myInfo.addAge(3)
-myInfo.addAge(4)
-myInfo.addAge(5)
+for(let i = 0; i < 5; i++) {
+  // myInfo.addAge()
+}
 
-console.log(myInfo)
+// console.log(myInfo.age)
 /*
   04
 
@@ -93,7 +86,18 @@ console.log(myInfo)
   - Após criar o método, faça a pessoa caminhar alguns metros, invocando o 
     método 4x, com diferentes metragens passadas por parâmetro.
 */
+myInfo.incrementDistance = distance => {
+  if (distance) {
+    myInfo.distanceWalked += distance
+    myInfo.isWalking = true
+  }
+}
 
+const metersWalked = [4, 11, 8, 70]
+
+metersWalked.forEach(meter => myInfo.incrementDistance(meter))
+
+// console.log(myInfo.distanceWalked, myInfo.isWalking)
 /*
   05
 
@@ -110,20 +114,21 @@ console.log(myInfo)
     - Se a quantidade de metros caminhados for 1, substitua "metros" por 
       "metro", no singular.
 */
+const getCorrectValue = (value, test, trufhyValue, falsyValue) => 
+  value === test ? trufhyValue : falsyValue 
 
-myInfo.whoIAM = () => {
-  const { name, surname, age, weight, height, distanceWalked } = myInfo
-  let response = `Oi. Eu sou o ${name} ${surname}, tenho ${age} anos, ${height} metros de altura, peso ${weight} quilos e, só hoje, eu já caminhei ${distanceWalked} metros.`
+myInfo.whoIAm = () => {
+  const { name, surname, age, gender, weight, height, distanceWalked } = myInfo
 
-  if (myInfo.gender === 'female') {
-    return response.replace('ou o', 'ou a')
-  }
-
-  return response
-
+  const correctGender = getCorrectValue(gender, 'male','o', 'a')
+  const agePluralOrSingular = getCorrectValue(age, 1, 'ano','anos')
+  const walkedMetersPluralOrSingular = getCorrectValue(distanceWalked, 1 ,'metro','metros')
+  const heightPluralOrSingular = getCorrectValue(height, 1 ,'metro','metros')
+  
+  return `Oi. Eu sou ${correctGender} ${name} ${surname}, tenho ${age} ${agePluralOrSingular}, ${height} ${heightPluralOrSingular} de altura, peso ${weight} quilos e, só hoje, eu já caminhei ${distanceWalked} ${walkedMetersPluralOrSingular}.`
 }
 
-console.log(myInfo.whoIAM())
+// console.log(myInfo.whoIAm())
 
 /*
   06
@@ -146,7 +151,20 @@ const verifyTruthness = value => {
   return true 
 }
 
-console.log(verifyTruthness()) // Valores trufhy são quaisquer outros que não sejam falsy (undefined, NaN, 0, '', null, false)
+// console.log(verifyTruthness()) // Valores trufhy são quaisquer outros que não sejam falsy (undefined, NaN, 0, '', null, false)
+
+// Outra forma de fazer é:
+const isTrufhy = value => Boolean(value)
+
+const falsyValues = ['', 0, null, undefined, false, NaN]
+const trufhyValues = [1, [], {}, 'Oi', true, '0', -1, 'false']
+
+const logTrufhyValue = falsyValues => console.log(isTrufhy(falsyValues))
+const logFalsyValue = trufhyValues => console.log(isTrufhy(trufhyValues))
+
+falsyValues.forEach(logFalsyValue)
+trufhyValues.forEach(logTrufhyValue)
+
 /*
   07
 
@@ -165,3 +183,37 @@ console.log(verifyTruthness()) // Valores trufhy são quaisquer outros que não 
 
   Dica: propriedades de objetos podem ser declaradas como strings.
 */
+
+const getBookInfo = bookName  => {
+  const booksNames = {
+     'A volta dos que não foram': {
+        totalPages: 24,
+        author: 'José da Silva',
+        publisher: 'TrucoGongs'
+     },
+     'Guabirados em Qrekhum': {
+        totalPages: 48,
+        author: 'Da Silva',
+        publisher: 'HerbertRicher'
+     },
+     'Jkafuy Lopan': {
+        totalPages: 62,
+        author: 'Silva José',
+        publisher: 'Pingolim Dourado'
+     }
+  }
+  
+  // if (bookName !== booksNames[bookName]) {
+  //   return booksNames
+  // } Eu poderia retornar um if caso o nome do livro não desse match com os que o objeto booksNames possui ou...
+  
+  // return booksNames[bookName] ? booksNames[bookName] : booksNames
+  
+  // Como undefined é um valor falsy, o ternário checa isso e caso seja, retorna todo o objeto (que é um valor Trufhy)
+  // Também posso fazer essa verificação do ternário apenas usando o return bookName invés de booksNames[bookName] pois se nenhum valor for passado por parâmetro a função retornaria undefined.
+
+  // Uso de curto circuito.
+  return booksNames[bookName] || booksNames
+}
+
+console.log(getBookInfo('A volta dos que não foram'))
