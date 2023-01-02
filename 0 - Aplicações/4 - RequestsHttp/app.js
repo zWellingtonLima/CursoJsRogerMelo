@@ -1,15 +1,15 @@
-const getTodos = () => {
+const getTodos = callback => {
   const request = new XMLHttpRequest()
 
   request.addEventListener('readystatechange', () => {
     const sucessfullRequest = request.readyState === 4 && request.status === 200
 
     if (sucessfullRequest) {
-      return console.log(request.responseText)
+      return callback(null, request.responseText)
     }
 
     if (request.readyState === 4) {
-      return console.log('Não foi possível obter os dados da requisição.')
+      return callback('Não foi possível obter os dados da requisição.', null)
     }
   })
 
@@ -17,4 +17,12 @@ const getTodos = () => {
   request.send()
 }
 
-getTodos()
+getTodos((error, data) => {
+  console.log('Callback Executado')
+
+  if (error) {
+    return console.log(error)
+  }
+
+  console.log(data)
+})
