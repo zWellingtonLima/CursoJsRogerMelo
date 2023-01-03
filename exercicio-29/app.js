@@ -12,24 +12,44 @@
     - Os requests devem ser sequenciais. Ou seja, um request só deve ser 
       executado quando o request anterior for finalizado.
 */
-const request = new XMLHttpRequest()
 
-request.addEventListener('readystatechange', () => {
-  const sucessfullRequest = request.status === 200 && request.readyState === 4
-  const failureRequest = request.readyState === 4
+const getPokemonData = (url, callback) => {
+  const request = new XMLHttpRequest()
 
-  if (sucessfullRequest) {
-    const dataParsed = JSON.parse(request.responseText)
-    return console.log(dataParsed.species.name)
-  }
+  request.addEventListener('readystatechange', () => {
+    const sucessfullRequest = request.status === 200 && request.readyState === 4
+    const failureRequest = request.readyState === 4
+  
+    if (sucessfullRequest) {
+      const dataParsed = JSON.parse(request.responseText)
+      callback(null, `Pokemon obtido: ${dataParsed.species.name}!`)
+      return
+    }
+  
+    if (failureRequest) {
+      callback('Os dados não puderam ser obtidos.', null)
+    }
+  })
 
-  if (failureRequest) {
-    return console.log('Os dados não puderam ser obtidos.')
-  }
+  request.open('GET', url)
+  request.send()
+}
+
+const bulbasaurUrl = 'https://pokeapi.co/api/v2/pokemon/bulbasaur'
+const charmanderUrl = 'https://pokeapi.co/api/v2/pokemon/charmander'
+const squirtleUrl = 'https://pokeapi.co/api/v2/pokemon/squirtle'
+
+getPokemonData(bulbasaurUrl, (error, data) => {
+  console.log(data)
+    getPokemonData(charmanderUrl, (error, data) => {
+      console.log(data)
+        getPokemonData(squirtleUrl, (error, data) => {
+          console.log(data)
+        })
+    })
 })
 
-request.open('GET', "https://pokeapi.co/api/v2/pokemon/pikachu")
-request.send()
+
 
 /*
   02
