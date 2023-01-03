@@ -35,21 +35,26 @@ const getPokemonData = (url, callback) => {
   request.send()
 }
 
-const bulbasaurUrl = 'https://pokeapi.co/api/v2/pokemon/bulbasaur'
-const charmanderUrl = 'https://pokeapi.co/api/v2/pokemon/charmander'
-const squirtleUrl = 'https://pokeapi.co/api/v2/pokemon/squirtle'
+// const bulbasaurUrl = 'https://pokeapi.co/api/v2/pokemon/bulbasaur'
+// const charmanderUrl = 'https://pokeapi.co/api/v2/pokemon/charmander'
+// const squirtleUrl = 'https://pokeapi.co/api/v2/pokemon/squirtle'
 
-getPokemonData(bulbasaurUrl, (error, data) => {
-  console.log(data)
-    getPokemonData(charmanderUrl, (error, data) => {
-      console.log(data)
-        getPokemonData(squirtleUrl, (error, data) => {
-          console.log(data)
-        })
-    })
+// getPokemonData(bulbasaurUrl, (error, data) => {
+//   console.log(data)
+//     getPokemonData(charmanderUrl, (error, data) => {
+//       console.log(data)
+//         getPokemonData(squirtleUrl, (error, data) => {
+//           console.log(data)
+//         })
+//     })
+// })
+
+const pokemonUrl = `https://pokeapi.co/api/v2/pokemon/`
+
+const pokemonsNames = ['bulbasaur', 'charmander', 'squirtle', 'pikachu']
+pokemonsNames.forEach((pokemon) => {
+  getPokemonData(pokemonUrl + pokemon, (error, data) => console.log(data))
 })
-
-
 
 /*
   02
