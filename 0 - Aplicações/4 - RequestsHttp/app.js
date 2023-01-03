@@ -5,7 +5,8 @@ const getTodos = callback => {
     const sucessfullRequest = request.readyState === 4 && request.status === 200
 
     if (sucessfullRequest) {
-      return callback(null, request.responseText)
+      const data = JSON.parse(request.responseText)
+      return callback(null, data)
     }
 
     if (request.readyState === 4) {
@@ -18,7 +19,7 @@ const getTodos = callback => {
 }
 
 getTodos((error, data) => {
-  console.log('Callback Executado')
+  // console.log('Callback Executado')
 
   if (error) {
     return console.log(error)

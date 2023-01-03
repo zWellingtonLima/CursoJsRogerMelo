@@ -12,6 +12,24 @@
     - Os requests devem ser sequenciais. Ou seja, um request só deve ser 
       executado quando o request anterior for finalizado.
 */
+const request = new XMLHttpRequest()
+
+request.addEventListener('readystatechange', () => {
+  const sucessfullRequest = request.status === 200 && request.readyState === 4
+  const failureRequest = request.readyState === 4
+
+  if (sucessfullRequest) {
+    const dataParsed = JSON.parse(request.responseText)
+    return console.log(dataParsed.species.name)
+  }
+
+  if (failureRequest) {
+    return console.log('Os dados não puderam ser obtidos.')
+  }
+})
+
+request.open('GET', "https://pokeapi.co/api/v2/pokemon/pikachu")
+request.send()
 
 /*
   02
