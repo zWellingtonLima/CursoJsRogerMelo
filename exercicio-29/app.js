@@ -75,6 +75,18 @@ pokemonsNames.forEach((pokemon) => {
     2) Pesquisar no MDN.
 */
 
+const mapMethodCopy = (array, func) => {
+  let newArray = []
+  const generateNewArray = item => newArray.push(func(item))
+  
+  array.forEach(generateNewArray)
+  
+  return newArray
+}
+
+// const arrayTest = [1,2,3]
+console.log(mapMethodCopy([4,8,12], (item) => item * 2 ))
+
 /*
   03
 
@@ -84,7 +96,7 @@ pokemonsNames.forEach((pokemon) => {
 
 const person = {
   name: 'Roger',
-  getName: () => this.name
+  // function getName()this.name
 }
 
 // console.log(person.getName())
