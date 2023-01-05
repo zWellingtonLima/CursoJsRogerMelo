@@ -96,7 +96,9 @@ console.log(mapMethodCopy([4,8,12], (item) => item * 2 ))
 
 const person = {
   name: 'Roger',
-  // function getName()this.name
+  getName: function (){
+    return this.name
+  }
 }
 
 // console.log(person.getName())
@@ -116,18 +118,13 @@ const x = 'x'
 /*
   05
 
-  - O código abaixo está funcionando. Refatore-o da forma mais concisa que você 
-    conseguir.
+  - O código abaixo está funcionando. Refatore-o da forma mais concisa que você conseguir.
 */
 
-const getFullName = (user) => {
-  const firstName = user.firstName
-  const lastName = user.lastName
+const getFullName = (firstName, lastName) => `${firstName} ${lastName}`
 
-  return `${firstName} ${lastName}`
-}
 
-console.log(getFullName({ firstName: 'Afonso', lastName: 'Solano' }))
+console.log(getFullName('Afonso','Solano'))
 
 /*
   06
@@ -143,7 +140,17 @@ console.log(getFullName({ firstName: 'Afonso', lastName: 'Solano' }))
   - Exiba o hexadecimal de 8 cores diferentes usando a função criada acima.
 */
 
+const convertToHex = colorName => {
+  const colorNames = [
+    { red: 'red', hex: '#ff0000' }, { blue: 'blue', hex: '#0000FF'}, {orange: 'orange', hex: '#ffa500'}
+  ]
 
+  if (colorNames){
+    return `O hexadecimal para a cor ${colorName} é ${colorNames['hex']}`
+  }
+}
+
+console.log(convertToHex('red'))
 /*
   07
 
