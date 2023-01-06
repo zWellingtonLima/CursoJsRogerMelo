@@ -96,9 +96,8 @@ console.log(mapMethodCopy([4,8,12], (item) => item * 2 ))
 
 const person = {
   name: 'Roger',
-  getName: function (){
-    return this.name
-  }
+  getName: () =>  person.name
+  
 }
 
 // console.log(person.getName())
@@ -113,7 +112,12 @@ const person = {
 */
 
 const x = 'x'
-// const x = 'y'
+const getX = () => {
+  const x = 'y'
+  return x
+}
+
+// Duas consts podem ser declaradas com o mesmo nome contanto que tenham o escopo diferente.
 
 /*
   05
@@ -121,10 +125,10 @@ const x = 'x'
   - O código abaixo está funcionando. Refatore-o da forma mais concisa que você conseguir.
 */
 
-const getFullName = (firstName, lastName) => `${firstName} ${lastName}`
+const getFullName = ({ firstName, lastName }) => `${firstName} ${lastName}`
 
 
-console.log(getFullName('Afonso','Solano'))
+console.log(getFullName({ firstName: 'Afonso', lastName: 'Solano' }))
 
 /*
   06
@@ -141,13 +145,21 @@ console.log(getFullName('Afonso','Solano'))
 */
 
 const convertToHex = colorName => {
-  const colorNames = [
-    { red: 'red', hex: '#ff0000' }, { blue: 'blue', hex: '#0000FF'}, {orange: 'orange', hex: '#ffa500'}
-  ]
-
-  if (colorNames){
-    return `O hexadecimal para a cor ${colorName} é ${colorNames['hex']}`
+  const colorNames = {
+   red: '#A31419',
+   green: '#10A337',
+   blue: '#4c91f0',
+   yellow: '#f0ea6f',
+   purple: '#8132a3',
   }
+
+  // if (!colorNames[color]){
+  //   return `A função não tem o equivalente hexadecimal para ${colorName}`
+  // }
+  
+  return colorNames[colorName] 
+    ? `O hexadecimal para a cor ${colorName} é ${colorNames[colorName]}` 
+    : `A função não tem o equivalente hexadecimal para ${colorName}.`
 }
 
 console.log(convertToHex('red'))
@@ -174,3 +186,11 @@ const people = [
   { id: 9 , name: 'Gabriel', age: 20, federativeUnit: 'São Paulo' },
   { id: 73, name: 'Aline', age: 19, federativeUnit: 'Brasília' }
 ]
+
+const createOrIncrementAgeFrequency = (acc, { age }) => {
+  acc[age] = acc[age] + 1 || 1
+  return acc
+}
+
+const ageFrequency = people.reduce(createOrIncrementAgeFrequency, {})
+console.log(ageFrequency)
