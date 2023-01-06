@@ -1,4 +1,6 @@
-const getTodos = callback => {
+const url = 'https://jsonplaceholder.typicode.com/todos'
+
+const getTodos = (url, callback) => {
   const request = new XMLHttpRequest()
 
   request.addEventListener('readystatechange', () => {
@@ -14,16 +16,17 @@ const getTodos = callback => {
     }
   })
 
-  request.open('GET', 'https://jsonplaceholder.typicode.com/todos')
+  request.open('GET', url)
   request.send()
 }
 
-getTodos((error, data) => {
-  // console.log('Callback Executado')
 
-  if (error) {
-    return console.log(error)
-  }
-
-  console.log(data)
-})
+// getTodos(url, (error, data) => {
+//   console.log(data)
+//   getTodos(url, (error, data) => {
+//     console.log(data)
+//     getTodos(url, (error, data) => {
+//       console.log(data)
+//     })
+//   })
+// }) Pyramid Hell - legibilidade ruim e manutenção complicada.
