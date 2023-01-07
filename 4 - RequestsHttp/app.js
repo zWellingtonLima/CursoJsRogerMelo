@@ -1,6 +1,6 @@
 const url = 'https://jsonplaceholder.typicode.com/todos'
 
-const getTodos = url => new Promisse((resolve, reject) => {
+const getPokemon = url => new Promisse((resolve, reject) => {
   const request = new XMLHttpRequest()
 
   request.addEventListener('readystatechange', () => {
@@ -21,8 +21,18 @@ const getTodos = url => new Promisse((resolve, reject) => {
   // Como alterações eu posso remover o uso do callback e fazer as verificações invocarem o resolve ou reject dependendo da situação.
 })
 
-getTodos('https://pokeapi.co/v2/pokemon/1')
-  .then(pokemon => console.log(pokemon))
+getPokemon('https://pokeapi.co/v2/pokemon/1')
+  .then(pokemon => {
+    console.log(pokemon)
+    return getPokemon('https://pokeapi.co/v2/pokemon/4')
+  })
+  .then(charmander => {
+    console.log(charmander)
+    return getPokemon('https://pokeapi.co/v2/pokemon/7')
+  })
+  .then(squirtle => {
+    console.log(squirtle)
+  })
   .catch(error => console.log(error))
 
 // getTodos(url, (error, data) => {
