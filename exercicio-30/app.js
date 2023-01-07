@@ -46,6 +46,25 @@ getUsers('https://jsonplaceholder.typicode.com/users')
   - Se o operador não for válido, retorne a mensagem "Operação inválida."
 */
 
+const getOperationMessage = (num1, num2, operator, expression) => `Resultado da operação: ${num1} ${operator} ${num2} = ${expression}.`
+
+const calculator = operator => (num1, num2) => {
+  const operations = {
+    '+' : getOperationMessage(num1, num2, operator, num1 + num2),
+    '-' : getOperationMessage(num1, num2, operator, num1 - num2),
+    '*' : getOperationMessage(num1, num2, operator, num1 * num2),
+    '/' : getOperationMessage(num1, num2, operator, num1 / num2),
+    '%' : getOperationMessage(num1, num2, operator, num1 % num2)
+  } // Essa função pode ficar mais concisa mas menos legível.
+
+  return operations[operator] || 'Operação inválida.'
+}
+
+const sum = calculator('+')
+const subtraction = calculator('-')
+console.log(sum(1, 1))
+console.log(subtraction(3,1))
+
 /*
   03
 
