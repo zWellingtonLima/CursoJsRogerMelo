@@ -8,6 +8,30 @@
     dados dos usuários."
 */
 
+const getUsers = url => new Promise((resolve, reject) => {
+  const request = new XMLHttpRequest()
+
+  request.addEventListener('readystatechange', () => {
+    const requestSuccessFull = request.readyState === 4 && request.status === 200
+    const requestNotSuccessFull = request.readyState === 4
+
+    if (requestSuccessFull) {
+      resolve(JSON.parse(request.responseText))
+    }
+    
+    if (requestNotSuccessFull) {
+      reject('Não foi possível obter os dados dos usuários.')
+    }                                                                                   
+  })
+  
+  request.open('GET', url)
+  request.send()
+}) 
+
+getUsers('https://jsonplaceholder.typicode.com/users')
+  .then(data => console.log(data))
+  .catch(error => console.log(error))
+
 /*
   02
 
