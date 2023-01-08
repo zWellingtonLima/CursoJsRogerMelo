@@ -55,10 +55,19 @@ const calculator = operator => (num1, num2) => {
     '*' : getOperationMessage(num1, num2, operator, num1 * num2),
     '/' : getOperationMessage(num1, num2, operator, num1 / num2),
     '%' : getOperationMessage(num1, num2, operator, num1 % num2)
-  } // Essa função pode ficar mais concisa mas menos legível.
+  } // Essa função pode ficar mais concisa mas menos legível e é feita na função de exemplo abaixo.
 
   return operations[operator] || 'Operação inválida.'
 }
+
+const calculatorEx = operator => (num1, num2) => ({
+    '+' : getOperationMessage(num1, num2, operator, num1 + num2),
+    '-' : getOperationMessage(num1, num2, operator, num1 - num2),
+    '*' : getOperationMessage(num1, num2, operator, num1 * num2),
+    '/' : getOperationMessage(num1, num2, operator, num1 / num2),
+    '%' : getOperationMessage(num1, num2, operator, num1 % num2)
+  })[operator] || `Operação inválida` // Dessa forma.
+
 
 const sum = calculator('+')
 const subtraction = calculator('-')
@@ -78,7 +87,17 @@ console.log(subtraction(3,1))
   - Crie um novo array chamado `newSul`, que recebe somente os estados do sul,
     pegando do array `brasil`. Não remova esses itens de `brasil`.
 */
+const sul = ['Rio Grande do Sul', 'Santa Catarina'];
+const sudeste = ['São Paulo', 'Rio de Janeiro'];
 
+const brasil = sul.concat(sudeste)
+console.log(brasil)
+
+brasil.unshift('Acre', 'Amazonas', 'Pará')
+console.log(brasil)
+console.log(brasil.shift())
+
+const newSul = brasil.slice(2, 3)
 /*
   04
 
