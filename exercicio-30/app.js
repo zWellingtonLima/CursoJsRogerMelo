@@ -29,8 +29,8 @@ const getUsers = url => new Promise((resolve, reject) => {
 }) 
 
 getUsers('https://jsonplaceholder.typicode.com/users')
-  .then(data => console.log(data))
-  .catch(error => console.log(error))
+  // .then(data => console.log(data))
+  // .catch(error => console.log(error))
 
 /*
   02
@@ -69,10 +69,10 @@ const calculatorEx = operator => (num1, num2) => ({
   })[operator] || `Operação inválida` // Dessa forma.
 
 
-const sum = calculator('+')
-const subtraction = calculator('-')
-console.log(sum(1, 1))
-console.log(subtraction(3,1))
+// const sum = calculator('+')
+// const subtraction = calculator('-')
+// console.log(sum(1, 1))
+// console.log(subtraction(3,1))
 
 /*
   03
@@ -90,12 +90,12 @@ console.log(subtraction(3,1))
 const sul = ['Rio Grande do Sul', 'Santa Catarina'];
 const sudeste = ['São Paulo', 'Rio de Janeiro'];
 
-const brasil = sul.concat(sudeste)
-console.log(brasil)
+let brasil = sul.concat(sudeste)
+// console.log(brasil)
 
 brasil.unshift('Acre', 'Amazonas', 'Pará')
-console.log(brasil)
-console.log(brasil.shift())
+// console.log(brasil.shift())
+// console.log(brasil)
 
 const newSul = brasil.slice(2, 3)
 /*
@@ -117,6 +117,18 @@ const newSul = brasil.slice(2, 3)
     every.
 */
 
+const nordeste = ['Ceará', 'Rio Grande do Norte', 'Piauí', 'Maranhão', 'Sergipe']
+const newSudeste = brasil.splice(4,2)
+brasil = brasil.concat(nordeste)
+
+
+const newBrasil = brasil.map((item, index) => ({ id: index, estado: item}) )
+
+console.log(newBrasil)
+const isStatesAbove7LettersEach = newBrasil.every(({ length }) => length > 7 )
+const message = isStatesAbove7LettersEach ? 'Sim, todos os estados tem mais de 7 letras.' : 'Nem todos os estados tem mais de 7 letras'
+
+console.log(message)
 /*
   05
 
@@ -130,3 +142,16 @@ const newSul = brasil.slice(2, 3)
   - Filtre o array criado acima, retornando somente os estados que tiverem ID 
     par. Atribua este novo array à uma constante.
 */
+
+const isCearaIncluded = brasil.includes('Ceará')
+console.log(isCearaIncluded ? 'Ceará está incluído.' : 'Ceará não foi incluído.')
+
+const otherNewBrasil = newBrasil.map((item, index) => ({
+    id: index + 1,
+    estado: `${item.estado } pertence ao Brasil`
+  })
+)
+console.log(otherNewBrasil)
+
+const evenIdStates = otherNewBrasil.filter(item => item.id % 2 === 0)
+console.log(evenIdStates)
