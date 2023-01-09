@@ -8,11 +8,23 @@
     do GitHub.
 */
 
-const fetchGitHubUser = username => fetch(`https://api.github.com/users/${username}`)
-  .then(response => response.json())
-  .then(user => console.log(user))
-  .catch(error => console.log(error))
+// const fetchGitHubUser = username => fetch(`https://api.github.com/users/${username}`)
+//   .then(response => response.json())
+//   .then(user => console.log(user))
+//   .catch(error => console.log(error))
 
+
+const fetchGitHubUserAsync = async username => {
+  const response = await fetch(`https://api.github.com/users/${username}`)
+  return await response.json()
+}
+
+const logGithubUser = async () => {
+  const user = await fetchGitHubUserAsync('zWellingtonLima')
+  console.log(user)
+}
+
+logGithubUser()
 // console.log(fetchGitHubUser('zWellingtonLima'))
 /*
   02
@@ -44,7 +56,7 @@ const pLanguage = syllable.reduce((acc, letter) => {
   return acc += 'P' + letter
 }, '')
 
-console.log(pLanguage)
+// console.log(pLanguage)
 /*
   04
 
@@ -61,9 +73,8 @@ console.log(pLanguage)
 */
 
 const nome = 'Lima' 
-const splitName = nome.split('').forEach((letter, index) => console.log(`${letter} é a ${index + 1}ª letra do meu nome;`))
+// const splitName = nome.split('').forEach((letter, index) => console.log(`${letter} é a ${index + 1}ª letra do meu nome;`))
 
-console.log(splitName)
 /*
   05
 
@@ -76,6 +87,12 @@ console.log(splitName)
 
   Dica: pesquise pelo método Object.keys().
 */
+const object = {
+  name: 'Objeto',
+  lastName: 'lastnameObject',
+  age: 24
+}
+// console.log(Object.keys(object))
 
 /*
   06
@@ -91,6 +108,10 @@ console.log(splitName)
 */
 
 const scores = [100, 90, 85, 100, 60, 85, 100, 90, 55, 75, 60]
+const checkFrequencyValue = (array, value) => {
+    
+
+}
 
 /*
   07
