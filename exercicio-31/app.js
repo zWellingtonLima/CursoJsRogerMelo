@@ -12,8 +12,8 @@ const fetchGitHubUser = username => fetch(`https://api.github.com/users/${userna
   .then(response => response.json())
   .then(user => console.log(user))
   .catch(error => console.log(error))
-  
-console.log(fetchGitHubUser('zWellingtonLima'))
+
+// console.log(fetchGitHubUser('zWellingtonLima'))
 /*
   02
 
@@ -23,7 +23,8 @@ console.log(fetchGitHubUser('zWellingtonLima'))
 */
 
 const numbers = [1, 2, 3, 4, 5, 6, 7, 8, 9, 10]
-
+const numbersDividedBy2And3 = numbers.filter(number => number % 2 || 3 === 0)
+// console.log(numbersDividedBy2And3)
 /*
   03
 
@@ -38,6 +39,12 @@ const numbers = [1, 2, 3, 4, 5, 6, 7, 8, 9, 10]
     - Rafaela => "PRaPfaPePla".
 */
 
+const syllable = ['li', 'ma']
+const pLanguage = syllable.reduce((acc, letter) => {
+  return acc += 'P' + letter
+}, '')
+
+console.log(pLanguage)
 /*
   04
 
@@ -53,6 +60,10 @@ const numbers = [1, 2, 3, 4, 5, 6, 7, 8, 9, 10]
   Dica: pesquise pelo método split.
 */
 
+const nome = 'Lima' 
+const splitName = nome.split('').forEach((letter, index) => console.log(`${letter} é a ${index + 1}ª letra do meu nome;`))
+
+console.log(splitName)
 /*
   05
 
