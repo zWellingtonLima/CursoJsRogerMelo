@@ -8,6 +8,12 @@
     do GitHub.
 */
 
+const fetchGitHubUser = username => fetch(`https://api.github.com/users/${username}`)
+  .then(response => response.json())
+  .then(user => console.log(user))
+  .catch(error => console.log(error))
+  
+console.log(fetchGitHubUser('zWellingtonLima'))
 /*
   02
 
