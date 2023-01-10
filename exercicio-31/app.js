@@ -77,7 +77,7 @@ const splitName = name => name
   .forEach((letter, index) => 
     console.log(`${letter} é a ${index + 1}ª letra do meu nome;`))
 
-  splitName(nome)
+  // splitName(nome)
 /*
   05
 
@@ -141,12 +141,16 @@ const checkFrequencyValue = (array, value) => array
 
 const filter = (array, func) => {
   let newArray = []
-  array.forEach((item, index) => {
-    if (func(item, index, array)) {
+
+  const filterItem = (item, index) => {
+    const itemShouldBeAdded = func(item, index, array)
+
+    if (itemShouldBeAdded) {
       newArray.push(item)
     }
-  })
+  }
 
+  array.forEach(filterItem)
   return newArray
 }
 
