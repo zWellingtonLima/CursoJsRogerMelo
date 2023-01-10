@@ -16,15 +16,14 @@
 
 const fetchGitHubUserAsync = async username => {
   const response = await fetch(`https://api.github.com/users/${username}`)
-  return await response.json()
+  return response.json()
 }
 
-const logGithubUser = async () => {
-  const user = await fetchGitHubUserAsync('zWellingtonLima')
-  console.log(user)
-}
+const logGithubUser = async username => 
+  console.log(await fetchGitHubUserAsync(username))
 
-logGithubUser()
+// logGithubUser('zWellingtonLima')
+
 // console.log(fetchGitHubUser('zWellingtonLima'))
 /*
   02
@@ -35,8 +34,9 @@ logGithubUser()
 */
 
 const numbers = [1, 2, 3, 4, 5, 6, 7, 8, 9, 10]
-const numbersDividedBy2And3 = numbers.filter(number => number % 2 || 3 === 0)
-// console.log(numbersDividedBy2And3)
+const getDivisibleBy2And3 = numbersArray =>
+  numbersArray.filter(number => number % 2 === 0 || number % 3 === 0) // Uso de curto circuito
+// console.log(getDivisibleBy2And3(numbers))
 /*
   03
 
@@ -52,11 +52,10 @@ const numbersDividedBy2And3 = numbers.filter(number => number % 2 || 3 === 0)
 */
 
 const syllable = ['li', 'ma']
-const pLanguage = syllable.reduce((acc, letter) => {
-  return acc += 'P' + letter
-}, '')
+const generatePLanguageName = array => 
+  array.reduce((acc, array) => acc += 'P' + array, '')
 
-// console.log(pLanguage)
+// console.log(generatePLanguageName(syllable))
 /*
   04
 
@@ -73,8 +72,12 @@ const pLanguage = syllable.reduce((acc, letter) => {
 */
 
 const nome = 'Lima' 
-// const splitName = nome.split('').forEach((letter, index) => console.log(`${letter} é a ${index + 1}ª letra do meu nome;`))
+const splitName = name => name
+  .split('')
+  .forEach((letter, index) => 
+    console.log(`${letter} é a ${index + 1}ª letra do meu nome;`))
 
+  splitName(nome)
 /*
   05
 
@@ -108,11 +111,10 @@ const object = {
 */
 
 const scores = [100, 90, 85, 100, 60, 85, 100, 90, 55, 75, 60]
-const checkFrequencyValue = (array, value) => {
-    
+const checkFrequencyValue = (array, value) => array
+  .reduce((acc, item) => value === item ? acc + 1 : acc, 0)
 
-}
-
+// console.log(checkFrequencyValue(scores, 100))
 /*
   07
 
@@ -136,3 +138,17 @@ const checkFrequencyValue = (array, value) => {
   Dica: lembre-se que o método filter inclui o item em questão no novo array 
   que está sendo gerado **apenas** se a função retorna um valor truthy.
 */
+
+const filter = (array, func) => {
+  let newArray = []
+  array.forEach((item, index) => {
+    if (func(item, index, array)) {
+      newArray.push(item)
+    }
+  })
+
+  return newArray
+}
+
+console.log(filter([1, 2, 3, 2, 1, 5], (item, index, array) =>
+index === array.indexOf(item))) // Verifica se o index do item que está sendo verificado é igual ao index DA PRIMEIRA OCORRÊNCIA desse item no array.
