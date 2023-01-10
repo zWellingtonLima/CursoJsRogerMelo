@@ -56,11 +56,10 @@
 //   .then(value => {console.log(value);})
 //   .catch(error => {}) Exemplo básico para treinar o uso teórico de Promisses.
 
-const getUser = async () => {
-  const response = await fetch('https://jsonplaceholder.typicode.com/users')
+const getUser = async () => await 
+  fetch('https://jsonplaceholder.typicode.com/users')
+  .then(response => response.json())
 
-  return await response.json()
-}
 
 const logUsers = async () => {
   const users =  await getUser()
