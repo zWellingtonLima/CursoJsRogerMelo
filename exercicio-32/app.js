@@ -21,5 +21,14 @@
   - Ignore os avisos no console. Para limpá-lo, pressione "ctrl + L".
 */
 
-const output = document.querySelector('.out');
-const button = document.querySelector('#btnSearch');
+const output = document.querySelector('.out')
+const button = document.querySelector('#btnSearch')
+const input = document.querySelector('#search')
+
+const key = 'zarPj3KF8ASc2KcOARYfP4fjXZTQkCM9'
+const url = `https://api.giphy.com/v1/gifs/search?api_key=${key}&limit=1&q=[VALOR_INSERIDO_NO_INPUT]`
+
+input.addEventListener('submit', e => {
+  e.preventDefault()
+  
+})
