@@ -32,3 +32,5 @@ input.addEventListener('submit', e => {
   e.preventDefault()
   
 })
+
+// const url = `https://api.giphy.com/v1/gifs/search?api_key=${key}&limit=1&q=[VALOR_INSERIDO_NO_INPUT]`
