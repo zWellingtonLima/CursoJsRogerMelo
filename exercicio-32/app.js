@@ -20,38 +20,27 @@
       listados na documentação: https://developers.giphy.com/docs/api/endpoint#search
   - Ignore os avisos no console. Para limpá-lo, pressione "ctrl + L".
 */
-
-const searchButton = document.querySelector('#btnSearch')
 const form = document.querySelector('form')
-const searchGif = document.querySelector('#search')
-const key = 'zarPj3KF8ASc2KcOARYfP4fjXZTQkCM9'
-const gifContainer = document.querySelector('.out img')
 
-const getGif = async (userSearch) => {
-  const response = await fetch(`https://api.giphy.com/v1/gifs/search?api_key=${key}&limit=1&q=${userSearch}`)
-
-  return await response.json()
-}
-
-const renderImage = (imageRendered) => {
-  const img = document.createElement('img')
-  img.setAttribute('src', imageRendered)
-  gifContainer.appendChild(img)
-}
-
-const showGif = async (userSearch) => {
-  const gif = await getGif(userSearch)
-  const imageRendered = gif.data[0].images.original.url
-
-  renderImage(imageRendered)
-
-}
-
-form.addEventListener('submit', e => {
+form.addEventListener('submit', async e => {
   e.preventDefault()
-  
-  const userSearch = form.search.value 
-  // const url = `https://api.giphy.com/v1/gifs/search?api_key=${key}&limit=1&q=${userSearch}`
-  
-  showGif(userSearch)
+
+  const inputValue = e.target.search.value
+  const APIKey = 'zarPj3KF8ASc2KcOARYfP4fjXZTQkCM9'
+  const url = `https://api.giphy.com/v1/gifs/search?api_key=${APIKey}&limit=1&q=${inputValue}`
+
+  try{
+    const response = await fetch(url)
+
+    if (!response.ok) {
+      throw new Error('Não foi possível obter os dados.')
+    }
+
+    const gifData = await response.json()
+    console.log(gifData)
+
+  } catch (error) {
+    alert(`Erro: ${error.message}`)
+  }
+
 })
