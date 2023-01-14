@@ -21,16 +21,37 @@
   - Ignore os avisos no console. Para limpá-lo, pressione "ctrl + L".
 */
 
-const output = document.querySelector('.out')
-const button = document.querySelector('#btnSearch')
-const input = document.querySelector('#search')
-
+const searchButton = document.querySelector('#btnSearch')
+const form = document.querySelector('form')
+const searchGif = document.querySelector('#search')
 const key = 'zarPj3KF8ASc2KcOARYfP4fjXZTQkCM9'
-const url = `https://api.giphy.com/v1/gifs/search?api_key=${key}&limit=1&q=[VALOR_INSERIDO_NO_INPUT]`
+const gifContainer = document.querySelector('.out img')
 
-input.addEventListener('submit', e => {
+const getGif = async (userSearch) => {
+  const response = await fetch(`https://api.giphy.com/v1/gifs/search?api_key=${key}&limit=1&q=${userSearch}`)
+
+  return await response.json()
+}
+
+const renderImage = (imageRendered) => {
+  const img = document.createElement('img')
+  img.setAttribute('src', imageRendered)
+  gifContainer.appendChild(img)
+}
+
+const showGif = async (userSearch) => {
+  const gif = await getGif(userSearch)
+  const imageRendered = gif.data[0].images.original.url
+
+  renderImage(imageRendered)
+
+}
+
+form.addEventListener('submit', e => {
   e.preventDefault()
   
+  const userSearch = form.search.value 
+  // const url = `https://api.giphy.com/v1/gifs/search?api_key=${key}&limit=1&q=${userSearch}`
+  
+  showGif(userSearch)
 })
-
-// const url = `https://api.giphy.com/v1/gifs/search?api_key=${key}&limit=1&q=[VALOR_INSERIDO_NO_INPUT]`
