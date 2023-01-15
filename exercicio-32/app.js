@@ -20,6 +20,7 @@
       listados na documentação: https://developers.giphy.com/docs/api/endpoint#search
   - Ignore os avisos no console. Para limpá-lo, pressione "ctrl + L".
 */
+
 const form = document.querySelector('form')
 
 form.addEventListener('submit', async e => {
@@ -37,10 +38,15 @@ form.addEventListener('submit', async e => {
     }
 
     const gifData = await response.json()
+    const downsizedGifUrl = gifData.data[0].images.downsized.url
+    const img = document.createElement('img')
+
+    img.setAttribute('src', downsizedGifUrl)
+    img.setAttribute('alt', gifData.data[0].title)
+
     console.log(gifData)
 
   } catch (error) {
     alert(`Erro: ${error.message}`)
   }
-
 })
