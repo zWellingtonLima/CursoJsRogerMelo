@@ -22,7 +22,7 @@
 */
 
 const form = document.querySelector('form')
-const gifsContainer = document.querySelector('div');
+const gifsContainer = document.querySelector('div')
 
 const APIKey = 'zarPj3KF8ASc2KcOARYfP4fjXZTQkCM9'
 
@@ -65,7 +65,6 @@ const insertGifIntoDom = async inputValue => {
     form.reset()
   }
 } 
-
 
 form.addEventListener('submit', e => {
   e.preventDefault()
