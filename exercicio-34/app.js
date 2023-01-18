@@ -11,7 +11,14 @@
   - Após implementar a função, implemente outra versão da função. Essa 2ª 
     versão deve fazer o mesmo que a função anterior faz, mas de forma diferente.
 */
+const getReversedString = string => string
+.split('')
+.reverse()
+.join('')
 
+const reversedString = string =>  string
+.split('')
+.reduce((acc, letter) => letter + acc, '')
 /*
   02
   
@@ -19,11 +26,7 @@
 */
 
 const numbers = [5, 20, 7, 32, 47, 15, 83, 91, 27, 33]
-let foundNumber = false
-
-if (numbers.includes(15)) {
-  foundNumber === true
-}
+const foundNumber = numbers.includes(15)
 
 // numbers.forEach(number => {
 //   if (number === 15) {
