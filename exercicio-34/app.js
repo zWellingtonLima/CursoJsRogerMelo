@@ -21,11 +21,15 @@
 const numbers = [5, 20, 7, 32, 47, 15, 83, 91, 27, 33]
 let foundNumber = false
 
-numbers.forEach(number => {
-  if (number === 15) {
-    foundNumber = true
-  }
-})
+if (numbers.includes(15)) {
+  foundNumber === true
+}
+
+// numbers.forEach(number => {
+//   if (number === 15) {
+//     foundNumber = true
+//   }
+// })
 
 console.log(foundNumber)
 
