@@ -4,6 +4,17 @@
   - Implemente uma função que recebe o nome da key de um item da localStorage 
     e retorna o valor da key parseado para objeto javascript.
 */
+const name = {
+  name: 'Lima',
+  age: 25
+}
+const myNameAsJSON = JSON.stringify(name)
+
+localStorage.setItem('name', myNameAsJSON)
+
+const getLocalStorageKey = key => console.log(JSON.parse(localStorage.getItem(key)))
+
+// getLocalStorageKey('name')
 
 /*
   02
@@ -18,11 +29,13 @@
   Dica: pesquise por valueAsNumber.
 */
 
-const input = document.querySelector('[data-js="input"]')
+// const input = document.querySelector('[data-js="input"]')
 
-input.addEventListener('input', event => {
-  console.log(event.target.value)
-})
+// input.addEventListener('input', event => {
+//   // ValueAsNumber impede que a atribuição desse input seja feita para string, por baixo dos panos.
+//   // console.log((event.target.value))
+//   console.log((event.target.valueAsNumber))
+// })
 
 /*
   03
@@ -39,28 +52,19 @@ input.addEventListener('input', event => {
     retornar 60 e a segunda invocação, 10.
 */
 
-function add100 (num) {
-  return num + 100
-}
+const add100 = num => num + 100
+const divByFive = num => num / 5
+const multiplyByThree = num => num * 3
+const multiplyFive = num => num * 5
+const addTen = num => num + 10
 
-function divByFive (num) {
-  return num / 5
-}
+//Preciso usar uma princípio de programação funcional. no caso, Pipe, onde é o encadeamento de funções organizadas para que o output de uma função seja o input da próxima.
+const combineOperations = (initValue, arrOfFuncs) => arrOfFuncs
+  .reduce((acc, func) => func(acc), initValue)
 
-function multiplyByThree (num) {
-  return num * 3
-}
 
-function multiplyFive (num) {
-  return num * 5
-}
-
-function addTen (num) {
-  return num + 10
-}
-
-// console.log(combineOperations(0, [add100, divByFive, multiplyByThree]))
-// console.log(combineOperations(0, [divByFive, multiplyFive, addTen]))
+console.log(combineOperations(0, [add100, divByFive, multiplyByThree]))
+console.log(combineOperations(0, [divByFive, multiplyFive, addTen]))
 
 /*
   04
@@ -93,6 +97,7 @@ const albums = [
   }
 ]
 
+// Esse é um novo objeto que, apesar de ter as mesmas propriedades e valores do objeto[1] do array, ocupa um espaço diferente na memória.
 const searchAlbum = {
   id: 975,
   title: 'Houses of the Holy',
@@ -101,9 +106,10 @@ const searchAlbum = {
   genre: 'Rock'
 }
 
-if (albums.includes(searchAlbum)) {
+if (albums.some(album => album.id === searchAlbum.id)) { // Fazer essa comparação usando includes é a mesma coisa de fazer {} === {}. um objeto é diferente do outro pois ambos ocupam espaços diferentes na memória.
   console.log(`${JSON.stringify(searchAlbum)} existe no array albums.`)
 }
+
 
 /*
   05
@@ -122,6 +128,11 @@ const obj = {
   prop8: { a: 'x', b: 'y' },
 }
 
+const objAsJSON = JSON.stringify(obj, null, 2)
+const objParsed = JSON.parse(objAsJSON)
+
+// Fazer uma cópia assim não funciona para todos os casos. Essa transformação possui desvantagens como a lentidão do processo de transformar tudo para JSON e depois parsear tudo novamente. Outra desvantagem é a questão de não ser possível incluir métodos dessa forma. Funções não são valores JSON válidos.
+
 /*
   06
 
@@ -132,6 +143,24 @@ const obj = {
 
   Dica: pesquise por Object.entries.
 */
+
+const createElement = (elementName, attributes) => {
+  const element = document.createElement(elementName)
+  const attributesAsArrays = Object.entries(attributes)
+
+  attributesAsArrays.forEach(([ key, value ]) => element.setAttribute(key, value))
+  
+  return element
+} 
+
+const input = createElement('input', {
+  type:'radio',
+  id1: 'input1',
+  name: 'main',
+  value: 'principal',
+  for: 'input1', 
+  'data-js': 'input1'
+})
 
 /*
   07
