@@ -35,6 +35,16 @@ const insertWeatherInfo = ({ LocalizedName, WeatherText, Temperature, WeatherIco
   cityTemperatureContainer.textContent = Temperature.Metric.Value
 }
 
+const checkLocalStorageCity = async () => {
+  const city = localStorage.getItem('lastCity')
+
+  if (city) {
+    const weatherInfo = await getWeatherData(city)
+    insertWeatherInfo(weatherInfo)
+    showCityCard(weatherInfo)
+  }
+}
+
 cityForm.addEventListener("submit", async (e) => {
   e.preventDefault()
   const inputValue = e.target.city.value
@@ -49,15 +59,5 @@ cityForm.addEventListener("submit", async (e) => {
 
   cityForm.reset()
 })
-
-const checkLocalStorageCity = async () => {
-  const city = localStorage.getItem('lastCity')
-
-  if (city) {
-    const weatherInfo = await getWeatherData(city)
-    insertWeatherInfo(weatherInfo)
-    showCityCard(weatherInfo)
-  }
-}
 
 checkLocalStorageCity()
