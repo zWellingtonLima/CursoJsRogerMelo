@@ -10,9 +10,9 @@
 
 const numbers = [50, 100, 50]
 
-const sum = (x, y, z) => x + y + z
+const sum = (x,y,z) => x + y + z
 
-console.log(sum(numbers))
+console.log(sum(...numbers))
 
 /*
   02
@@ -22,6 +22,9 @@ console.log(sum(numbers))
   - Utilizando (também) o spread operator, exiba no console o seu nome com 
     apenas a primeira letra maiúscula.
 */
+
+const name = 'lima'
+console.log([name[0].toUpperCase(), ...name.slice(1)].join(''))
 
 /*
   03
@@ -39,7 +42,7 @@ const obj = {
   b: 2
 }
 
-console.log(obj)
+// console.log(obj)
 
 /*
   04
@@ -63,7 +66,7 @@ const i = b => {
 const v = { k: 't' }
 
 i(v)
-console.log(v)
+// console.log(v)
 
 /*
   05
