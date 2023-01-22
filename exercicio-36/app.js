@@ -151,6 +151,8 @@ const oddNumbers = [51, 97, 65, 23]
       1º slide, o slide anterior deve ser exibido.
 */
 
-const carrousel = () => {
+const carouselContainer = document.querySelector('.carousel')
 
+const carrousel = () => {
+  let counter = 0
 }
