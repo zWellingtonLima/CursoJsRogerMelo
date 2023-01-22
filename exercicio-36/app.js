@@ -150,3 +150,7 @@ const oddNumbers = [51, 97, 65, 23]
     3 No passo 3.4, se o slide exibido atualmente não corresponder ao index do 
       1º slide, o slide anterior deve ser exibido.
 */
+
+const carrousel = () => {
+
+}
