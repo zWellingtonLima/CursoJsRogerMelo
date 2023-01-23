@@ -12,7 +12,7 @@ const numbers = [50, 100, 50]
 
 const sum = (x,y,z) => x + y + z
 
-console.log(sum(...numbers))
+// console.log(sum(...numbers))
 
 /*
   02
@@ -24,7 +24,7 @@ console.log(sum(...numbers))
 */
 
 const name = 'lima'
-console.log([name[0].toUpperCase(), ...name.slice(1)].join(''))
+// console.log([name[0].toUpperCase(), ...name.slice(1)].join(''))
 
 /*
   03
@@ -39,7 +39,8 @@ const randomNumber = Math.round(Math.random() * 100)
 
 const obj = {
   a: 1,
-  b: 2
+  b: 2,
+  ...(randomNumber > 50 ? { c: 3 } : { d: 4 })
 }
 
 // console.log(obj)
@@ -151,8 +152,36 @@ const oddNumbers = [51, 97, 65, 23]
       1º slide, o slide anterior deve ser exibido.
 */
 
-const carouselContainer = document.querySelector('.carousel')
+const nextButton = document.querySelector('[data-js="carousel__button--next"]')
+const slides = document.querySelectorAll('[data-js="carousel__item"]')
+const previousButton = document.querySelector('[data-js="carousel__button--prev"]')
 
-const carrousel = () => {
-  let counter = 0
-}
+let currentSlideIndex = 0
+
+nextButton.addEventListener('click', () => {
+  if (currentSlideIndex === slides.length - 1) {
+    currentSlideIndex = 0
+  } else {
+    currentSlideIndex++
+  }
+
+  slides.forEach(slide => {
+    slide.classList.remove('carousel__item--visible')
+  })
+
+  slides[currentSlideIndex].classList.add('carousel__item--visible')
+})
+
+previousButton.addEventListener('click', () => {
+  if (currentSlideIndex === 0) {
+    currentSlideIndex = 2
+  } else {
+    currentSlideIndex--
+  }
+
+  slides.forEach(slide => {
+    slide.classList.remove('carousel__item--visible')
+  })
+
+  slides[currentSlideIndex].classList.add('carousel__item--visible')
+})
