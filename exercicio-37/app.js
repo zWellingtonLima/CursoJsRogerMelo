@@ -11,27 +11,45 @@ class Animal {
   }
 }
 
+// class Rabbit extends Animal {
+//   constructor (name) {
+//     super(name)
+//     this.created = new Date()
+//   }
+// }
+
 class Rabbit extends Animal {
-  constructor (name) {
-    this.name = name
-    this.created = new Date()
-  }
-}
+   created = new Date()
+} // public class Fields usada. A subclasse herda as propriedades e métodos da classe pai e o objeto que essa subclasse criar vai ter essa propriedade única. 
 
-// let rabbit = new Rabbit('White Rabbit')
-
+let rabbit = new Rabbit('White Rabbit')
+console.log(rabbit)
 /*
   02
 
-  - Descomente o código abaixo e implemente o que está faltando para que ele 
-    funcione.
+  - Descomente o código abaixo e implemente o que está faltando para que ele funcione.
 */
 
-// const counter = new Counter()
+class Counter {
+  constructor () {
+    this.value = 0
+  }
 
-// counter.getValue()
-// counter.increment()
-// counter.getValue()
+  getValue () {
+    return this.value
+  }
+
+  increment () {
+    this.value++
+  }
+}
+
+const counter = new Counter()
+
+counter.getValue()
+counter.increment()
+counter.getValue()
+console.log(counter)
 
 /*
   03
@@ -50,74 +68,79 @@ const values = [
   () => {}
 ]
 
+// const Boolean = value => // return Boolean
+
+const trufhyValue = values.filter(Boolean)
+console.log(trufhyValue)
+
 /*
   04
 
-  - O código abaixo deveria exibir no console, à cada segundo, uma string com 
-    as horas minutos e segundos, no seguinte formato: "h:m:s" onde "h" 
+  - O código abaixo deveria exibir no console, à cada segundo, uma string com as horas minutos e segundos, no seguinte formato: "h:m:s" onde "h" 
     representa as horas, "m" os minutos e "s" os segundos. Exemplo: "22:01:25";
   - Descomente o código e conserte os erros que estão impedindo que ele 
     funcione.
 */
 
-// class Clock {
-//   constructor ({ template }) {
-//     this.template = template
-//   }
+class Clock {
+  constructor ({ template }) {
+    this.template = template
+    this.timer = timer
+  }
 
-//   render () {
-//     const date = new Date()
-//     let hours = date.getHours()
-//     let minutes = date.getMonth()
-//     let seconds = date.getSeconds()
+  render () {
+    const date = new Date()
+    const hours = date.getHours()
+    const minutes = date.getMinutes()
+    const seconds = date.getSeconds()
 
-//     if (hours < 10) {
-//       hours = `0${hours}`
-//     }
+    if (hours < 10) {
+      hours = `0${hours}`
+    }
 
-//     if (minutes < 10) {
-//       minutes = `0${minutes}`
-//     }
+    if (minutes < 10) {
+      minutes = `0${minutes}`
+    }
 
-//     if (seconds < 10) {
-//       seconds = `0${seconds}`
-//     }
+    if (seconds < 10) {
+      seconds = `0${seconds}`
+    }
 
-//     const formattedTime = this.template
-//       .replace('h', hours)
-//       .replace('m', minutes)
-//       .replace('s', seconds)
+    const formattedTime = this.template
+      .replace('h', hours)
+      .replace('m', minutes)
+      .replace('s', seconds)
 
-//     console.log(formattedTime)
-//   }
+    console.log(formattedTime)
+  }
 
-//   start () {
-//     this.render()
-//     this.timer = setInterval(() => this.render(), 1000)
-//   }
+  start () {
+    this.render()
+    this.timer = setInterval(() => this.render(), 1000)
+  }
 
-//   stop () {
-//     clearInterval(this.timer)
-//   }
-// }
+  stop () {
+    clearInterval(this.timer)
+  }
+}
 
-// class ExtendedClock extends Clock {
-//   constructor ({ options }) {
-//     super(options)
+class ExtendedClock extends Clock {
+  constructor (options) {
+    super(options)
     
-//     let { precision = 1000 } = options
-//     this.precision = precision
-//   }
+    let { precision = 1000 } = options
+    this.precision = precision
+  }
 
-//   start () {
-//     this.render()
-//     this.timer = setInterval(() => this.render(), this.precision)
-//   }
-// }
+  start () {
+    this.render()
+    this.timer = setInterval(() => this.render(), this.precision)
+  }
+}
 
-// const clock = ExtendedClock({ template: 'h:m:s', precision: 1000 })
+const clock = new ExtendedClock({ template: 'h:m:s', precision: 1000 })
 
-// clock.start()
+clock.start()
 
 /*
   05
