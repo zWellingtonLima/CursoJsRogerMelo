@@ -82,6 +82,10 @@ console.log(trufhyValue)
     funcione.
 */
 
+// A função recebe como parâmetro todas as unidades de tempo e retorna-as já formatadas.
+const formatTimeUnits = units => units
+  .map(unit => unit < 10 ? `0${unit}` : unit)
+
 class Clock {
   constructor ({ template }) {
     this.template = template
@@ -93,12 +97,13 @@ class Clock {
     const minutes = date.getMinutes()
     const seconds = date.getSeconds()
 
-    const getFormattedTime = time => time < 10 ? `0${time}` : time
+    const [hoursFormatted, minutesFormatted, secondsFormatted] = 
+      formatTimeUnits([hours, minutes, seconds])
 
     const formattedTime = this.template
-      .replace('h', getFormattedTime(hours))
-      .replace('m', getFormattedTime(minutes))
-      .replace('s', getFormattedTime(seconds))
+      .replace('h', hoursFormatted)
+      .replace('m', minutesFormatted)
+      .replace('s', secondsFormatted)
 
     console.log(formattedTime)
   }
@@ -129,7 +134,7 @@ class ExtendedClock extends Clock {
 
 const clock = new ExtendedClock({ template: 'h:m:s', precision: 1000 })
 
-clock.start()
+// clock.start()
 
 /*
   05
