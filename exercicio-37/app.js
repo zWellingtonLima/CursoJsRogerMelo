@@ -158,7 +158,17 @@ const clock = new ExtendedClock({ template: 'h:m:s', precision: 1000 })
     caracteres que o textarea contém.
 */
 
+const textArea = document.querySelector('[data-js="textarea"]')
+const counterParagraph = document.querySelector('[data-js="paragraph"]')
 
+const showCounterParagraph = () => {
+  const currentLength = e.target.value.length
+  const maxLengthAllowed = e.target.getAttribute('maxlength')
+
+  counterParagraph.textContent = `${currentLength}/${maxLengthAllowed}`
+}
+
+textArea.addEventListener('input', e => showCounterParagraph)
 
 /*
   06
