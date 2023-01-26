@@ -196,3 +196,15 @@ textArea.addEventListener('input', e => showCounterParagraph)
     vídeo de correção dos exercícios um link para a aula de introdução ao 
     reduce e um link para a documentação do método no MDN.
 */
+
+const reduce = (arr, func, initialValue) => {
+  let acc = initialValue
+  
+  arr.forEach((item, index, array) => {
+    acc = func(acc, item, index, array)
+  })
+
+  return acc
+}
+
+console.log(reduce([1, 2, 3], (acc, item) => acc + item, 0))
