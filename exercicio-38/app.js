@@ -22,7 +22,7 @@ let fusca = Object.create(carProto)
 fiatUno.color = 'verde'
 fusca.color = 'rosa'
 
-console.log(fiatUno.getColor(), fusca.getColor());
+// console.log(fiatUno.getColor(), fusca.getColor())
 
 /*
   02
@@ -46,7 +46,7 @@ function getSummary () {
   return `${this.title} foi dirigido por ${this.director} e tem ${this.starringRole} no papel principal.`
 }
 
-console.log(getSummary())
+// console.log(getSummary.call(movie)) // Essa função está sendo invocada como uma função e não como o método de um objeto, logo, o window é o objeto referenciado por ela. O valor do this dentro da função depende de como a função é invocada. Pra fazer o this referenciar o objeto que eu quiser basta eu usar o call()
 
 /*
   03
@@ -60,7 +60,11 @@ console.log(getSummary())
   - Descomente o código e crie a função.
 */
 
-/*
+const arrayToObj = arr => arr.reduce((acc, [key, value]) => {
+  acc[key] = value
+  return acc
+}, {})
+
 console.log(
   arrayToObj([
     ['prop1', 'value1'], 
@@ -68,7 +72,7 @@ console.log(
     ['prop3', 'value3']
   ])
 )
-*/
+
 
 /*
   04
