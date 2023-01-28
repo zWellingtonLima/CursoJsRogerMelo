@@ -10,7 +10,19 @@
   - Teste o método getColor do prototype dos carros.
 */
 
+const carProto = {
+  getColor () {
+    return this.color //Esse this é usado aqui pois ele referencia o objeto no qual a invocação do método getColot for encadeada. Obs1: ele só está referenciado o novo objeto criado porque ele está dentro de uma abreviação de uma function declaration. 
+  }
+}
 
+let fiatUno = Object.create(carProto)
+let fusca = Object.create(carProto)
+
+fiatUno.color = 'verde'
+fusca.color = 'rosa'
+
+console.log(fiatUno.getColor(), fusca.getColor());
 
 /*
   02

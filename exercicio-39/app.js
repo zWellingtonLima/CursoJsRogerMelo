@@ -18,9 +18,9 @@
 
 const numbers = [50, 100, 50]
 
-const sum = (x, y, z) => x + y + z
+const sum = (...array) => x + y + z
 
-console.log(sum(...numbers))
+console.log(sum(numbers))
 
 /*
   02
