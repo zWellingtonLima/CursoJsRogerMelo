@@ -60,10 +60,12 @@ function getSummary () {
   - Descomente o código e crie a função.
 */
 
-const arrayToObj = arr => arr.reduce((acc, [key, value]) => {
+const createObj = (acc, [key, value]) => {
   acc[key] = value
   return acc
-}, {})
+}
+
+const arrayToObj = arr => arr.reduce(createObj, {})
 
 console.log(
   arrayToObj([
@@ -101,6 +103,22 @@ const getFormattedTime = template => {
     .map((_, index) => formattedTime[index])
     .join(':')
 }
+
+const makeClock = ({ template }) => ({
+  template,
+  render () {
+    const formattedTime = getFormattedTime(this.render) // O this vai referenciar o objeto ao qual o método está encadeado.
+  },
+  start () {
+    const oneSecond = 1000
+
+    this.render()
+    this.timer = setInterval(() => this.render(), oneSecond)
+  },
+  stop () {
+    clearInterval(this.timer)
+  }
+})
 
 class Clock {
   constructor ({ template }) {
