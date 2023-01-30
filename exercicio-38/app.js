@@ -67,13 +67,13 @@ const createObj = (acc, [key, value]) => {
 
 const arrayToObj = arr => arr.reduce(createObj, {})
 
-console.log(
-  arrayToObj([
-    ['prop1', 'value1'], 
-    ['prop2', 'value2'],
-    ['prop3', 'value3']
-  ])
-)
+// console.log(
+//   arrayToObj([
+//     ['prop1', 'value1'], 
+//     ['prop2', 'value2'],
+//     ['prop3', 'value3']
+//   ])
+// )
 
 
 /*
@@ -107,7 +107,8 @@ const getFormattedTime = template => {
 const makeClock = ({ template }) => ({
   template,
   render () {
-    const formattedTime = getFormattedTime(this.render) // O this vai referenciar o objeto ao qual o método está encadeado.
+    const formattedTime = getFormattedTime(this.template) // O this vai referenciar o objeto ao qual o método está encadeado.
+    console.log(formattedTime)
   },
   start () {
     const oneSecond = 1000
@@ -120,45 +121,18 @@ const makeClock = ({ template }) => ({
   }
 })
 
-class Clock {
-  constructor ({ template }) {
-    this.template = template
-  }
-
-  render () {
-    const formattedTime = getFormattedTime(this.template)
-    console.log(formattedTime)
-  }
-
-  start () {
-    const oneSecond = 1000
-
-    this.render()
-    this.timer = setInterval(() => this.render(), oneSecond)
-  }
-
-  stop () {
-    clearInterval(this.timer)
-  }
-}
-
-class ExtendedClock extends Clock {
-  constructor (options) {
-    super(options)
-    
-    const { precision = 1000 } = options
-    this.precision = precision
-  }
-
+const makeExtendedClock = ({ template, precision = 1000}) => ({
+  precision,
+  ...makeClock({ template }),
   start () {
     this.render()
     this.timer = setInterval(() => this.render(), this.precision)
   }
-}
+})
 
-const clock = new ExtendedClock({ template: 'h:m:s', precision: 1000 })
-
-// clock.start()
+const clock = makeExtendedClock({ template: 'h:m:s', precision: 1000 })
+clock.start()
+clock.stop()
 
 /*
   05
