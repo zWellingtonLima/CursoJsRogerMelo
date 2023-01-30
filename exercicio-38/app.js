@@ -173,7 +173,14 @@ clock.stop()
         - download, com o valor 'table.csv'.
 */
 
+const downloadButton = document.querySelector('[data-js="export-table-btn"]')
+const tableContent = document.querySelectorAll('tr')
 
+downloadButton.addEventListener('click', () => {
+
+  console.log(Array.from(tableContent).map(row => Array.from(row.cells).map(cell => cell.textContent)))
+  
+})
 
 /*
   06
