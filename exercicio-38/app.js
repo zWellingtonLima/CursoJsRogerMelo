@@ -173,14 +173,33 @@ clock.stop()
         - download, com o valor 'table.csv'.
 */
 
-const downloadButton = document.querySelector('[data-js="export-table-btn"]')
-const tableContent = document.querySelectorAll('tr')
+const exportBtn = document.querySelector('[data-js="export-table-btn"]')
+const tableRows = document.querySelectorAll('tr')
+// Outra forma de converter o arrayLike que a tableRows armazena é usar o spread para espalhar os itens dele (...tableRows).
+const getCellsText = ({ textContent }) => textContent
 
-downloadButton.addEventListener('click', () => {
+const getStringWithCommas = ({ cells }) => Array.from(cells)
+.map(getCellsText)
+.join(",")
 
-  console.log(Array.from(tableContent).map(row => Array.from(row.cells).map(cell => cell.textContent)))
-  
-})
+const createCSVString = () => Array.from(tableRows)
+    .map(getStringWithCommas)
+    .join("\n")
+
+const setCSVDownload = CSVString => {
+  const CSVURI = `data:text/csvcharset=utf-8,${encodeURIComponent(CSVString)}`
+
+  exportBtn.setAttribute('href', CSVURI)
+     //Data URL é um tipo de url que permite que eu incorpore arquivos embutidos no meu HTML. Eu uso o método ado window encodeURIComponent para ele codificar os caracteres que possuem acentuação para que eles sejam suportados.
+  exportBtn.setAttribute('download', 'table.csv') // Esse método não deve ser usado quando tiver dados sensíveis pois apenas repousando o mouse sobre o link todo conteúdo existente no arquivo é exibido sob o cursor.
+}
+
+const exportTable = () => {
+  const CSVString = createCSVString()
+  setCSVDownload(CSVString)
+}
+
+exportBtn.addEventListener('click', exportTable)
 
 /*
   06
