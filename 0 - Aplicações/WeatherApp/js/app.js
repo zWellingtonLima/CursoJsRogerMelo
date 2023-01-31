@@ -45,7 +45,7 @@ const checkLocalStorageCity = async () => {
   }
 }
 
-cityForm.addEventListener("submit", async (e) => {
+const handleCityForm = async (e) => {
   e.preventDefault()
   const inputValue = e.target.city.value
 
@@ -58,6 +58,8 @@ cityForm.addEventListener("submit", async (e) => {
   localStorage.setItem('lastCity', inputValue)
 
   cityForm.reset()
-})
+}
+
+cityForm.addEventListener("submit", handleCityForm)
 
 checkLocalStorageCity()
