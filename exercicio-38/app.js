@@ -131,8 +131,8 @@ const makeExtendedClock = ({ template, precision = 1000}) => ({
 })
 
 const clock = makeExtendedClock({ template: 'h:m:s', precision: 1000 })
-clock.start()
-clock.stop()
+// clock.start()
+// clock.stop()
 
 /*
   05
@@ -199,7 +199,7 @@ const exportTable = () => {
   setCSVDownload(CSVString)
 }
 
-exportBtn.addEventListener('click', exportTable)
+// exportBtn.addEventListener('click', exportTable)
 
 /*
   06
@@ -257,3 +257,19 @@ exportBtn.addEventListener('click', exportTable)
   PS: o desafio aqui é você implementar essa aplicação sozinho(a), antes 
   de ver as próximas aulas, ok? =)
 */
+
+const APIKey = '1a12cce673f9a34231d428a3'
+
+// const fetchExchangeRate = async () => {
+//   const response = await fetch(`https://v6.exchangerate-api.com/v6/${APIKey}`)
+//   return console.log(response)
+// }
+
+// fetchExchangeRate()
+   
+const firstCurrencySelect = document.querySelector('[data-js="currency-one"]')
+
+const arrayTest = ['1', '2', '3']
+
+firstCurrencySelect.innerHTML = `<option>${'a'}</option>`
+const template = ``
