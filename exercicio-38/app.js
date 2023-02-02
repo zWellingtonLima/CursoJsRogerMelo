@@ -261,15 +261,12 @@ const exportTable = () => {
 const APIKey = '1a12cce673f9a34231d428a3'
 
 // const fetchExchangeRate = async () => {
-//   const response = await fetch(`https://v6.exchangerate-api.com/v6/${APIKey}`)
-//   return console.log(response)
+//   await fetch(`https://v6.exchangerate-api.com/v6/${APIKey}`)
 // }
-
-// fetchExchangeRate()
    
 const firstCurrencySelect = document.querySelector('[data-js="currency-one"]')
+const secondCurrencySelect = document.querySelector('[data-js="currency-two"]')
 
-const arrayTest = ['1', '2', '3']
-
-firstCurrencySelect.innerHTML = `<option>${'a'}</option>`
-const template = ``
+firstCurrencySelect.addEventListener('click', e => {
+  console.log(e)
+})
