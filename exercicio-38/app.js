@@ -258,15 +258,19 @@ const exportTable = () => {
   de ver as próximas aulas, ok? =)
 */
 
-const APIKey = '1a12cce673f9a34231d428a3'
+const firstCurrencyEl = document.querySelector('[data-js="currency-one"]')
+const secondCurrencyEl = document.querySelector('[data-js="currency-two"]')
 
-// const fetchExchangeRate = async () => {
-//   await fetch(`https://v6.exchangerate-api.com/v6/${APIKey}`)
-// }
-   
-const firstCurrencySelect = document.querySelector('[data-js="currency-one"]')
-const secondCurrencySelect = document.querySelector('[data-js="currency-two"]')
+const url = 'https://v6.exchangerate-api.com/v6/1fdb9b688310bf2f8705b891/latest/USD'
 
-firstCurrencySelect.addEventListener('click', e => {
-  console.log(e)
-})
+const fetchExchangeRate = async () => {
+  try {
+    const response = await fetch(url)
+    console.log(response.json())
+
+  } catch(err) {
+    console.log(err)
+  }
+}
+
+fetchExchangeRate()
