@@ -266,16 +266,25 @@ const url = 'https://v6.exchangerate-api.com/v6/1fdb9b688310bf2f8705b891/latest/
 const option = `<option>oi</option>`
 $secondCurrency.innerHTML = option
 
+const getErrorMessage = errorType => ({
+  'unsupported-code': 'A moeda não existe em nosso banco de dados.',
+  'base-code-only-on-pro':'Seu plano não permite alterar a moeda base para a escolhida.',
+  'malformed-request':'O tipo da requisição precisa seguir o moedelo a seguir: https://v6.exchangerate-api.com/v6/APIKey/latest/USD',
+  'invalid-key':'A chave da API não é válida.',
+  'quota-reached':'Quantidade máxima de conversões atingidas para o plano atual.',
+  'not-available-on-plan':'O plano atual não suporta esse tipo de requisição.'
+})[errorType] 
+
 const fetchExchanteRate = async () => {
   try { 
     const response = await fetch(url)
     const exchangeRateData = await response.json()
 
     if (exchangeRateData.result === 'error'){
-      throw new Error('Não foi possível obter as informações')
+      throw new Error(getErrorMessage(exchangeRateData['error-type']))
     }
   } catch(err) {
-    console.log(err)
+    alert(err)
   }
 }
 
