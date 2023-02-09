@@ -258,38 +258,43 @@ const exportTable = () => {
   de ver as próximas aulas, ok? =)
 */
 
-const $firstCurrency = document.querySelector('[data-js="currency-one"]')
-const $secondCurrency = document.querySelector('[data-js="currency-two"]')
+// const $firstCurrency = document.querySelector('[data-js="currency-one"]')
+// const $secondCurrency = document.querySelector('[data-js="currency-two"]')
 
 const url = 'https://v6.exchangerate-api.com/v6/1fdb9b688310bf2f8705b891/latest/USD'
 
-const option = `<option>oi</option>`
-$secondCurrency.innerHTML = option
+// const option = `<option>oi</option>`
+// $secondCurrency.innerHTML = option
 
 const getErrorMessage = errorType => ({
   'unsupported-code': 'A moeda não existe em nosso banco de dados.',
   'base-code-only-on-pro':'Seu plano não permite alterar a moeda base para a escolhida.',
-  'malformed-request':'O tipo da requisição precisa seguir o moedelo a seguir: https://v6.exchangerate-api.com/v6/APIKey/latest/USD',
+  'malformed-request':'O tipo da requisição precisa seguir o modelo a seguir: https://v6.exchangerate-api.com/v6/APIKey/latest/USD',
   'invalid-key':'A chave da API não é válida.',
   'quota-reached':'Quantidade máxima de conversões atingidas para o plano atual.',
   'not-available-on-plan':'O plano atual não suporta esse tipo de requisição.'
-})[errorType] 
+})[errorType] || 'Não foi possível obter as informações.'
 
 const fetchExchanteRate = async () => {
   try { 
     const response = await fetch(url)
+
+    if (!response.ok) {
+      throw new Error('Sua conexão falhou. Não foi possível obter as informações.')
+    }
+
     const exchangeRateData = await response.json()
 
     if (exchangeRateData.result === 'error'){
       throw new Error(getErrorMessage(exchangeRateData['error-type']))
     }
   } catch(err) {
-    alert(err)
+    alert(err.message)
   }
-}
+} 
 
 fetchExchanteRate()
 
-$secondCurrency.addEventListener('click', (e) => {
-  console.log(e);
-})
+// $secondCurrency.addEventListener('click', (e) => {
+//   console.log(e);
+// })
