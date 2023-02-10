@@ -290,6 +290,18 @@ const fetchExchanteRate = async () => {
     }
   } catch(err) {
     alert(err.message)
+    const div = document.createElement('div')
+    const button = document.createElement('button')
+
+    div.textContent = err.message
+    div.classList.add('alert', 'alert-warning', 'alert-dismissible', 'fade', 'show')
+    button.classList.add('btn-close')
+
+    div.appendChild(button)
+    // <div class="alert alert-warning alert-dismissible fade show" role="alert">
+    // Mensagem do erro
+    // <button type="button" class="btn-close" aria-label="Close"></button>
+    // </div>
   }
 } 
 
