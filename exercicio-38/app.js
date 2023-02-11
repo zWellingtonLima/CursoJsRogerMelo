@@ -265,7 +265,7 @@ const $timesCurrency = document.querySelector('[data-js="currency-one-times"]')
 
 let internalExchangeRate = {}
 
-const url = 'https://v6.exchangerate-api.com/v6/1fdb9b688310bf2f8705b891/latest/USD'
+const getUrl = currency => `https://v6.exchangerate-api.com/v6/1fdb9b688310bf2f8705b891/latest/${currency}`
 
 const getErrorMessage = errorType => ({
   'unsupported-code': 'A moeda não existe em nosso banco de dados.',
@@ -276,7 +276,7 @@ const getErrorMessage = errorType => ({
   'not-available-on-plan':'O plano atual não suporta esse tipo de requisição.'
 })[errorType] || 'Não foi possível obter as informações.'
 
-const fetchExchanteRate = async () => {
+const fetchExchanteRate = async url => {
   try { 
     const response = await fetch(url)
 
@@ -313,19 +313,17 @@ const fetchExchanteRate = async () => {
 } 
 
 const init = async () => {
-  const exchangeRateData = await fetchExchanteRate()
-  
-  internalExchangeRate = { ...exchangeRateData }
+  internalExchangeRate = { ...(await fetchExchanteRate(getUrl('USD'))) }
 
-  const getOptions = selectedCurrency => Object.keys(exchangeRateData.conversion_rates)
+  const getOptions = selectedCurrency => Object.keys(internalExchangeRate.conversion_rates)
     .map(currency => `<option ${currency === selectedCurrency ? 'selected' : ''}>${currency}</option>`)
     .join('')
   
   $firstCurrency.innerHTML = getOptions('USD')
   $secondCurrency.innerHTML = getOptions('BRL')
 
-  $convertedValue.textContent = exchangeRateData.conversion_rates.BRL.toFixed(2)
-  $valuePrecision.textContent = `1 USD = ${exchangeRateData.conversion_rates.BRL} BRL`
+  $convertedValue.textContent = internalExchangeRate.conversion_rates.BRL.toFixed(2)
+  $valuePrecision.textContent = `1 USD = ${internalExchangeRate.conversion_rates.BRL} BRL`
 }
 
 $timesCurrency.addEventListener('input', e => {
@@ -336,7 +334,14 @@ $secondCurrency.addEventListener('input', e => {
   const currencyTwoValue = (internalExchangeRate.conversion_rates[e.target.value])
   
   $convertedValue.textContent = ($timesCurrency.value * currencyTwoValue).toFixed(2)
-  $valuePrecision.textContent = `1 USD = ${1 * internalExchangeRate.conversion_rates[$secondCurrency.value]} ${$secondCurrency.value}`
+  $valuePrecision.textContent = `1 ${$firstCurrency.value} = ${1 * internalExchangeRate.conversion_rates[$secondCurrency.value]} ${$secondCurrency.value}`
+})
+
+$firstCurrency.addEventListener('input', async e => {
+  internalExchangeRate = { ...(await fetchExchanteRate(getUrl(e.target.value))) }
+
+  $convertedValue.textContent = ($timesCurrency.value * internalExchangeRate.conversion_rates[$secondCurrency.value]).toFixed(2)
+  $valuePrecision.textContent = `1 ${$firstCurrency.value} = ${1 * internalExchangeRate.conversion_rates[$secondCurrency.value]} ${$secondCurrency.value}`
 })
 
 init()
