@@ -332,4 +332,11 @@ $timesCurrency.addEventListener('input', e => {
   $convertedValue.textContent = (e.target.value * internalExchangeRate.conversion_rates[$secondCurrency.value]).toFixed(2)
 })
 
+$secondCurrency.addEventListener('input', e => {
+  const currencyTwoValue = (internalExchangeRate.conversion_rates[e.target.value])
+  
+  $convertedValue.textContent = ($timesCurrency.value * currencyTwoValue).toFixed(2)
+  $valuePrecision.textContent = `1 USD = ${1 * internalExchangeRate.conversion_rates[$secondCurrency.value]} ${$secondCurrency.value}`
+})
+
 init()
