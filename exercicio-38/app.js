@@ -254,22 +254,22 @@ const exportTable = () => {
       - Para obter a key e fazer requests, você terá que fazer login e escolher
         o plano free. Seus dados de cartão de crédito não serão solicitados.
   
-  PS: o desafio aqui é você implementar essa aplicação sozinho(a), antes 
-  de ver as próximas aulas, ok? =)
 */
 
-// const $firstCurrency = document.querySelector('[data-js="currency-one"]')
-// const $secondCurrency = document.querySelector('[data-js="currency-two"]')
+const $firstCurrency = document.querySelector('[data-js="currency-one"]')
+const $secondCurrency = document.querySelector('[data-js="currency-two"]')
+const $dataCurrencies = document.querySelector('[data-js="currencies-container"]')
 
 const url = 'https://v6.exchangerate-api.com/v6/1fdb9b688310bf2f8705b891/latest/USD'
 
-// const option = `<option>oi</option>`
-// $secondCurrency.innerHTML = option
+const option = `<option>oi</option>`
+$secondCurrency.innerHTML = option
+$firstCurrency.innerHTML = option
 
 const getErrorMessage = errorType => ({
   'unsupported-code': 'A moeda não existe em nosso banco de dados.',
   'base-code-only-on-pro':'Seu plano não permite alterar a moeda base para a escolhida.',
-  'malformed-request':'O tipo da requisição precisa seguir o modelo a seguir: https://v6.exchangerate-api.com/v6/APIKey/latest/USD',
+  'malformed-request':'O tipo da requisição precisa seguir o modelo a seguir: https://v6.exchangerate-api.com/v6/{APIKey}/latest/USD',
   'invalid-key':'A chave da API não é válida.',
   'quota-reached':'Quantidade máxima de conversões atingidas para o plano atual.',
   'not-available-on-plan':'O plano atual não suporta esse tipo de requisição.'
@@ -289,19 +289,22 @@ const fetchExchanteRate = async () => {
       throw new Error(getErrorMessage(exchangeRateData['error-type']))
     }
   } catch(err) {
-    alert(err.message)
-    const div = document.createElement('div')
-    const button = document.createElement('button')
+      const div = document.createElement('div')
+      const button = document.createElement('button')
 
-    div.textContent = err.message
-    div.classList.add('alert', 'alert-warning', 'alert-dismissible', 'fade', 'show')
-    button.classList.add('btn-close')
+      div.textContent = err.message
+      div.classList.add('alert', 'alert-warning', 'alert-dismissible', 'fade', 'show')
+      button.classList.add('btn-close')
+      div.setAttribute('role', 'alert')
+      button.setAttribute('type', 'button')
+      button.setAttribute('aria-label', 'Close')
 
-    div.appendChild(button)
-    // <div class="alert alert-warning alert-dismissible fade show" role="alert">
-    // Mensagem do erro
-    // <button type="button" class="btn-close" aria-label="Close"></button>
-    // </div>
+      button.addEventListener('click', () => {
+        div.remove()
+      })
+
+      div.appendChild(button)
+      $dataCurrencies.insertAdjacentElement('afterend', div)
   }
 } 
 
