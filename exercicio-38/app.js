@@ -259,8 +259,11 @@ const exportTable = () => {
 const $firstCurrency = document.querySelector('[data-js="currency-one"]')
 const $secondCurrency = document.querySelector('[data-js="currency-two"]')
 const $dataCurrencies = document.querySelector('[data-js="currencies-container"]')
-const $convertedValue = document.querySelector('[data-js="currency-two"]')
+const $convertedValue = document.querySelector('[data-js="converted-value"]')
 const $valuePrecision = document.querySelector('[data-js="conversion-precision"]')
+const $timesCurrency = document.querySelector('[data-js="currency-one-times"]')
+
+let internalExchangeRate = {}
 
 const url = 'https://v6.exchangerate-api.com/v6/1fdb9b688310bf2f8705b891/latest/USD'
 
@@ -312,16 +315,21 @@ const fetchExchanteRate = async () => {
 const init = async () => {
   const exchangeRateData = await fetchExchanteRate()
   
-  const getOptions = selectedCurrency => Object
-    .keys(exchangeRateData.conversion_rates)
+  internalExchangeRate = { ...exchangeRateData }
+
+  const getOptions = selectedCurrency => Object.keys(exchangeRateData.conversion_rates)
     .map(currency => `<option ${currency === selectedCurrency ? 'selected' : ''}>${currency}</option>`)
     .join('')
   
   $firstCurrency.innerHTML = getOptions('USD')
   $secondCurrency.innerHTML = getOptions('BRL')
 
-  $convertedValue.textContent = exchangeRateData.conversion_rates.BRL
+  $convertedValue.textContent = exchangeRateData.conversion_rates.BRL.toFixed(2)
   $valuePrecision.textContent = `1 USD = ${exchangeRateData.conversion_rates.BRL} BRL`
 }
+
+$timesCurrency.addEventListener('input', e => {
+  $convertedValue.textContent = (e.target.value * internalExchangeRate.conversion_rates[$secondCurrency.value]).toFixed(2)
+})
 
 init()
