@@ -276,6 +276,25 @@ const getErrorMessage = errorType => ({
   'not-available-on-plan':'O plano atual não suporta esse tipo de requisição.'
 })[errorType] || 'Não foi possível obter as informações.'
 
+const showAlert = err => {
+  const div = document.createElement('div')
+  const button = document.createElement('button')
+
+  div.textContent = err.message
+  div.classList.add('alert', 'alert-warning', 'alert-dismissible', 'fade', 'show')
+  button.classList.add('btn-close')
+  div.setAttribute('role', 'alert')
+  button.setAttribute('type', 'button')
+  button.setAttribute('aria-label', 'Close')
+
+  button.addEventListener('click', () => {
+    div.remove()
+  })
+
+  div.appendChild(button)
+  $dataCurrencies.insertAdjacentElement('afterend', div)
+}
+
 const fetchExchanteRate = async url => {
   try { 
     const response = await fetch(url)
@@ -293,55 +312,44 @@ const fetchExchanteRate = async url => {
     return exchangeRateData
 
   } catch(err) {
-      const div = document.createElement('div')
-      const button = document.createElement('button')
-
-      div.textContent = err.message
-      div.classList.add('alert', 'alert-warning', 'alert-dismissible', 'fade', 'show')
-      button.classList.add('btn-close')
-      div.setAttribute('role', 'alert')
-      button.setAttribute('type', 'button')
-      button.setAttribute('aria-label', 'Close')
-
-      button.addEventListener('click', () => {
-        div.remove()
-      })
-
-      div.appendChild(button)
-      $dataCurrencies.insertAdjacentElement('afterend', div)
+      showAlert(err)
   }
 } 
+
+const showInitialInfo = () => {
+  const getOptions = selectedCurrency => Object.keys(internalExchangeRate.conversion_rates)
+  .map(currency => `<option ${currency === selectedCurrency ? 'selected' : ''}>${currency}</option>`)
+  .join('')
+  
+  $firstCurrency.innerHTML = getOptions('USD')
+  $secondCurrency.innerHTML = getOptions('BRL')
+  
+  $convertedValue.textContent = internalExchangeRate.conversion_rates.BRL.toFixed(2)
+  $valuePrecision.textContent = `1 USD = ${internalExchangeRate.conversion_rates.BRL} BRL`
+}
 
 const init = async () => {
   internalExchangeRate = { ...(await fetchExchanteRate(getUrl('USD'))) }
 
-  const getOptions = selectedCurrency => Object.keys(internalExchangeRate.conversion_rates)
-    .map(currency => `<option ${currency === selectedCurrency ? 'selected' : ''}>${currency}</option>`)
-    .join('')
-  
-  $firstCurrency.innerHTML = getOptions('USD')
-  $secondCurrency.innerHTML = getOptions('BRL')
+  if (internalExchangeRate.conversion_rates) {
+    showInitialInfo()
+  }
+}
 
-  $convertedValue.textContent = internalExchangeRate.conversion_rates.BRL.toFixed(2)
-  $valuePrecision.textContent = `1 USD = ${internalExchangeRate.conversion_rates.BRL} BRL`
+const showUpdatedRates = () => {
+  $convertedValue.textContent = ($timesCurrency.value * internalExchangeRate.conversion_rates[$secondCurrency.value]).toFixed(2)
+  $valuePrecision.textContent = `1 ${$firstCurrency.value} = ${1 * internalExchangeRate.conversion_rates[$secondCurrency.value]} ${$secondCurrency.value}`
 }
 
 $timesCurrency.addEventListener('input', e => {
   $convertedValue.textContent = (e.target.value * internalExchangeRate.conversion_rates[$secondCurrency.value]).toFixed(2)
 })
 
-$secondCurrency.addEventListener('input', e => {
-  const currencyTwoValue = (internalExchangeRate.conversion_rates[e.target.value])
-  
-  $convertedValue.textContent = ($timesCurrency.value * currencyTwoValue).toFixed(2)
-  $valuePrecision.textContent = `1 ${$firstCurrency.value} = ${1 * internalExchangeRate.conversion_rates[$secondCurrency.value]} ${$secondCurrency.value}`
-})
+$secondCurrency.addEventListener('input', showUpdatedRates())
 
 $firstCurrency.addEventListener('input', async e => {
   internalExchangeRate = { ...(await fetchExchanteRate(getUrl(e.target.value))) }
-
-  $convertedValue.textContent = ($timesCurrency.value * internalExchangeRate.conversion_rates[$secondCurrency.value]).toFixed(2)
-  $valuePrecision.textContent = `1 ${$firstCurrency.value} = ${1 * internalExchangeRate.conversion_rates[$secondCurrency.value]} ${$secondCurrency.value}`
+  showUpdatedRates()
 })
 
 init()
