@@ -263,7 +263,22 @@ const $convertedValue = document.querySelector('[data-js="converted-value"]')
 const $valuePrecision = document.querySelector('[data-js="conversion-precision"]')
 const $timesCurrency = document.querySelector('[data-js="currency-one-times"]')
 
-let internalExchangeRate = {}
+
+const state = (() => {
+  let exchangeRate = {}
+
+  return {
+    getExchangeRate: () => exchangeRate,
+    setExchangeRate: newExchangeRate => {
+      if (!newExchangeRate.conversion_rates) {
+        
+        return 
+      }
+      exchangeRate = newExchangeRate
+      return exchangeRate
+    }
+  }
+})()
 
 const getUrl = currency => `https://v6.exchangerate-api.com/v6/1fdb9b688310bf2f8705b891/latest/${currency}`
 
