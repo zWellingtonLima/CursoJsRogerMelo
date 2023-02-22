@@ -357,7 +357,10 @@ const showUpdatedRates = ({ conversion_rates }) => {
 
 $timesCurrency.addEventListener('input', e => {
   const { conversion_rates } = state.getExchangeRate()
-  $convertedValue.textContent = (e.target.value * conversion_rates[$secondCurrency.value]).toFixed(2)
+  const currencyTwo = conversion_rates[$secondCurrency.value]
+  const multipliedExchangeRate = (e.target.value * currencyTwo).toFixed(2)
+
+  $convertedValue.textContent = multipliedExchangeRate
 })
 
 $secondCurrency.addEventListener('input', () => {
@@ -366,7 +369,10 @@ $secondCurrency.addEventListener('input', () => {
 })
 
 $firstCurrency.addEventListener('input', async e => {
-  const exchangeRate = state.setExchangeRate(await fetchExchanteRate(getUrl(e.target.value)))
+  const url = getUrl(e.target.value)
+  const newExchangeRate = await fetchExchanteRate(url)
+  const exchangeRate = state.setExchangeRate(newExchangeRate)
+
   showUpdatedRates(exchangeRate)
 })
 
