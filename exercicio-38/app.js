@@ -263,34 +263,6 @@ const $convertedValue = document.querySelector('[data-js="converted-value"]')
 const $valuePrecision = document.querySelector('[data-js="conversion-precision"]')
 const $timesCurrency = document.querySelector('[data-js="currency-one-times"]')
 
-
-const state = (() => {
-  let exchangeRate = {}
-
-  return {
-    getExchangeRate: () => exchangeRate,
-    setExchangeRate: newExchangeRate => {
-      if (!newExchangeRate.conversion_rates) {
-        
-        return 
-      }
-      exchangeRate = newExchangeRate
-      return exchangeRate
-    }
-  }
-})()
-
-const getUrl = currency => `https://v6.exchangerate-api.com/v6/1fdb9b688310bf2f8705b891/latest/${currency}`
-
-const getErrorMessage = errorType => ({
-  'unsupported-code': 'A moeda não existe em nosso banco de dados.',
-  'base-code-only-on-pro':'Seu plano não permite alterar a moeda base para a escolhida.',
-  'malformed-request':'O tipo da requisição precisa seguir o modelo a seguir: https://v6.exchangerate-api.com/v6/{APIKey}/latest/USD',
-  'invalid-key':'A chave da API não é válida.',
-  'quota-reached':'Quantidade máxima de conversões atingidas para o plano atual.',
-  'not-available-on-plan':'O plano atual não suporta esse tipo de requisição.'
-})[errorType] || 'Não foi possível obter as informações.'
-
 const showAlert = err => {
   const div = document.createElement('div')
   const button = document.createElement('button')
@@ -309,6 +281,33 @@ const showAlert = err => {
   div.appendChild(button)
   $dataCurrencies.insertAdjacentElement('afterend', div)
 }
+
+const state = (() => {
+  let exchangeRate = {}
+
+  return {
+    getExchangeRate: () => exchangeRate,
+    setExchangeRate: newExchangeRate => {
+      if (!newExchangeRate.conversion_rates) {
+        showAlert({ message: 'O objeto precisa ter uma propriedade "conversion_rates"' })
+        return 
+      }
+      exchangeRate = newExchangeRate
+      return exchangeRate
+    }
+  }
+})()
+
+const getUrl = currency => `https://v6.exchangerate-api.com/v6/1fdb9b688310bf2f8705b891/latest/${currency}`
+
+const getErrorMessage = errorType => ({
+  'unsupported-code': 'A moeda não existe em nosso banco de dados.',
+  'base-code-only-on-pro':'Seu plano não permite alterar a moeda base para a escolhida.',
+  'malformed-request':'O tipo da requisição precisa seguir o modelo a seguir: https://v6.exchangerate-api.com/v6/{APIKey}/latest/USD',
+  'invalid-key':'A chave da API não é válida.',
+  'quota-reached':'Quantidade máxima de conversões atingidas para o plano atual.',
+  'not-available-on-plan':'O plano atual não suporta esse tipo de requisição.'
+})[errorType] || 'Não foi possível obter as informações.'
 
 const fetchExchanteRate = async url => {
   try { 
@@ -331,40 +330,44 @@ const fetchExchanteRate = async url => {
   }
 } 
 
-const showInitialInfo = () => {
-  const getOptions = selectedCurrency => Object.keys(internalExchangeRate.conversion_rates)
+const showInitialInfo = exchangeRate => {
+  const getOptions = selectedCurrency => Object.keys(exchangeRate.conversion_rates)
   .map(currency => `<option ${currency === selectedCurrency ? 'selected' : ''}>${currency}</option>`)
   .join('')
   
   $firstCurrency.innerHTML = getOptions('USD')
   $secondCurrency.innerHTML = getOptions('BRL')
   
-  $convertedValue.textContent = internalExchangeRate.conversion_rates.BRL.toFixed(2)
-  $valuePrecision.textContent = `1 USD = ${internalExchangeRate.conversion_rates.BRL} BRL`
+  $convertedValue.textContent = exchangeRate.conversion_rates.BRL.toFixed(2)
+  $valuePrecision.textContent = `1 USD = ${exchangeRate.conversion_rates.BRL} BRL`
 }
 
 const init = async () => {
-  internalExchangeRate = { ...(await fetchExchanteRate(getUrl('USD'))) }
+  const exchangeRate = state.setExchangeRate(await fetchExchanteRate(getUrl('USD')))
 
-  if (internalExchangeRate.conversion_rates) {
-    showInitialInfo()
+  if (exchangeRate && exchangeRate.conversion_rates) {
+    showInitialInfo(exchangeRate)
   }
 }
 
-const showUpdatedRates = () => {
-  $convertedValue.textContent = ($timesCurrency.value * internalExchangeRate.conversion_rates[$secondCurrency.value]).toFixed(2)
-  $valuePrecision.textContent = `1 ${$firstCurrency.value} = ${1 * internalExchangeRate.conversion_rates[$secondCurrency.value]} ${$secondCurrency.value}`
+const showUpdatedRates = exchangeRate => {
+  $convertedValue.textContent = ($timesCurrency.value * exchangeRate.conversion_rates[$secondCurrency.value]).toFixed(2)
+  $valuePrecision.textContent = `1 ${$firstCurrency.value} = ${1 * exchangeRate.conversion_rates[$secondCurrency.value]} ${$secondCurrency.value}`
 }
 
 $timesCurrency.addEventListener('input', e => {
-  $convertedValue.textContent = (e.target.value * internalExchangeRate.conversion_rates[$secondCurrency.value]).toFixed(2)
+  const exchangeRate = state.getExchangeRate()
+  $convertedValue.textContent = (e.target.value * exchangeRate.conversion_rates[$secondCurrency.value]).toFixed(2)
 })
 
-$secondCurrency.addEventListener('input', showUpdatedRates())
+$secondCurrency.addEventListener('input', () => {
+  const exchangeRate = state.getExchangeRate()
+  showUpdatedRates(exchangeRate)
+})
 
 $firstCurrency.addEventListener('input', async e => {
-  internalExchangeRate = { ...(await fetchExchanteRate(getUrl(e.target.value))) }
-  showUpdatedRates()
+  const exchangeRate = state.setExchangeRate(await fetchExchanteRate(getUrl(e.target.value)))
+  showUpdatedRates(exchangeRate)
 })
 
 init()
