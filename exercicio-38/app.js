@@ -330,16 +330,16 @@ const fetchExchanteRate = async url => {
   }
 } 
 
-const showInitialInfo = exchangeRate => {
-  const getOptions = selectedCurrency => Object.keys(exchangeRate.conversion_rates)
+const showInitialInfo = ({ conversion_rates }) => {
+  const getOptions = selectedCurrency => Object.keys(conversion_rates)
   .map(currency => `<option ${currency === selectedCurrency ? 'selected' : ''}>${currency}</option>`)
   .join('')
   
   $firstCurrency.innerHTML = getOptions('USD')
   $secondCurrency.innerHTML = getOptions('BRL')
   
-  $convertedValue.textContent = exchangeRate.conversion_rates.BRL.toFixed(2)
-  $valuePrecision.textContent = `1 USD = ${exchangeRate.conversion_rates.BRL} BRL`
+  $convertedValue.textContent = conversion_rates.BRL.toFixed(2)
+  $valuePrecision.textContent = `1 USD = ${conversion_rates.BRL} BRL`
 }
 
 const init = async () => {
@@ -350,14 +350,14 @@ const init = async () => {
   }
 }
 
-const showUpdatedRates = exchangeRate => {
-  $convertedValue.textContent = ($timesCurrency.value * exchangeRate.conversion_rates[$secondCurrency.value]).toFixed(2)
-  $valuePrecision.textContent = `1 ${$firstCurrency.value} = ${1 * exchangeRate.conversion_rates[$secondCurrency.value]} ${$secondCurrency.value}`
+const showUpdatedRates = ({ conversion_rates }) => {
+  $convertedValue.textContent = ($timesCurrency.value * conversion_rates[$secondCurrency.value]).toFixed(2)
+  $valuePrecision.textContent = `1 ${$firstCurrency.value} = ${1 * conversion_rates[$secondCurrency.value]} ${$secondCurrency.value}`
 }
 
 $timesCurrency.addEventListener('input', e => {
-  const exchangeRate = state.getExchangeRate()
-  $convertedValue.textContent = (e.target.value * exchangeRate.conversion_rates[$secondCurrency.value]).toFixed(2)
+  const { conversion_rates } = state.getExchangeRate()
+  $convertedValue.textContent = (e.target.value * conversion_rates[$secondCurrency.value]).toFixed(2)
 })
 
 $secondCurrency.addEventListener('input', () => {
