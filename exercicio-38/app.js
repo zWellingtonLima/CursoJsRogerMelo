@@ -350,17 +350,20 @@ const init = async () => {
   }
 }
 
+const getMultipliedExchangeRate = conversion_rates => {
+  const currencyTwo = conversion_rates[$secondCurrency.value]
+
+  return ($firstCurrency.value * currencyTwo).toFixed(2)
+}
+
 const showUpdatedRates = ({ conversion_rates }) => {
-  $convertedValue.textContent = ($timesCurrency.value * conversion_rates[$secondCurrency.value]).toFixed(2)
+  $convertedValue.textContent = getMultipliedExchangeRate(conversion_rates)
   $valuePrecision.textContent = `1 ${$firstCurrency.value} = ${1 * conversion_rates[$secondCurrency.value]} ${$secondCurrency.value}`
 }
 
-$timesCurrency.addEventListener('input', e => {
+$timesCurrency.addEventListener('input', () => {
   const { conversion_rates } = state.getExchangeRate()
-  const currencyTwo = conversion_rates[$secondCurrency.value]
-  const multipliedExchangeRate = (e.target.value * currencyTwo).toFixed(2)
-
-  $convertedValue.textContent = multipliedExchangeRate
+  $convertedValue.textContent = getMultipliedExchangeRate(conversion_rates)
 })
 
 $secondCurrency.addEventListener('input', () => {
