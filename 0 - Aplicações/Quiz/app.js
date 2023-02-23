@@ -94,4 +94,4 @@ form.addEventListener('submit', event => {
 
 })
 
-console.log(window)
+// console.log(window)

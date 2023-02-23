@@ -282,6 +282,8 @@ const showAlert = err => {
   $dataCurrencies.insertAdjacentElement('afterend', div)
 }
 
+const test = ''
+
 const state = (() => {
   let exchangeRate = {}
 
