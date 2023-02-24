@@ -282,8 +282,6 @@ const showAlert = err => {
   $dataCurrencies.insertAdjacentElement('afterend', div)
 }
 
-const test = ''
-
 const state = (() => {
   let exchangeRate = {}
 
@@ -354,13 +352,18 @@ const init = async () => {
 
 const getMultipliedExchangeRate = conversion_rates => {
   const currencyTwo = conversion_rates[$secondCurrency.value]
-
   return ($firstCurrency.value * currencyTwo).toFixed(2)
+}
+
+const getNotRoundedExchangeRate = conversion_rates => {
+  const currencyTwo = conversion_rates[currencyTwo.value]
+  return `1 ${$firstCurrency.value} = ${1 * conversion_rates[$secondCurrency.value]} ${$secondCurrency.value}`
+
 }
 
 const showUpdatedRates = ({ conversion_rates }) => {
   $convertedValue.textContent = getMultipliedExchangeRate(conversion_rates)
-  $valuePrecision.textContent = `1 ${$firstCurrency.value} = ${1 * conversion_rates[$secondCurrency.value]} ${$secondCurrency.value}`
+  // $valuePrecision.textContent = 
 }
 
 $timesCurrency.addEventListener('input', () => {
