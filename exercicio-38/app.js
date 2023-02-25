@@ -329,14 +329,14 @@ const fetchExchanteRate = async url => {
       showAlert(err)
   }
 } 
+const getOptions = (selectedCurrency, conversion_rates) => Object.keys(conversion_rates)
+.map(currency => `<option ${currency === selectedCurrency ? 'selected' : ''}>${currency}</option>`)
+.join('')
 
 const showInitialInfo = ({ conversion_rates }) => {
-  const getOptions = selectedCurrency => Object.keys(conversion_rates)
-  .map(currency => `<option ${currency === selectedCurrency ? 'selected' : ''}>${currency}</option>`)
-  .join('')
   
-  $firstCurrency.innerHTML = getOptions('USD')
-  $secondCurrency.innerHTML = getOptions('BRL')
+  $firstCurrency.innerHTML = getOptions('USD', conversion_rates)
+  $secondCurrency.innerHTML = getOptions('BRL', conversion_rates)
   
   $convertedValue.textContent = conversion_rates.BRL.toFixed(2)
   $valuePrecision.textContent = `1 USD = ${conversion_rates.BRL} BRL`
