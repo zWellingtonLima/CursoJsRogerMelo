@@ -199,6 +199,8 @@ const exportTable = () => {
   setCSVDownload(CSVString)
 }
 
+const test1 = ''
+
 // exportBtn.addEventListener('click', exportTable)
 
 /*
@@ -358,7 +360,6 @@ const getMultipliedExchangeRate = conversion_rates => {
 const getNotRoundedExchangeRate = conversion_rates => {
   const currencyTwo = conversion_rates[currencyTwo.value]
   return `1 ${$firstCurrency.value} = ${1 * conversion_rates[$secondCurrency.value]} ${$secondCurrency.value}`
-
 }
 
 const showUpdatedRates = ({ conversion_rates }) => {
